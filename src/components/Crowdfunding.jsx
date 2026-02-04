@@ -1,0 +1,526 @@
+import React, { useState, useRef, useEffect } from 'react'
+import { useLanguage } from '../store/LanguageContext'
+import { X } from 'lucide-react'
+
+// Linear interpolation utility for smooth speed transitions
+const lerp = (start, end, factor) => {
+    return start + (end - start) * factor
+}
+
+export default function Crowdfunding() {
+    const { t } = useLanguage()
+    const [selectedGoal, setSelectedGoal] = useState(null)
+    const [selectedAmount, setSelectedAmount] = useState(null)
+    const [customAmount, setCustomAmount] = useState('')
+    const [modalOpen, setModalOpen] = useState(false)
+    const [isHovered, setIsHovered] = useState(false)
+
+    // Animation refs
+    const boxRef = useRef(null)
+    const animationRef = useRef(null)
+    const rotationRef = useRef(0)
+    const speedRef = useRef(0.1) // Initial speed
+
+    // Configuration for 8 Carousel Images
+    // Hybrid Selection: 5 User Originals + 3 User Selected Complementary Scenes (All Local)
+    const carouselImages = [
+        { id: 1, src: '/assets/carousel/img1.jpg' }, // User Image 1
+        { id: 2, src: '/assets/carousel/img2.jpg' }, // User Image 2
+        { id: 3, src: '/assets/carousel/img3.jpg' }, // User Image 3
+        { id: 4, src: '/assets/carousel/img4.jpg' }, // User Image 4
+        { id: 5, src: '/assets/carousel/img5.jpg' }, // User Image 5
+        { id: 6, src: '/assets/carousel/img6.jpg' }, // User Selected 1 (Slot 6)
+        { id: 7, src: '/assets/carousel/img7.jpg' }, // User Selected 2 (Slot 7)
+        { id: 8, src: '/assets/carousel/img8.jpg' }  // User Selected 3 (Slot 8)
+    ]
+
+    // Calculate overall progress
+    const totalTarget = t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.target, 0)
+    const totalCurrent = t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.current, 0)
+    const overallProgress = Math.round((totalCurrent / totalTarget) * 100)
+
+    // JS-driven Animation Loop
+    useEffect(() => {
+        const animate = () => {
+            // Target speed: 0.1 (normal) vs 0.02 (hover)
+            const targetSpeed = isHovered ? 0.02 : 0.1
+
+            // Smoothly interpolate current speed towards target speed
+            speedRef.current = lerp(speedRef.current, targetSpeed, 0.05)
+
+            // Update rotation angle
+            rotationRef.current += speedRef.current
+
+            // Apply transform if ref exists
+            if (boxRef.current) {
+                // Keep the 3D container transform logic here
+                // Note: The parent container handles the tilt (rotateX)
+                // We only rotate the carousel itself (rotateY)
+                boxRef.current.style.transform = `rotateY(-${rotationRef.current}deg)`
+            }
+
+            animationRef.current = requestAnimationFrame(animate)
+        }
+
+        // Start loop
+        animationRef.current = requestAnimationFrame(animate)
+
+        return () => {
+            if (animationRef.current) cancelAnimationFrame(animationRef.current)
+        }
+    }, [isHovered])
+
+    const handleJoin = () => {
+        if (selectedGoal !== null && (selectedAmount !== null || customAmount)) {
+            setModalOpen(true)
+        }
+    }
+
+    const handleWhatsApp = () => {
+        const goalName = t.crowdfunding.goals.items[selectedGoal].name
+        const amount = customAmount || selectedAmount
+        const message = t.crowdfunding.modal.whatsapp_message.replace('{goal}', goalName)
+        const whatsappUrl = `https://wa.me/593999999999?text=${encodeURIComponent(message)}`
+        window.open(whatsappUrl, '_blank')
+    }
+
+    return (
+        <section id="fuel" style={{ padding: '8rem 2rem', background: '#121212', color: '#fff', position: 'relative', fontFamily: 'sans-serif' }}>
+            {/* Ultra-thin Progress Bar at Top */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '2px',
+                background: '#222'
+            }}>
+                <div style={{
+                    height: '100%',
+                    width: `${overallProgress}%`,
+                    background: 'linear-gradient(90deg, #C4D82E, #F7FF3C)',
+                    boxShadow: '0 0 10px rgba(196, 216, 46, 0.5)',
+                    transition: 'width 0.5s ease'
+                }} />
+            </div>
+
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+
+                {/* Header & Vision Block */}
+                <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                    <h2 style={{
+                        fontSize: '3.5rem',
+                        marginBottom: '1.5rem',
+                        color: '#fff',
+                        fontFamily: 'var(--font-title)',
+                        fontWeight: '900',
+                        letterSpacing: '-1px'
+                    }}>
+                        {t.crowdfunding.title}
+                    </h2>
+                    <p style={{
+                        maxWidth: '700px',
+                        margin: '0 auto',
+                        fontSize: '1.1rem',
+                        color: '#C4D82E',
+                        lineHeight: '1.8',
+                        fontFamily: 'sans-serif',
+                        fontWeight: '400',
+                        fontStyle: 'italic'
+                    }}>
+                        {t.crowdfunding.vision}
+                    </p>
+                </div>
+
+                {/* 3D Carousel - Precise Engineering Control */}
+                <div
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    style={{
+                        height: '290px', // Increased 20% from 240px
+                        width: '290px',  // Increased 20%
+                        perspective: '1200px',
+                        margin: '4rem auto', // Balanced vertical spacing for centering
+                        transform: isHovered ? 'scale(1.15) rotateX(-10deg)' : 'scale(1.08) rotateX(-10deg)', // Smooth zoom on hover
+                        transformStyle: 'preserve-3d',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'relative',
+                        transition: 'transform 0.8s ease-out', // Smooth scale/tilt transition
+                        zIndex: 1 // Keep carousel in lower z-index than goals
+                    }}
+                >
+                    <div
+                        ref={boxRef}
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            transformStyle: 'preserve-3d',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            // transform is handled by JS requestAnimationFrame
+                            willChange: 'transform'
+                        }}
+                    >
+                        {carouselImages.map((img, index) => (
+                            <div
+                                key={img.id}
+                                style={{
+                                    height: '290px', // Match container
+                                    width: '216px',  // Proportional width (approx 0.75 aspect)
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: '37px', // Center horizontally in 290px container
+                                    boxShadow: '0 0 25px rgba(255, 215, 0, 0.6), 0 0 15px rgba(196, 216, 46, 0.4)',
+                                    border: '2px solid',
+                                    borderImage: 'linear-gradient(135deg, #FFD700, #C4D82E, #FFA500) 1',
+                                    transform: `rotateY(${index * 45}deg) translateZ(380px)`, // Increased Z to match new scale
+                                    transformStyle: 'preserve-3d',
+                                    backfaceVisibility: 'hidden'
+                                }}
+                            >
+                                <div style={{
+                                    height: '100%',
+                                    width: '100%',
+                                    transformStyle: 'preserve-3d'
+                                }}>
+                                    <img
+                                        src={img.src}
+                                        alt={`LA FIL Highlight ${img.id}`}
+                                        loading="lazy"
+                                        style={{
+                                            height: '100%',
+                                            width: '100%',
+                                            objectFit: 'cover',
+                                            position: 'absolute',
+                                            backfaceVisibility: 'hidden',
+                                            pointerEvents: 'none', // CRITICAL: Prevents flicker bug
+                                            filter: 'brightness(0.9)' // REQUESTED: Organic dark integration
+                                        }}
+                                    />
+                                    <img
+                                        src={img.src}
+                                        alt={`LA FIL Highlight ${img.id}`}
+                                        style={{
+                                            height: '100%',
+                                            width: '100%',
+                                            objectFit: 'cover',
+                                            position: 'absolute',
+                                            backfaceVisibility: 'hidden',
+                                            transform: 'rotateY(180deg)',
+                                            pointerEvents: 'none', // CRITICAL: Prevents flicker bug
+                                            filter: 'brightness(0.5) sepia(1) hue-rotate(20deg)' // Gold tint for back
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Goals 2026 - Main Focus with spacing */}
+                <div style={{
+                    marginBottom: '4rem',
+                    marginTop: '220px', // Adjusted to EXACTLY 220px as requested
+                    position: 'relative',
+                    zIndex: 10 // Ensure it's definitively above any carousel reflections
+                }}>
+                    <h3 style={{
+                        fontSize: '2rem',
+                        marginBottom: '3rem',
+                        color: '#fff',
+                        fontFamily: 'var(--font-title)',
+                        fontWeight: '700',
+                        textAlign: 'center'
+                    }}>
+                        {t.crowdfunding.goals.title}
+                    </h3>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                        {t.crowdfunding.goals.items.map((goal, idx) => {
+                            const progress = (goal.current / goal.target) * 100
+                            const isNearComplete = progress >= 80
+                            const isSelected = selectedGoal === idx
+
+                            return (
+                                <div key={idx} style={{
+                                    background: 'rgba(255,255,255,0.03)',
+                                    border: `2px solid ${isSelected ? '#C4D82E' : (isNearComplete ? '#C4D82E' : '#333')}`,
+                                    padding: '2rem',
+                                    borderRadius: '8px',
+                                    transition: 'all 0.3s ease',
+                                    boxShadow: (isSelected || isNearComplete) ? '0 0 30px rgba(196, 216, 46, 0.3)' : 'none',
+                                    cursor: 'pointer'
+                                }}
+                                    onClick={() => setSelectedGoal(idx)}
+                                >
+                                    {/* Goal Header */}
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                                        <div>
+                                            <h4 style={{
+                                                fontSize: '1.5rem',
+                                                fontWeight: '700',
+                                                color: (isSelected || isNearComplete) ? '#C4D82E' : '#fff',
+                                                transition: 'color 0.3s ease',
+                                                marginBottom: '0.5rem',
+                                                fontFamily: 'var(--font-title)',
+                                                textTransform: 'uppercase'
+                                            }}>
+                                                {goal.name}
+                                            </h4>
+                                            <span style={{
+                                                fontSize: '0.9rem',
+                                                color: '#aaa',
+                                                fontFamily: 'monospace'
+                                            }}>
+                                                ${goal.current} / ${goal.target}
+                                            </span>
+                                        </div>
+                                        <div style={{
+                                            fontSize: '2rem',
+                                            fontWeight: '900',
+                                            color: (isSelected || isNearComplete) ? '#C4D82E' : '#555',
+                                            fontFamily: 'var(--font-title)'
+                                        }}>
+                                            {Math.round(progress)}%
+                                        </div>
+                                    </div>
+
+                                    {/* Progress Bar */}
+                                    <div style={{
+                                        width: '100%',
+                                        height: '8px',
+                                        background: '#222',
+                                        borderRadius: '4px',
+                                        overflow: 'hidden',
+                                        marginBottom: '1.5rem'
+                                    }}>
+                                        <div style={{
+                                            width: `${progress}%`,
+                                            height: '100%',
+                                            background: (isSelected || isNearComplete) ? 'linear-gradient(90deg, #FFD700, #FFA500, #C4D82E)' : '#555',
+                                            transition: 'all 0.5s ease',
+                                            boxShadow: (isSelected || isNearComplete) ? '0 0 15px rgba(255, 215, 0, 0.6)' : 'none'
+                                        }} />
+                                    </div>
+
+                                    {/* Contribution Selector - Only show if selected */}
+                                    {isSelected && (
+                                        <div style={{
+                                            marginTop: '2rem',
+                                            paddingTop: '2rem',
+                                            borderTop: '1px solid #333'
+                                        }}>
+                                            <p style={{
+                                                fontSize: '0.9rem',
+                                                color: '#aaa',
+                                                marginBottom: '1rem',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '1px'
+                                            }}>
+                                                {t.crowdfunding.select_amount}
+                                            </p>
+                                            <div style={{
+                                                display: 'grid',
+                                                gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))',
+                                                gap: '1rem'
+                                            }}>
+                                                {t.crowdfunding.contribution_amounts.map((amount) => (
+                                                    <button
+                                                        key={amount}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation()
+                                                            setSelectedAmount(amount)
+                                                            setCustomAmount('')
+                                                        }}
+                                                        style={{
+                                                            padding: '1rem',
+                                                            background: selectedAmount === amount ? '#C4D82E' : 'rgba(255,255,255,0.05)',
+                                                            color: selectedAmount === amount ? '#000' : '#fff',
+                                                            border: `1px solid ${selectedAmount === amount ? '#C4D82E' : '#444'}`,
+                                                            borderRadius: '4px',
+                                                            cursor: 'pointer',
+                                                            fontWeight: '700',
+                                                            fontSize: '1rem',
+                                                            transition: 'all 0.3s ease',
+                                                            fontFamily: 'monospace'
+                                                        }}
+                                                    >
+                                                        ${amount}
+                                                    </button>
+                                                ))}
+                                                <input
+                                                    type="number"
+                                                    placeholder={t.crowdfunding.custom_amount}
+                                                    value={customAmount}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    onChange={(e) => {
+                                                        setCustomAmount(e.target.value)
+                                                        setSelectedAmount(null)
+                                                    }}
+                                                    style={{
+                                                        padding: '1rem',
+                                                        background: customAmount ? '#C4D82E' : 'rgba(255,255,255,0.05)',
+                                                        color: customAmount ? '#000' : '#fff',
+                                                        border: `1px solid ${customAmount ? '#C4D82E' : '#444'}`,
+                                                        borderRadius: '4px',
+                                                        fontWeight: '700',
+                                                        fontSize: '1rem',
+                                                        fontFamily: 'monospace',
+                                                        gridColumn: 'span 2'
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+
+                {/* Main Action Button */}
+                <div style={{ textAlign: 'center' }}>
+                    <button
+                        onClick={handleJoin}
+                        style={{
+                            padding: '1.2rem 5rem',
+                            background: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#000' : '#333',
+                            color: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#C4D82E' : '#666',
+                            border: `2px solid ${(selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#C4D82E' : '#444'}`,
+                            fontWeight: '800',
+                            textTransform: 'uppercase',
+                            fontSize: '1.1rem',
+                            cursor: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? 'pointer' : 'not-allowed',
+                            letterSpacing: '2px',
+                            transition: 'all 0.3s ease',
+                            boxShadow: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '0 0 40px rgba(196, 216, 46, 0.5)' : 'none',
+                            borderRadius: '2px'
+                        }}
+                    >
+                        {t.crowdfunding.join_button}
+                    </button>
+                </div>
+            </div>
+
+            {/* Secure Modal with Bank Details Image */}
+            {modalOpen && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    background: 'rgba(0,0,0,0.95)', // 95% opacity black
+                    backdropFilter: 'blur(10px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000,
+                    padding: '2rem'
+                }}
+                    onClick={() => setModalOpen(false)}
+                >
+                    <div style={{
+                        background: '#050505',
+                        padding: '2rem', // Compact padding
+                        border: '1px solid #333',
+                        maxWidth: '500px', // Compact width
+                        width: '100%',
+                        position: 'relative',
+                        boxShadow: '0 0 50px rgba(0,0,0,0.8)',
+                        textAlign: 'center',
+                        borderRadius: '12px'
+                    }}
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <button
+                            onClick={() => setModalOpen(false)}
+                            style={{
+                                position: 'absolute',
+                                top: '1rem',
+                                right: '1rem',
+                                background: 'transparent',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: '0.5rem',
+                                color: '#FFD700', // Gold close button
+                                transition: 'transform 0.2s ease'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                        >
+                            <X size={24} />
+                        </button>
+
+                        {/* Official Bank Details Image */}
+                        <div style={{
+                            marginBottom: '2rem',
+                            marginTop: '1rem',
+                            borderRadius: '8px',
+                            overflow: 'hidden',
+                            border: '1px solid #FFD700', // Fine gold border
+                            boxShadow: '0 0 25px rgba(196, 216, 46, 0.2)' // Subtle neon green float
+                        }}>
+                            <img
+                                src="/assets/images/bank_details.png"
+                                alt="Datos Bancarios Oficiales"
+                                style={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    display: 'block',
+                                    userSelect: 'none',
+                                    pointerEvents: 'none'
+                                }}
+                            />
+                        </div>
+
+                        {/* Selected Goal & Amount Summary (Optional context, keeping compact) */}
+                        {selectedGoal !== null && (
+                            <p style={{
+                                color: '#666',
+                                fontSize: '0.85rem',
+                                marginBottom: '1.5rem',
+                                fontFamily: 'monospace'
+                            }}>
+                                APORTE: <span style={{ color: '#C4D82E' }}>${customAmount || selectedAmount}</span>
+                            </p>
+                        )}
+
+                        {/* WhatsApp Button - High-End Styling */}
+                        <button
+                            onClick={handleWhatsApp}
+                            style={{
+                                background: '#000', // Black bg
+                                color: '#C4D82E', // Neon text
+                                border: '1px solid #FFD700', // Gold border
+                                padding: '1rem 3rem',
+                                fontSize: '0.9rem',
+                                fontWeight: '700',
+                                cursor: 'pointer',
+                                textTransform: 'uppercase',
+                                letterSpacing: '2px',
+                                transition: 'all 0.3s ease',
+                                borderRadius: '4px',
+                                width: '100%',
+                                boxShadow: '0 0 10px rgba(196, 216, 46, 0.1)'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow = '0 0 30px #C4D82E' // Intense neon glow
+                                e.currentTarget.style.textShadow = '0 0 10px #C4D82E'
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = '0 0 10px rgba(196, 216, 46, 0.1)'
+                                e.currentTarget.style.textShadow = 'none'
+                            }}
+                        >
+                            {t.crowdfunding.modal.whatsapp_button}
+                        </button>
+                    </div>
+                </div>
+            )}
+        </section>
+    )
+}
