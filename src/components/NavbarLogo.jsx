@@ -91,24 +91,19 @@ export default function ResonantSeal() {
                 })}
             </svg>
 
-            {/* Dark Logo Text */}
-            <div
+            <img
+                src={`${import.meta.env.BASE_URL}logo.png`}
+                alt="LA FIL"
                 style={{
-                    fontFamily: 'var(--font-title)',
-                    fontSize: '1.3rem',
-                    fontWeight: '900',
-                    letterSpacing: '-0.05em',
-                    color: '#1a1a1a',
-                    opacity: logoOpacity,
+                    height: '100%',
+                    width: 'auto',
+                    objectFit: 'contain',
                     filter: `drop-shadow(0 0 ${glowIntensity}px rgba(196, 216, 46, 0.4))`,
+                    opacity: logoOpacity,
                     transition: 'all 0.3s ease',
-                    position: 'relative',
-                    zIndex: 2,
                     userSelect: 'none'
                 }}
-            >
-                LA FIL
-            </div>
+            />
         </div>
     )
 }

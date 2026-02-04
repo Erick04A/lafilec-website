@@ -92,7 +92,7 @@ export default function Footer() {
                         }}
                     >
                         <img
-                            src="/logo.png"
+                            src={`${import.meta.env.BASE_URL}logo.png`}
                             alt="LA FIL"
                             style={{
                                 height: '90px',

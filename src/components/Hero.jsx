@@ -71,7 +71,7 @@ export default function Hero() {
                         maxWidth: window.innerWidth <= 768 ? '280px' : 'none'
                     }}>
                         <img
-                            src="/logo.png"
+                            src={`${import.meta.env.BASE_URL}logo.png`}
                             alt="LA FIL Logo"
                             style={{
                                 height: window.innerWidth <= 768 ? 'clamp(140px, 30vw, 220px)' : 'clamp(180px, 25vw, 280px)',
