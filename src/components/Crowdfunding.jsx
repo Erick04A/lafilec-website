@@ -23,15 +23,16 @@ export default function Crowdfunding() {
 
     // Configuration for 8 Carousel Images
     // Hybrid Selection: 5 User Originals + 3 User Selected Complementary Scenes (All Local)
+    const baseUrl = import.meta.env.BASE_URL;
     const carouselImages = [
-        { id: 1, src: '/assets/carousel/img1.jpg' }, // User Image 1
-        { id: 2, src: '/assets/carousel/img2.jpg' }, // User Image 2
-        { id: 3, src: '/assets/carousel/img3.jpg' }, // User Image 3
-        { id: 4, src: '/assets/carousel/img4.jpg' }, // User Image 4
-        { id: 5, src: '/assets/carousel/img5.jpg' }, // User Image 5
-        { id: 6, src: '/assets/carousel/img6.jpg' }, // User Selected 1 (Slot 6)
-        { id: 7, src: '/assets/carousel/img7.jpg' }, // User Selected 2 (Slot 7)
-        { id: 8, src: '/assets/carousel/img8.jpg' }  // User Selected 3 (Slot 8)
+        { id: 1, src: `${baseUrl}assets/carousel/img1.jpg` }, // User Image 1
+        { id: 2, src: `${baseUrl}assets/carousel/img2.jpg` }, // User Image 2
+        { id: 3, src: `${baseUrl}assets/carousel/img3.jpg` }, // User Image 3
+        { id: 4, src: `${baseUrl}assets/carousel/img4.jpg` }, // User Image 4
+        { id: 5, src: `${baseUrl}assets/carousel/img5.jpg` }, // User Image 5
+        { id: 6, src: `${baseUrl}assets/carousel/img6.jpg` }, // User Selected 1 (Slot 6)
+        { id: 7, src: `${baseUrl}assets/carousel/img7.jpg` }, // User Selected 2 (Slot 7)
+        { id: 8, src: `${baseUrl}assets/carousel/img8.jpg` }  // User Selected 3 (Slot 8)
     ]
 
     // Calculate overall progress
@@ -465,7 +466,7 @@ export default function Crowdfunding() {
                             boxShadow: '0 0 25px rgba(196, 216, 46, 0.2)' // Subtle neon green float
                         }}>
                             <img
-                                src="/assets/images/bank_details.png"
+                                src={`${import.meta.env.BASE_URL}assets/images/bank_details.png`}
                                 alt="Datos Bancarios Oficiales"
                                 style={{
                                     width: '100%',

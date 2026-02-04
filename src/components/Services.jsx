@@ -3,8 +3,8 @@ import { useLanguage } from '../store/LanguageContext'
 import { Download, X, Minus, Plus } from 'lucide-react'
 
 // Local Assets for Collection
-const imgStickers = '/src/assets/shop/stickers.jpg' // User uploaded
-const imgPlushies = '/assets/shop/peluche.jpg' // User uploaded
+import imgStickers from '../assets/shop/stickers.jpg'
+import imgPlushies from '../assets/shop/peluche.jpg'
 const imgCookies = 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' // Artisan cookies
 
 export default function Services() {

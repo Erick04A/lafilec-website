@@ -1,3 +1,19 @@
+import imgBeethoven from '../assets/events/beethoven.jpg'
+import imgStickerMini from '../assets/shop/stickers/sticker-mini.jpg'
+import imgStickerMedium from '../assets/shop/stickers/sticker-medium.jpg'
+import imgStickerLarge from '../assets/shop/stickers/sticker-large.jpg'
+import imgStickerExclusive from '../assets/shop/stickers/sticker-exclusive.png'
+import imgStickerMystery from '../assets/shop/stickers/sticker-mystery.jpg'
+import imgVaquitaCorazon from '../assets/shop/plushies/vaquita-corazon.jpg'
+import imgDiablo from '../assets/shop/plushies/diablo-rojo.jpg'
+import imgOsoDorado from '../assets/shop/plushies/oso-dorado.jpg'
+import imgOsoVintage from '../assets/shop/plushies/oso-vintage.jpg'
+import imgConejoCarinoso from '../assets/shop/plushies/conejo-carinoso.jpg'
+import imgMiniMueble from '../assets/shop/plushies/mini-mueble.jpg'
+import imgConejoTeamo from '../assets/shop/plushies/conejo-teamo.jpg'
+import imgOsoFelizDia from '../assets/shop/plushies/oso-feliz-dia.jpg'
+import imgVaquitaAdorno from '../assets/shop/plushies/vaquita-adorno.jpg'
+
 export const translations = {
     es: {
         nav: {
@@ -38,7 +54,7 @@ export const translations = {
                     name: 'Novena Sinfonía de Beethoven',
                     date: '19 y 21 Mar 2026',
                     location: 'UTE Matriz y PUCE',
-                    img: '/src/assets/events/beethoven.jpg'
+                    img: imgBeethoven
                 }
             ]
         },
@@ -58,23 +74,23 @@ export const translations = {
             msg_total: 'Total estimado:',
             inventory: {
                 stickers: [
-                    { id: 's1', title: 'Mini', price: '0.25', desc: 'Pequeños pero con actitud.', img: '/src/assets/shop/stickers/sticker-mini.jpg' },
-                    { id: 's2', title: 'Medianos', price: '0.50', desc: 'El equilibrio ideal entre estilo y presencia.', img: '/src/assets/shop/stickers/sticker-medium.jpg' },
-                    { id: 's3', title: 'Grandes', price: '1.00', desc: 'Imposibles de ignorar.', img: '/src/assets/shop/stickers/sticker-large.jpg' },
-                    { id: 's4', title: 'Exclusivo LA FIL', price: '1.50', desc: 'Símbolo de elegancia y rebeldía creativa.', img: '/src/assets/shop/stickers/sticker-exclusive.png' },
-                    { id: 's5', title: 'Pack Misterioso', price: '3.00', desc: 'Sobre con sorpresas únicas.', img: '/src/assets/shop/stickers/sticker-mystery.jpg' },
-                    { id: 's6', title: 'Stickers Personalizables', price: '—', isCustom: true, desc: 'Haz realidad tus ideas con nuestra calidad premium.', img: '/src/assets/shop/stickers/sticker-mystery.jpg' }
+                    { id: 's1', title: 'Mini', price: '0.25', desc: 'Pequeños pero con actitud.', img: imgStickerMini },
+                    { id: 's2', title: 'Medianos', price: '0.50', desc: 'El equilibrio ideal entre estilo y presencia.', img: imgStickerMedium },
+                    { id: 's3', title: 'Grandes', price: '1.00', desc: 'Imposibles de ignorar.', img: imgStickerLarge },
+                    { id: 's4', title: 'Exclusivo LA FIL', price: '1.50', desc: 'Símbolo de elegancia y rebeldía creativa.', img: imgStickerExclusive },
+                    { id: 's5', title: 'Pack Misterioso', price: '3.00', desc: 'Sobre con sorpresas únicas.', img: imgStickerMystery },
+                    { id: 's6', title: 'Stickers Personalizables', price: '—', isCustom: true, desc: 'Haz realidad tus ideas con nuestra calidad premium.', img: imgStickerMystery }
                 ],
                 plushies: [
-                    { id: 'p1', title: 'Vaquita Corazón', price: '2.99', desc: 'Ternura en cada detalle.', img: '/src/assets/shop/plushies/vaquita-corazon.jpg' },
-                    { id: 'p2', title: 'Diablo Rojo', price: '2.50', desc: 'Picardía y suavidad.', img: '/src/assets/shop/plushies/diablo-rojo.jpg' },
-                    { id: 'p3', title: 'Oso Dorado', price: '4.50', desc: 'Clásico con brillo premium.', img: '/src/assets/shop/plushies/oso-dorado.jpg' },
-                    { id: 'p4', title: 'Oso Vintage', price: '4.25', desc: 'Elegancia envuelta en suavidad.', img: '/src/assets/shop/plushies/oso-vintage.jpg' },
-                    { id: 'p5', title: 'Conejo Cariñoso', price: '4.50', desc: 'Delicado y dulce en cada detalle.', img: '/src/assets/shop/plushies/conejo-carinoso.jpg' },
-                    { id: 'p6', title: 'Mini Mueble', price: '9.00', desc: 'Para decorar tus figuras favoritas.', img: '/src/assets/shop/plushies/mini-mueble.jpg' },
-                    { id: 'p7', title: 'Conejo Te Amo', price: '8.00', desc: 'Un regalo con intención profunda.', img: '/src/assets/shop/plushies/conejo-teamo.jpg' },
-                    { id: 'p8', title: 'Oso de Feliz Día', price: '4.00', desc: 'Ideal para alegrar cualquier momento.', img: '/src/assets/shop/plushies/oso-feliz-dia.jpg' },
-                    { id: 'p9', title: 'Vaquita de Adorno', price: '1.99', desc: 'Pequeña, adorable y con sonido.', img: '/src/assets/shop/plushies/vaquita-adorno.jpg' }
+                    { id: 'p1', title: 'Vaquita Corazón', price: '2.99', desc: 'Ternura en cada detalle.', img: imgVaquitaCorazon },
+                    { id: 'p2', title: 'Diablo Rojo', price: '2.50', desc: 'Picardía y suavidad.', img: imgDiablo },
+                    { id: 'p3', title: 'Oso Dorado', price: '4.50', desc: 'Clásico con brillo premium.', img: imgOsoDorado },
+                    { id: 'p4', title: 'Oso Vintage', price: '4.25', desc: 'Elegancia envuelta en suavidad.', img: imgOsoVintage },
+                    { id: 'p5', title: 'Conejo Cariñoso', price: '4.50', desc: 'Delicado y dulce en cada detalle.', img: imgConejoCarinoso },
+                    { id: 'p6', title: 'Mini Mueble', price: '9.00', desc: 'Para decorar tus figuras favoritas.', img: imgMiniMueble },
+                    { id: 'p7', title: 'Conejo Te Amo', price: '8.00', desc: 'Un regalo con intención profunda.', img: imgConejoTeamo },
+                    { id: 'p8', title: 'Oso de Feliz Día', price: '4.00', desc: 'Ideal para alegrar cualquier momento.', img: imgOsoFelizDia },
+                    { id: 'p9', title: 'Vaquita de Adorno', price: '1.99', desc: 'Pequeña, adorable y con sonido.', img: imgVaquitaAdorno }
                 ],
                 cookies: [
                     { id: 'c1', title: 'Clásica de Chocolate', price: '1.50', desc: 'Nuestra receta original con chips de chocolate premium.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
@@ -154,7 +170,7 @@ export const translations = {
                     name: 'Beethoven\'s Ninth Symphony',
                     date: 'Mar 19 & 21, 2026',
                     location: 'UTE Matrix & PUCE',
-                    img: '/src/assets/events/beethoven.jpg'
+                    img: imgBeethoven
                 }
             ]
         },
@@ -174,23 +190,23 @@ export const translations = {
             msg_total: 'Estimated Total:',
             inventory: {
                 stickers: [
-                    { id: 's1', title: 'Mini', price: '0.25', desc: 'Small but with attitude.', img: '/src/assets/shop/stickers/sticker-mini.jpg' },
-                    { id: 's2', title: 'Medium', price: '0.50', desc: 'Ideal balance between style and presence.', img: '/src/assets/shop/stickers/sticker-medium.jpg' },
-                    { id: 's3', title: 'Large', price: '1.00', desc: 'Impossible to ignore.', img: '/src/assets/shop/stickers/sticker-large.jpg' },
-                    { id: 's4', title: 'LA FIL Exclusive', price: '1.50', desc: 'Symbol of elegance and creative rebellion.', img: '/src/assets/shop/stickers/sticker-exclusive.png' },
-                    { id: 's5', title: 'Mystery Pack', price: '3.00', desc: 'Envelope with unique surprises.', img: '/src/assets/shop/stickers/sticker-mystery.jpg' },
-                    { id: 's6', title: 'Custom Stickers', price: '—', isCustom: true, desc: 'Bring your ideas to life with our premium quality.', img: '/src/assets/shop/stickers/sticker-mystery.jpg' }
+                    { id: 's1', title: 'Mini', price: '0.25', desc: 'Small but with attitude.', img: imgStickerMini },
+                    { id: 's2', title: 'Medium', price: '0.50', desc: 'Ideal balance between style and presence.', img: imgStickerMedium },
+                    { id: 's3', title: 'Large', price: '1.00', desc: 'Impossible to ignore.', img: imgStickerLarge },
+                    { id: 's4', title: 'LA FIL Exclusive', price: '1.50', desc: 'Symbol of elegance and creative rebellion.', img: imgStickerExclusive },
+                    { id: 's5', title: 'Mystery Pack', price: '3.00', desc: 'Envelope with unique surprises.', img: imgStickerMystery },
+                    { id: 's6', title: 'Custom Stickers', price: '—', isCustom: true, desc: 'Bring your ideas to life with our premium quality.', img: imgStickerMystery }
                 ],
                 plushies: [
-                    { id: 'p1', title: 'Heart Cow', price: '2.99', desc: 'Tenderness in every detail.', img: '/src/assets/shop/plushies/vaquita-corazon.jpg' },
-                    { id: 'p2', title: 'Red Devil', price: '2.50', desc: 'Mischief and softness.', img: '/src/assets/shop/plushies/diablo-rojo.jpg' },
-                    { id: 'p3', title: 'Golden Bear', price: '4.50', desc: 'Classic with premium shine.', img: '/src/assets/shop/plushies/oso-dorado.jpg' },
-                    { id: 'p4', title: 'Vintage Bear', price: '4.25', desc: 'Elegance wrapped in softness.', img: '/src/assets/shop/plushies/oso-vintage.jpg' },
-                    { id: 'p5', title: 'Affectionate Bunny', price: '4.50', desc: 'Delicate and sweet in every detail.', img: '/src/assets/shop/plushies/conejo-carinoso.jpg' },
-                    { id: 'p6', title: 'Mini Furniture', price: '9.00', desc: 'To decorate your favorite figures.', img: '/src/assets/shop/plushies/mini-mueble.jpg' },
-                    { id: 'p7', title: 'I Love You Bunny', price: '8.00', desc: 'A gift with deep intention.', img: '/src/assets/shop/plushies/conejo-teamo.jpg' },
-                    { id: 'p8', title: 'Happy Day Bear', price: '4.00', desc: 'Ideal to brighten any moment.', img: '/src/assets/shop/plushies/oso-feliz-dia.jpg' },
-                    { id: 'p9', title: 'Decorative Cow', price: '1.99', desc: 'Small, adorable and with sound.', img: '/src/assets/shop/plushies/vaquita-adorno.jpg' }
+                    { id: 'p1', title: 'Heart Cow', price: '2.99', desc: 'Tenderness in every detail.', img: imgVaquitaCorazon },
+                    { id: 'p2', title: 'Red Devil', price: '2.50', desc: 'Mischief and softness.', img: imgDiablo },
+                    { id: 'p3', title: 'Golden Bear', price: '4.50', desc: 'Classic with premium shine.', img: imgOsoDorado },
+                    { id: 'p4', title: 'Vintage Bear', price: '4.25', desc: 'Elegance wrapped in softness.', img: imgOsoVintage },
+                    { id: 'p5', title: 'Affectionate Bunny', price: '4.50', desc: 'Delicate and sweet in every detail.', img: imgConejoCarinoso },
+                    { id: 'p6', title: 'Mini Furniture', price: '9.00', desc: 'To decorate your favorite figures.', img: imgMiniMueble },
+                    { id: 'p7', title: 'I Love You Bunny', price: '8.00', desc: 'A gift with deep intention.', img: imgConejoTeamo },
+                    { id: 'p8', title: 'Happy Day Bear', price: '4.00', desc: 'Ideal to brighten any moment.', img: imgOsoFelizDia },
+                    { id: 'p9', title: 'Decorative Cow', price: '1.99', desc: 'Small, adorable and with sound.', img: imgVaquitaAdorno }
                 ],
                 cookies: [
                     { id: 'c1', title: 'Classic Chocolate', price: '1.50', desc: 'Our original recipe with premium chocolate chips.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
@@ -271,7 +287,7 @@ export const translations = {
                     name: 'Neuvième Symphonie de Beethoven',
                     date: '19 et 21 Mars 2026',
                     location: 'UTE Matrice et PUCE',
-                    img: '/src/assets/events/beethoven.jpg'
+                    img: imgBeethoven
                 }
             ]
         },
@@ -291,23 +307,23 @@ export const translations = {
             msg_total: 'Total estimé :',
             inventory: {
                 stickers: [
-                    { id: 's1', title: 'Mini', price: '0.25', desc: 'Petits mais avec de l\'attitude.', img: '/src/assets/shop/stickers/sticker-mini.jpg' },
-                    { id: 's2', title: 'Moyens', price: '0.50', desc: 'L\'équilibre idéal entre style et présence.', img: '/src/assets/shop/stickers/sticker-medium.jpg' },
-                    { id: 's3', title: 'Grands', price: '1.00', desc: 'Impossibles à ignorer.', img: '/src/assets/shop/stickers/sticker-large.jpg' },
-                    { id: 's4', title: 'Exclusivité LA FIL', price: '1.50', desc: 'Symbole d\'élégance et de rébellion créative.', img: '/src/assets/shop/stickers/sticker-exclusive.png' },
-                    { id: 's5', title: 'Pack Mystère', price: '3.00', desc: 'Enveloppe avec des surprises uniques.', img: '/src/assets/shop/stickers/sticker-mystery.jpg' },
-                    { id: 's6', title: 'Stickers Personnalisables', price: '—', isCustom: true, desc: 'Donnez vie à vos idées avec notre qualité premium.', img: '/src/assets/shop/stickers/sticker-mystery.jpg' }
+                    { id: 's1', title: 'Mini', price: '0.25', desc: 'Petits mais avec de l\'attitude.', img: imgStickerMini },
+                    { id: 's2', title: 'Moyens', price: '0.50', desc: 'L\'équilibre idéal entre style et présence.', img: imgStickerMedium },
+                    { id: 's3', title: 'Grands', price: '1.00', desc: 'Impossibles à ignorer.', img: imgStickerLarge },
+                    { id: 's4', title: 'Exclusivité LA FIL', price: '1.50', desc: 'Symbole d\'élégance et de rébellion créative.', img: imgStickerExclusive },
+                    { id: 's5', title: 'Pack Mystère', price: '3.00', desc: 'Enveloppe avec des surprises uniques.', img: imgStickerMystery },
+                    { id: 's6', title: 'Stickers Personnalisables', price: '—', isCustom: true, desc: 'Donnez vie à vos idées avec notre qualité premium.', img: imgStickerMystery }
                 ],
                 plushies: [
-                    { id: 'p1', title: 'Vache Cœur', price: '2.99', desc: 'Tendresse dans chaque détail.', img: '/src/assets/shop/plushies/vaquita-corazon.jpg' },
-                    { id: 'p2', title: 'Diable Rouge', price: '2.50', desc: 'Espièglerie et douceur.', img: '/src/assets/shop/plushies/diablo-rojo.jpg' },
-                    { id: 'p3', title: 'Ours Doré', price: '4.50', desc: 'Classique avec un éclat premium.', img: '/src/assets/shop/plushies/oso-dorado.jpg' },
-                    { id: 'p4', title: 'Ours Vintage', price: '4.25', desc: 'Élégance enveloppée de douceur.', img: '/src/assets/shop/plushies/oso-vintage.jpg' },
-                    { id: 'p5', title: 'Lapin Affectueux', price: '4.50', desc: 'Délicat et doux dans chaque détail.', img: '/src/assets/shop/plushies/conejo-carinoso.jpg' },
-                    { id: 'p6', title: 'Mini Meuble', price: '9.00', desc: 'Pour décorer vos figurines préférées.', img: '/src/assets/shop/plushies/mini-mueble.jpg' },
-                    { id: 'p7', title: 'Lapin Je T\'aime', price: '8.00', desc: 'Un cadeau avec une intention profonde.', img: '/src/assets/shop/plushies/conejo-teamo.jpg' },
-                    { id: 'p8', title: 'Ours Joyeux Jour', price: '4.00', desc: 'Idéal pour égayer n\'importe quel moment.', img: '/src/assets/shop/plushies/oso-feliz-dia.jpg' },
-                    { id: 'p9', title: 'Vache Décorative', price: '1.99', desc: 'Petite, adorable et avec du son.', img: '/src/assets/shop/plushies/vaquita-adorno.jpg' }
+                    { id: 'p1', title: 'Vache Cœur', price: '2.99', desc: 'Tendresse dans chaque détail.', img: imgVaquitaCorazon },
+                    { id: 'p2', title: 'Diablo Rouge', price: '2.50', desc: 'Espièglerie et douceur.', img: imgDiablo },
+                    { id: 'p3', title: 'Ours Doré', price: '4.50', desc: 'Classique avec un éclat premium.', img: imgOsoDorado },
+                    { id: 'p4', title: 'Ours Vintage', price: '4.25', desc: 'Élégance enveloppée de douceur.', img: imgOsoVintage },
+                    { id: 'p5', title: 'Lapin Affectueux', price: '4.50', desc: 'Délicat et doux dans chaque détail.', img: imgConejoCarinoso },
+                    { id: 'p6', title: 'Mini Meuble', price: '9.00', desc: 'Pour décorer vos figurines préférées.', img: imgMiniMueble },
+                    { id: 'p7', title: 'Lapin Je T\'aime', price: '8.00', desc: 'Un cadeau avec une intention profonde.', img: imgConejoTeamo },
+                    { id: 'p8', title: 'Ours Joyeux Jour', price: '4.00', desc: 'Idéal pour égayer n\'importe quel moment.', img: imgOsoFelizDia },
+                    { id: 'p9', title: 'Vache Décorative', price: '1.99', desc: 'Petite, adorable et avec du son.', img: imgVaquitaAdorno }
                 ],
                 cookies: [
                     { id: 'c1', title: 'Chocolat Classique', price: '1.50', desc: 'Notre recette originale aux pépites de chocolat premium.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
@@ -326,7 +342,7 @@ export const translations = {
                 title: 'Objectifs 2026',
                 items: [
                     { name: 'Residencia Sonora', target: 500, current: 320, img: '/src/assets/events/residencia.jpg' },
-                    { name: 'Novena Sinfonía de Beethoven', target: 800, current: 450, img: '/src/assets/events/beethoven.jpg' },
+                    { name: 'Neuvième Symphonie de Beethoven', target: 800, current: 450, img: imgBeethoven },
                     { name: 'Festivals', target: 1200, current: 280 }
                 ]
             },
