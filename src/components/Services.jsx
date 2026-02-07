@@ -273,7 +273,7 @@ export default function Services() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '3rem', borderBottom: '1px solid #ddd', paddingBottom: '1rem' }}>
                         <h3 style={{ fontSize: '2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: '#1A1A1A' }}>{t.shop.title}</h3>
                         <div style={{ textAlign: 'right' }}>
-                            <span style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--color-primary)', display: 'block' }}>Collection 2026</span>
+                            <span style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--color-primary)', display: 'block' }}>{t.shop.collectionLabel}</span>
                             {totalItems > 0 && (
                                 <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#1A1A1A', display: 'block', marginTop: '0.5rem' }}>
                                     {t.shop.total}: ${totalPrice}

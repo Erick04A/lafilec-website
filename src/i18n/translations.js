@@ -64,6 +64,7 @@ export const translations = {
         },
         shop: {
             title: 'Nuestra Colección',
+            collectionLabel: 'Colección 2026',
             sticker: { title: 'Stickers', desc: 'Colección de vinilos vibrantes.' },
             plushie: { title: 'Peluches', desc: 'Diseños únicos hechos a mano.' },
             cookie: { title: 'Galletas', desc: 'Sabor casero con toque gourmet.' },
@@ -195,6 +196,7 @@ export const translations = {
         },
         shop: {
             title: 'Our Collection',
+            collectionLabel: 'Collection 2026',
             sticker: { title: 'Stickers', desc: 'Vibrant vinyl collection.' },
             plushie: { title: 'Plushies', desc: 'Unique handmade designs.' },
             cookie: { title: 'Cookies', desc: 'Homemade flavor with a gourmet touch.' },
@@ -327,6 +329,7 @@ export const translations = {
         },
         shop: {
             title: "Notre Collection",
+            collectionLabel: "Collection 2026",
             sticker: { title: "Stickers", desc: "Collection de vinyles vibrants." },
             plushie: { title: "Peluches", desc: "Designs uniques faits à la main." },
             cookie: { title: "Biscuits", desc: "Saveur maison avec une touche gastronomique." },
