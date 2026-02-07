@@ -368,7 +368,7 @@ export default function Services() {
 
                                     <button style={{
                                         padding: '0.8rem 1.5rem',
-                                        background: 'rgba(255, 255, 255, 0.5)',
+                                        background: 'rgba(255, 255, 255, 0.7)',
                                         backdropFilter: 'blur(4px)',
                                         color: '#1A1A1A',
                                         border: '1.5px solid #C4D82E',
@@ -381,19 +381,25 @@ export default function Services() {
                                         alignItems: 'center',
                                         gap: '0.5rem',
                                         boxShadow: '0 0 10px rgba(196, 216, 46, 0.2)',
-                                        transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                                        transition: 'all 0.3s ease-in-out',
+                                        transform: 'scale(1)'
                                     }}
                                         onMouseEnter={e => {
                                             e.currentTarget.style.background = '#C4D82E'
-                                            e.currentTarget.style.color = '#fff'
-                                            e.currentTarget.style.boxShadow = '0 0 20px rgba(196, 216, 46, 0.6)'
-                                            e.currentTarget.style.transform = 'translateY(-2px)'
+                                            e.currentTarget.style.color = '#5865F2' // Electric Blue
+                                            e.currentTarget.style.boxShadow = '0 0 20px rgba(170, 255, 0, 0.6)'
                                         }}
                                         onMouseLeave={e => {
-                                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)'
+                                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.7)'
                                             e.currentTarget.style.color = '#1A1A1A'
                                             e.currentTarget.style.boxShadow = '0 0 10px rgba(196, 216, 46, 0.2)'
-                                            e.currentTarget.style.transform = 'translateY(0)'
+                                            e.currentTarget.style.transform = 'scale(1)'
+                                        }}
+                                        onMouseDown={e => {
+                                            e.currentTarget.style.transform = 'scale(0.95)'
+                                        }}
+                                        onMouseUp={e => {
+                                            e.currentTarget.style.transform = 'scale(1)'
                                         }}
                                     >
                                         {t.shop.btn_catalog}
