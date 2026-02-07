@@ -9,10 +9,10 @@ export default function Navbar() {
 
   // Dynamic links key access
   const links = [
-    { key: 'curations', label: t.nav.curations },
-    { key: 'about', label: t.nav.about },
-    { key: 'fuel', label: t.nav.fuel },
-    { key: 'contact', label: t.nav.contact }
+    { key: 'curations', label: t.nav?.curations || 'Eventos' },
+    { key: 'about', label: t.nav?.about || 'Nosotros' },
+    { key: 'fuel', label: t.nav?.fuel || 'Apoyo' },
+    { key: 'contact', label: t.nav?.contact || 'Repertorio', url: 'https://lafilec.github.io/Temas/', external: true }
   ]
 
   const handleLinkClick = () => {
@@ -47,14 +47,17 @@ export default function Navbar() {
         }}>
           {links.map((link) => (
             <li key={link.key}>
-              <a href={`#${link.key}`} style={{
-                textDecoration: 'none',
-                color: 'var(--color-text)',
-                fontWeight: '600',
-                fontSize: '0.85rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em'
-              }}>
+              <a
+                href={link.external ? link.url : `#${link.key}`}
+                style={{
+                  textDecoration: 'none',
+                  color: 'var(--color-text)',
+                  fontWeight: '600',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}
+              >
                 {link.label}
               </a>
             </li>
@@ -130,7 +133,7 @@ export default function Navbar() {
             {links.map((link, index) => (
               <li key={link.key} style={{ width: '100%', textAlign: 'center' }}>
                 <a
-                  href={`#${link.key}`}
+                  href={link.external ? link.url : `#${link.key}`}
                   onClick={handleLinkClick}
                   style={{
                     textDecoration: 'none',
