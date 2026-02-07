@@ -200,6 +200,8 @@ export default function Crowdfunding() {
                                             pointerEvents: 'none', // CRITICAL: Prevents flicker bug
                                             filter: 'brightness(0.9)' // REQUESTED: Organic dark integration
                                         }}
+                                        decoding="async"
+                                        className="hardware-accelerated"
                                     />
                                     <img
                                         src={img.src}
@@ -214,6 +216,8 @@ export default function Crowdfunding() {
                                             pointerEvents: 'none', // CRITICAL: Prevents flicker bug
                                             filter: 'brightness(0.5) sepia(1) hue-rotate(20deg)' // Gold tint for back
                                         }}
+                                        decoding="async"
+                                        className="hardware-accelerated"
                                     />
                                 </div>
                             </div>

@@ -87,7 +87,7 @@ export default function Services() {
 
                 {/* Events Header */}
                 <div style={{ marginBottom: '6rem', textAlign: 'center' }}>
-                    <h2 style={{ fontSize: '3rem', marginBottom: '1rem', fontFamily: 'var(--font-title)', fontWeight: '800' }}>
+                    <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1rem', fontFamily: 'var(--font-title)', fontWeight: '800' }}>
                         {t.events.title}
                     </h2>
                     <p style={{ fontSize: '1.1rem', color: '#666', maxWidth: '600px', margin: '0 auto 2rem' }}>
@@ -99,9 +99,10 @@ export default function Services() {
                 {/* 3-Card Grid */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', // Reduced min-width to ensure 1 col on narrow screens
                     gap: '2.5rem',
-                    marginBottom: '8rem'
+                    marginBottom: '8rem',
+                    padding: '0 10px' // Extra internal safety padding
                 }}>
                     {/* Event Card 1 */}
                     <div
@@ -134,6 +135,7 @@ export default function Services() {
                                 alt={t.events.items[0].name}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 loading="lazy"
+                                decoding="async"
                             />
                         </div>
                         <div style={{ padding: '0.6rem 1rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -247,6 +249,7 @@ export default function Services() {
                                 alt={t.events.items[1].name}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 loading="lazy"
+                                decoding="async"
                             />
                         </div>
                         <div style={{ padding: '0.6rem 1rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -334,6 +337,8 @@ export default function Services() {
                                         onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
                                         onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                                         loading="lazy"
+                                        decoding="async"
+                                        className="hardware-accelerated"
                                     />
                                 </div>
 
@@ -472,7 +477,7 @@ export default function Services() {
                     <div style={{ maxWidth: '1200px', width: '100%', margin: '4rem auto', paddingBottom: '100px' }}>
                         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                             <h2 style={{
-                                fontSize: '3rem',
+                                fontSize: 'clamp(2rem, 5vw, 3rem)',
                                 marginBottom: '1rem',
                                 fontFamily: 'var(--font-title)',
                                 fontWeight: '800',
@@ -530,8 +535,9 @@ export default function Services() {
                                                     padding: '1.5rem',
                                                     transition: 'transform 0.5s ease'
                                                 }}
-                                                className="product-img"
+                                                className="product-img hardware-accelerated"
                                                 loading="lazy"
+                                                decoding="async"
                                             />
                                             {/* Price Tag Removed from here */}
                                             <div style={{
@@ -645,58 +651,8 @@ export default function Services() {
                             })}
                         </div>
                     </div>
-
-                    {/* Sticky Footer for Checkout */}
-                    {totalItems > 0 && (
-                        <div style={{
-                            position: 'fixed',
-                            bottom: 0,
-                            left: 0,
-                            width: '100%',
-                            padding: '1.5rem',
-                            background: '#fff',
-                            boxShadow: '0 -10px 30px rgba(0,0,0,0.1)',
-                            textAlign: 'center',
-                            zIndex: 2005
-                        }}>
-                            <button
-                                onClick={handleCheckout}
-                                style={{
-                                    background: '#25D366',
-                                    color: '#fff',
-                                    border: 'none',
-                                    padding: '1rem 3rem',
-                                    borderRadius: '50px',
-                                    fontWeight: '700',
-                                    fontSize: '1.1rem',
-                                    cursor: 'pointer',
-                                    boxShadow: '0 5px 20px rgba(37, 211, 102, 0.4)',
-                                    transition: 'transform 0.2s'
-                                }}
-                                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                {t.shop.btn_order} (${totalPrice})
-                            </button>
-                        </div>
-                    )}
-
-                    <style>{`
-                        .product-card:hover .product-img {
-                            transform: scale(1.1);
-                        }
-                        
-                        @keyframes bounce {
-                            0%, 100% { transform: translateY(0); }
-                            50% { transform: translateY(-10px); }
-                        }
-                        .bounce-icon {
-                            animation: bounce 2s infinite ease-in-out;
-                            display: flex;
-                            justify-content: center;
-                        }
-                    `}</style>
                 </div>
+
             )}
         </section>
     )

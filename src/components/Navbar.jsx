@@ -102,14 +102,19 @@ export default function Navbar() {
       {mobileMenuOpen && window.innerWidth <= 768 && (
         <div style={{
           position: 'fixed',
-          top: '80px',
+          top: '0', // Cover entire screen for better layout control
           left: 0,
           width: '100%',
-          background: 'rgba(255, 254, 242, 0.98)',
-          backdropFilter: 'blur(10px)',
-          padding: '2rem',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          zIndex: 99
+          height: '100vh', // Full height
+          background: 'rgba(18, 18, 18, 0.95)', // Dark Refined Background
+          backdropFilter: 'blur(15px)',
+          WebkitBackdropFilter: 'blur(15px)',
+          padding: '6rem 2rem 2rem', // Top padding clears the logo area
+          zIndex: 98, // Below the navbar header (logo/close btn)
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
           <ul style={{
             listStyle: 'none',
@@ -117,25 +122,27 @@ export default function Navbar() {
             padding: 0,
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.5rem'
+            gap: '2rem', // Uniform Gap
+            width: '100%',
+            maxWidth: '400px', // Tablet constrain
+            alignItems: 'center'
           }}>
-            {links.map((link) => (
-              <li key={link.key}>
+            {links.map((link, index) => (
+              <li key={link.key} style={{ width: '100%', textAlign: 'center' }}>
                 <a
                   href={`#${link.key}`}
                   onClick={handleLinkClick}
                   style={{
                     textDecoration: 'none',
-                    color: 'var(--color-text)',
+                    color: '#FFF', // White text for dark bg
                     fontWeight: '600',
-                    fontSize: '1.1rem',
+                    fontSize: '1.5rem', // Larger for mobile
                     textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
+                    letterSpacing: '0.1em',
                     display: 'block',
                     padding: '0.5rem 0',
-                    minHeight: '44px',
-                    display: 'flex',
-                    alignItems: 'center'
+                    opacity: 0,
+                    animation: `fadeInUp 0.4s ease forwards ${index * 0.1}s` // Stagger Animation
                   }}
                 >
                   {link.label}
@@ -147,10 +154,15 @@ export default function Navbar() {
           {/* Language Selector Mobile */}
           <div style={{
             display: 'flex',
-            gap: '1rem',
-            marginTop: '2rem',
-            paddingTop: '1.5rem',
-            borderTop: '1px solid #ddd'
+            gap: '1.5rem',
+            marginTop: '3rem',
+            paddingTop: '2rem',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            width: '100%',
+            maxWidth: '300px',
+            justifyContent: 'center',
+            opacity: 0,
+            animation: 'fadeInUp 0.4s ease forwards 0.5s'
           }}>
             {['es', 'en', 'fr'].map((l) => (
               <button
@@ -160,23 +172,30 @@ export default function Navbar() {
                   setMobileMenuOpen(false)
                 }}
                 style={{
-                  background: lang === l ? 'var(--color-primary)' : 'transparent',
-                  border: '2px solid var(--color-primary)',
-                  color: lang === l ? '#000' : 'var(--color-text)',
+                  background: lang === l ? 'rgba(196, 216, 46, 0.2)' : 'transparent',
+                  border: `1px solid ${lang === l ? '#C4D82E' : 'rgba(255,255,255,0.3)'}`,
+                  color: lang === l ? '#C4D82E' : '#FFF',
                   cursor: 'pointer',
                   textTransform: 'uppercase',
-                  padding: '0.75rem 1.5rem',
+                  padding: '0.8rem 0', // Uniform vertical padding
+                  width: '60px', // Fixed width for symmetry
                   fontWeight: 'bold',
-                  borderRadius: '4px',
+                  borderRadius: '8px',
                   fontSize: '0.9rem',
-                  minHeight: '44px',
-                  minWidth: '60px'
+                  transition: 'all 0.2s'
                 }}
               >
                 {l}
               </button>
             ))}
           </div>
+
+          <style>{`
+            @keyframes fadeInUp {
+              from { opacity: 0; transform: translateY(20px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+          `}</style>
         </div>
       )}
     </nav>

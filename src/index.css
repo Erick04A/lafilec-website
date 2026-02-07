@@ -10,6 +10,15 @@
   --font-body: 'Plus Jakarta Sans', sans-serif;
 }
 
+.hardware-accelerated {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  /* Force GPU */
+  backface-visibility: hidden;
+}
+
+
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -299,4 +308,27 @@ h6 {
     /* Smaller scale for mobile to preventing cutting */
     margin: 100px auto;
   }
+}
+
+/* Product Card Animations */
+.product-card:hover .product-img {
+  transform: scale(1.1);
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce-icon {
+  animation: bounce 2s infinite ease-in-out;
+  display: flex;
+  justify-content: center;
 }

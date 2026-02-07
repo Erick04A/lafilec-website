@@ -1,109 +1,117 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function ResonantSeal() {
     const [isHovered, setIsHovered] = useState(false)
-    const [frequencies, setFrequencies] = useState([])
-    const animationRef = useRef(null)
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
 
     useEffect(() => {
-        // Initialize 12 frequency bars around the logo
-        const bars = Array.from({ length: 12 }, (_, i) => ({
-            angle: (i * 30) * (Math.PI / 180),
-            baseHeight: 3 + Math.random() * 2,
-            phase: Math.random() * Math.PI * 2
-        }))
-        setFrequencies(bars)
-
-        let time = 0
-        const animate = () => {
-            time += 0.05
-            setFrequencies(prev => prev.map(bar => ({
-                ...bar,
-                height: bar.baseHeight + Math.sin(time + bar.phase) * (isHovered ? 3 : 1)
-            })))
-            animationRef.current = requestAnimationFrame(animate)
-        }
-
-        animate()
-
-        return () => {
-            if (animationRef.current) {
-                cancelAnimationFrame(animationRef.current)
-            }
-        }
-    }, [isHovered])
+        const handleResize = () => setIsMobile(window.innerWidth <= 768)
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     const handleClick = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-    const logoOpacity = isHovered ? 0.9 : 0.7
-    const glowIntensity = isHovered ? 8 : 4
+    // Bar configurations for asynchronous pulsing
+    // Mobile: 2 bars | Desktop: 3 bars
+    const barsLeft = isMobile
+        ? [{ delay: '0s', duration: '1.2s' }, { delay: '0.2s', duration: '1.5s' }]
+        : [{ delay: '0s', duration: '1.2s' }, { delay: '0.4s', duration: '1.5s' }, { delay: '0.2s', duration: '1.3s' }]
+
+    const barsRight = isMobile
+        ? [{ delay: '0.1s', duration: '1.4s' }, { delay: '0.3s', duration: '1.1s' }]
+        : [{ delay: '0.1s', duration: '1.4s' }, { delay: '0.5s', duration: '1.1s' }, { delay: '0.3s', duration: '1.6s' }]
+
+    // Shared filter for Holographic Aura + Edge Definition
+    const holographicFilter = `
+        drop-shadow(0 0 8px rgba(170, 255, 0, 0.6))
+        drop-shadow(0 0 1px rgba(0,0,0,0.8))
+    `
 
     return (
         <div
             onClick={handleClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            className="logo-holographic"
             style={{
                 position: 'relative',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '80px',
-                height: '50px'
+                padding: '0 10px',
+                height: isMobile ? '40px' : '50px', // Smaller on mobile
+                // No background/border - Frameless
+                background: 'transparent',
+                transition: 'transform 0.3s ease',
+                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                gap: isMobile ? '4px' : '8px'
             }}
         >
-            {/* Frequency Bars Ring */}
-            <svg
-                width="80"
-                height="50"
-                viewBox="0 0 80 50"
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0
-                }}
-            >
-                {frequencies.map((bar, i) => {
-                    const radius = 30
-                    const x = 40 + radius * Math.cos(bar.angle)
-                    const y = 25 + radius * Math.sin(bar.angle)
-                    const height = bar.height || bar.baseHeight
+            {/* Left Visualizer Bars */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+                height: '100%',
+                filter: holographicFilter // Apply aura to bars
+            }}>
+                {barsLeft.map((bar, i) => (
+                    <div key={`l-${i}`} style={{
+                        width: '2px',
+                        height: isMobile ? '10px' : '12px',
+                        background: '#C4D82E', // High visibility Lime
+                        borderRadius: '1px',
+                        animation: `pulse-height ${isHovered ? '0.6s' : bar.duration} ease-in-out infinite alternate`,
+                        animationDelay: bar.delay
+                    }} />
+                ))}
+            </div>
 
-                    return (
-                        <line
-                            key={i}
-                            x1={x}
-                            y1={y}
-                            x2={x + height * Math.cos(bar.angle)}
-                            y2={y + height * Math.sin(bar.angle)}
-                            stroke="#C4D82E"
-                            strokeWidth={isHovered ? "1.5" : "1"}
-                            strokeLinecap="round"
-                            opacity={isHovered ? 0.8 : 0.4}
-                            style={{
-                                transition: 'all 0.3s ease'
-                            }}
-                        />
-                    )
-                })}
-            </svg>
-
+            {/* Logo Image */}
             <img
                 src={`${import.meta.env.BASE_URL}logo.png`}
                 alt="LA FIL"
                 style={{
-                    height: '100%',
+                    height: isMobile ? '24px' : '32px', // 20% smaller reduction roughly
                     width: 'auto',
                     objectFit: 'contain',
-                    filter: `drop-shadow(0 0 ${glowIntensity}px rgba(196, 216, 46, 0.4))`,
-                    opacity: logoOpacity,
-                    transition: 'all 0.3s ease',
-                    userSelect: 'none'
+                    zIndex: 2,
+                    filter: `${holographicFilter} brightness(1.1)`, // Apply aura + brightness
+                    willChange: 'filter, transform'
                 }}
             />
+
+            {/* Right Visualizer Bars */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+                height: '100%',
+                filter: holographicFilter
+            }}>
+                {barsRight.map((bar, i) => (
+                    <div key={`r-${i}`} style={{
+                        width: '2px',
+                        height: isMobile ? '10px' : '12px',
+                        background: '#C4D82E',
+                        borderRadius: '1px',
+                        animation: `pulse-height ${isHovered ? '0.6s' : bar.duration} ease-in-out infinite alternate`,
+                        animationDelay: bar.delay
+                    }} />
+                ))}
+            </div>
+
+            <style>{`
+                @keyframes pulse-height {
+                    0% { height: 6px; opacity: 0.8; }
+                    100% { height: 16px; opacity: 1; }
+                }
+            `}</style>
         </div>
     )
 }

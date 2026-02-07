@@ -2,11 +2,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Mail, Instagram, Phone, MapPin } from 'lucide-react'
 import { useLanguage } from '../store/LanguageContext'
 
+import TermsModal from './TermsModal'
+
 export default function Footer() {
     const { t } = useLanguage()
     const [hoveredLink, setHoveredLink] = useState(null)
     const [logoHovered, setLogoHovered] = useState(false)
     const [pulseIntensity, setPulseIntensity] = useState(6)
+    const [isTermsOpen, setIsTermsOpen] = useState(false)
     const animationRef = useRef(null)
 
     useEffect(() => {
@@ -45,8 +48,16 @@ export default function Footer() {
     ]
 
     const legalLinks = [
-        { label: 'Repertorio', href: 'https://lafilec.github.io/Temas/' },
-        { label: 'Términos y Condiciones', href: 'https://lafilec.github.io/T-rminos-y-Condiciones-de-Uso/' }
+        {
+            label: t.footer.legal_repertoire,
+            href: 'https://lafilec.github.io/Temas/',
+            action: null
+        },
+        {
+            label: t.footer.legal_terms,
+            href: '#',
+            action: () => setIsTermsOpen(true)
+        }
     ]
 
     const linkStyle = (index) => ({
@@ -72,6 +83,8 @@ export default function Footer() {
                 position: 'relative'
             }}
         >
+            <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
+
             <div style={{
                 maxWidth: '1200px',
                 margin: '0 auto',
@@ -112,7 +125,7 @@ export default function Footer() {
                         marginTop: '1rem',
                         textTransform: 'uppercase'
                     }}>
-                        Vive la música
+                        {t.footer.motto}
                     </p>
                 </div>
 
@@ -127,7 +140,7 @@ export default function Footer() {
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em'
                     }}>
-                        Conecta
+                        {t.footer.connect}
                     </h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                         {socialLinks.map((link, index) => (
@@ -155,7 +168,7 @@ export default function Footer() {
                             fontSize: '0.9rem'
                         }}>
                             <MapPin size={16} />
-                            <span>Quito - Ecuador</span>
+                            <span>{t.footer.location}</span>
                         </div>
                     </div>
                 </div>
@@ -171,19 +184,26 @@ export default function Footer() {
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em'
                     }}>
-                        Explora
+                        {t.footer.explore}
                     </h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                         {legalLinks.map((link, index) => (
                             <a
                                 key={index}
                                 href={link.href}
-                                target="_self"
+                                target={link.href === '#' ? undefined : "_self"}
+                                onClick={(e) => {
+                                    if (link.action) {
+                                        e.preventDefault()
+                                        link.action()
+                                    }
+                                }}
                                 style={{
                                     color: '#ccc',
                                     textDecoration: 'none',
                                     fontSize: '0.95rem',
-                                    transition: 'color 0.3s ease'
+                                    transition: 'color 0.3s ease',
+                                    cursor: 'pointer'
                                 }}
                                 onMouseEnter={(e) => e.target.style.color = '#888'}
                                 onMouseLeave={(e) => e.target.style.color = '#ccc'}
@@ -204,7 +224,7 @@ export default function Footer() {
                 color: '#666',
                 letterSpacing: '0.05em'
             }}>
-                © 2026 LA FIL. Todos los derechos reservados.
+                © 2026 LA FIL. {t.footer.rights}
             </div>
         </footer>
     )

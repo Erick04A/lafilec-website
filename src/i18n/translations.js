@@ -128,7 +128,21 @@ export const translations = {
         footer: {
             collab: 'Colectivo Artesanal de Quito',
             rights: 'Todos los derechos reservados.',
-            address: 'Vía Nayón, Quito, Ecuador'
+            address: 'Vía Nayón, Quito, Ecuador',
+            connect: 'Conecta',
+            explore: 'Explora',
+            motto: 'Vive la música',
+            location: 'Quito - Ecuador',
+            location: 'Quito - Ecuador',
+            legal_repertoire: 'Repertorio',
+            legal_terms: 'Términos y Condiciones',
+            terms_modal: {
+                title: 'TÉRMINOS DE USO',
+                body: 'Al navegar por aquí aceptas que todo lo que ves como los diseños y las fotos pertenecen a La Fil y están protegidos por derechos de autor. Es contenido para informarte y disfrutar de la música así que úsalo con respeto. No nos responsabilizamos si la tecnología falla un momento.',
+                contact_intro: '¿Alguna duda?',
+                contact_email: 'lafilec01@gmail.com',
+                close: 'Entendido'
+            }
         }
     },
     en: {
@@ -245,7 +259,21 @@ export const translations = {
         footer: {
             collab: 'Quito Artisan Collaborative',
             rights: 'All Rights Reserved.',
-            address: 'Vía Nayón, Quito, Ecuador'
+            address: 'Vía Nayón, Quito, Ecuador',
+            connect: 'Connect',
+            explore: 'Explore',
+            motto: 'Live the music',
+            location: 'Quito - Ecuador',
+            location: 'Quito - Ecuador',
+            legal_repertoire: 'Repertoire',
+            legal_terms: 'Terms and Conditions',
+            terms_modal: {
+                title: 'TERMS OF USE',
+                body: 'By browsing here you accept that everything you see like designs and photos belongs to La Fil and is protected by copyright. It is content to inform you and enjoy the music so use it with respect. We are not responsible if technology fails for a moment.',
+                contact_intro: 'Any questions?',
+                contact_email: 'lafilec01@gmail.com',
+                close: 'Got it'
+            }
         }
     },
     fr: {
@@ -362,7 +390,21 @@ export const translations = {
         footer: {
             collab: 'Collectif Artisanal de Quito',
             rights: 'Tous droits réservés.',
-            address: 'Vía Nayón, Quito, Equateur'
+            address: 'Vía Nayón, Quito, Equateur',
+            connect: 'Connecter',
+            explore: 'Explorer',
+            motto: 'Vivez la musique',
+            location: 'Quito - Équateur',
+            location: 'Quito - Équateur',
+            legal_repertoire: 'Répertoire',
+            legal_terms: 'Termes et Conditions',
+            terms_modal: {
+                title: "CONDITIONS D'UTILISATION",
+                body: "En naviguant ici vous acceptez que tout ce que vous voyez comme les designs et les photos appartient à La Fil et est protégé par le droit d'auteur. C'est du contenu pour vous informer et profiter de la musique alors utilisez-le avec respect. Nous ne sommes pas responsables si la technologie échoue un instant.",
+                contact_intro: 'Des questions ?',
+                contact_email: 'lafilec01@gmail.com',
+                close: 'Compris'
+            }
         }
     }
 }
