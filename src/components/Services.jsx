@@ -368,26 +368,32 @@ export default function Services() {
 
                                     <button style={{
                                         padding: '0.8rem 1.5rem',
-                                        background: '#000',
-                                        color: '#fff',
-                                        border: '1px solid #FFD700',
+                                        background: 'rgba(255, 255, 255, 0.5)',
+                                        backdropFilter: 'blur(4px)',
+                                        color: '#1A1A1A',
+                                        border: '1.5px solid #C4D82E',
                                         borderRadius: '50px',
-                                        fontWeight: '600',
+                                        fontWeight: '700',
                                         cursor: 'pointer',
                                         width: '100%',
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         gap: '0.5rem',
-                                        transition: 'all 0.3s'
+                                        boxShadow: '0 0 10px rgba(196, 216, 46, 0.2)',
+                                        transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                                     }}
                                         onMouseEnter={e => {
-                                            e.currentTarget.style.boxShadow = '0 0 15px #FFD700'
-                                            e.currentTarget.style.color = '#FFD700'
+                                            e.currentTarget.style.background = '#C4D82E'
+                                            e.currentTarget.style.color = '#fff'
+                                            e.currentTarget.style.boxShadow = '0 0 20px rgba(196, 216, 46, 0.6)'
+                                            e.currentTarget.style.transform = 'translateY(-2px)'
                                         }}
                                         onMouseLeave={e => {
-                                            e.currentTarget.style.boxShadow = 'none'
-                                            e.currentTarget.style.color = '#fff'
+                                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)'
+                                            e.currentTarget.style.color = '#1A1A1A'
+                                            e.currentTarget.style.boxShadow = '0 0 10px rgba(196, 216, 46, 0.2)'
+                                            e.currentTarget.style.transform = 'translateY(0)'
                                         }}
                                     >
                                         {t.shop.btn_catalog}
