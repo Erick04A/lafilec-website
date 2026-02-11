@@ -93,7 +93,7 @@ export default function Footer() {
                 gap: '4rem',
                 marginBottom: '4rem'
             }}>
-                {/* Brand Block */}
+
                 <div>
                     <div
                         onMouseEnter={() => setLogoHovered(true)}
@@ -129,7 +129,7 @@ export default function Footer() {
                     </p>
                 </div>
 
-                {/* Conecta */}
+
                 <div>
                     <h3 style={{
                         fontFamily: 'var(--font-title)',
@@ -158,7 +158,7 @@ export default function Footer() {
                             </a>
                         ))}
 
-                        {/* Location */}
+
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -173,7 +173,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Explora */}
+
                 <div>
                     <h3 style={{
                         fontFamily: 'var(--font-title)',
@@ -215,7 +215,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Copyright Only */}
+
             <div style={{
                 borderTop: '1px solid rgba(196, 216, 46, 0.2)',
                 paddingTop: '2rem',

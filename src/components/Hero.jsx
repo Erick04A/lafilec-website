@@ -9,9 +9,7 @@ function BackgroundEffects() {
     return (
         <>
             <Sparkles count={100} scale={10} size={2} speed={0.4} opacity={0.5} color="#C4D82E" />
-            <Float speed={2} rotationIntensity={0.2} floatIntensity={0.2}>
-                {/* Subtle abstract glass shape could go here, but keeping it clean for now as requested */}
-            </Float>
+            <Float speed={2} rotationIntensity={0.2} floatIntensity={0.2} />
         </>
     )
 }
@@ -31,7 +29,6 @@ export default function Hero() {
             alignItems: 'center',
             padding: '0 2rem'
         }}>
-            {/* 3D Background Layer */}
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
                 <Canvas camera={{ position: [0, 0, 5] }}>
                     <BackgroundEffects />
@@ -39,7 +36,7 @@ export default function Hero() {
                 </Canvas>
             </div>
 
-            {/* Content Layer */}
+
             <div style={{
                 zIndex: 1,
                 width: '100%',
@@ -49,7 +46,7 @@ export default function Hero() {
                 alignItems: 'center',
                 gap: '3rem'
             }}>
-                {/* Logo and Clock Container */}
+
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -64,7 +61,7 @@ export default function Hero() {
                         flexDirection: window.innerWidth <= 768 ? 'column' : 'row'
                     }}
                 >
-                    {/* Logo */}
+
                     <div style={{
                         filter: 'drop-shadow(0px 4px 15px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 20px rgba(196, 216, 46, 0.3))',
                         transition: 'filter 0.3s ease',
@@ -81,7 +78,7 @@ export default function Hero() {
                         />
                     </div>
 
-                    {/* Kinetic Clock */}
+
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -91,7 +88,7 @@ export default function Hero() {
                     </motion.div>
                 </motion.div>
 
-                {/* Mantra Below */}
+
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

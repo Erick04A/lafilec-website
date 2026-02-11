@@ -2,9 +2,7 @@
   scroll-behavior: smooth;
   --color-bg: #FFFEF2;
   --color-primary: #C4D82E;
-  /* Lime */
   --color-secondary: #F7FF3C;
-  /* Neon Yellow */
   --color-text: #1A1A1A;
   --font-title: 'Montserrat', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -13,7 +11,6 @@
 .hardware-accelerated {
   will-change: transform, opacity;
   transform: translateZ(0);
-  /* Force GPU */
   backface-visibility: hidden;
 }
 
@@ -40,6 +37,16 @@
 
   100% {
     box-shadow: 0 0 0 0 rgba(196, 216, 46, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
   }
 }
 
@@ -276,7 +283,6 @@ h6 {
 @media (max-width: 768px) {
   .services-grid {
     grid-template-columns: 1fr;
-    /* Force 1 column on mobile as requested */
     gap: 2rem;
   }
 }
@@ -301,12 +307,10 @@ h6 {
 @media (max-width: 768px) {
   .carousel-section {
     padding: 4rem 1rem;
-    /* Reduced padding */
   }
 
   .carousel-container-wrapper {
     transform: scale(0.6) rotateX(-10deg);
-    /* Smaller scale for mobile to preventing cutting */
     margin: 100px auto;
   }
 }

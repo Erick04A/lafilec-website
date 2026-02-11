@@ -10,7 +10,7 @@ export default function KineticClock() {
         const seconds = secondsRef.current
         const minutes = minutesRef.current
 
-        // Create spikes
+
         for (let s = 0; s < 60; s++) {
             let mSpikeEl = document.createElement('i')
             let sSpikeEl = document.createElement('i')

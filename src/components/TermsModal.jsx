@@ -6,7 +6,7 @@ export default function TermsModal({ isOpen, onClose }) {
     const { t } = useLanguage()
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
-    // Close on Escape key
+
     useEffect(() => {
         const handleEsc = (e) => {
             if (e.key === 'Escape') onClose()
@@ -68,7 +68,7 @@ export default function TermsModal({ isOpen, onClose }) {
                     border: '1px solid rgba(196, 216, 46, 0.3)'
                 }}
             >
-                {/* Subtle Watermark / Flash Effect */}
+
                 <div style={{
                     position: 'absolute',
                     top: '-50%',
@@ -80,18 +80,18 @@ export default function TermsModal({ isOpen, onClose }) {
                     transition: 'opacity 0.3s'
                 }} />
 
-                {/* Close Button */}
+
                 <button
                     onClick={onClose}
                     className="close-btn"
                     style={{
                         position: 'absolute',
-                        top: '1rem', // Adjusted position
+                        top: '1rem',
                         right: '1rem',
                         background: 'rgba(255, 255, 255, 0.5)',
                         border: '1px solid rgba(0,0,0,0.1)',
                         borderRadius: '50%',
-                        width: '44px', // Touch target size
+                        width: '44px',
                         height: '44px',
                         color: '#1A1A1A',
                         cursor: 'pointer',
@@ -115,7 +115,7 @@ export default function TermsModal({ isOpen, onClose }) {
                     <X size={18} />
                 </button>
 
-                {/* Content */}
+
                 <div style={{ position: 'relative', zIndex: 5, textAlign: 'center' }}>
                     <h2 style={{
                         fontFamily: 'var(--font-title)',

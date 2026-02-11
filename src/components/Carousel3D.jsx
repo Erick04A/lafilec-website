@@ -10,17 +10,17 @@ export default function Carousel3D() {
         const box = boxRef.current
         if (!box) return
 
-        // Apply hover scale effect
+
         if (isHovered) {
             box.style.transform = 'scale(1.1)'
-            box.style.animationDuration = '80s' // Slow down rotation
+            box.style.animationDuration = '80s'
         } else {
             box.style.transform = 'scale(1)'
-            box.style.animationDuration = '50s' // Normal speed
+            box.style.animationDuration = '50s'
         }
     }, [isHovered])
 
-    // Placeholder images - will be replaced with LA FIL photos
+
     const placeholderImages = Array(8).fill({
         front: 'https://placehold.co/150x200/1a1a1a/C4D82E?text=PROXIMAMENTE&font=montserrat',
         back: 'https://placehold.co/150x200/1a1a1a/C4D82E?text=LA+FIL+2026&font=montserrat'
@@ -110,7 +110,7 @@ export default function Carousel3D() {
                             </div>
                         ))}
 
-                        {/* Piso energético */}
+
                         <div style={{
                             height: '43em',
                             width: '43em',

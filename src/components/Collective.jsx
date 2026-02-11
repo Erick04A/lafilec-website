@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLanguage } from '../store/LanguageContext'
+import CardSkeleton from './CardSkeleton'
 
 export default function Collective() {
     const { t } = useLanguage()
     const members = ['Leo', 'Max', 'Jake']
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        // Simulated loading - remove or connect to real API in the future
+        const timer = setTimeout(() => {
+            setLoading(false)
+        }, 1500)
+
+        return () => clearTimeout(timer)
+    }, [])
 
     return (
         <section id="collective" style={{ padding: '8rem 2rem' }}>
@@ -25,30 +36,41 @@ export default function Collective() {
                     gap: '2rem',
                     alignItems: 'start'
                 }}>
-                    {members.map((name, i) => (
-                        <div key={name} style={{
-                            marginTop: i % 2 !== 0 ? '4rem' : '0' // Asymmetric offset
-                        }}>
-                            <div style={{
-                                width: '100%',
-                                height: '400px',
-                                backgroundColor: '#e0e0e0',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginBottom: '1rem',
-                                borderRadius: '4px'
+                    {loading ? (
+                        members.map((name, i) => (
+                            <div key={`skeleton-${i}`} style={{
+                                marginTop: i % 2 !== 0 ? '4rem' : '0'
                             }}>
-                                <span style={{ color: '#999' }}>{t.collective.placeholder}: {name}</span>
+                                <CardSkeleton type="collective" />
                             </div>
-                            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: '700' }}>{name}</h3>
-                            <p style={{ fontSize: '0.9rem', opacity: 0.8, borderTop: '1px solid #ddd', paddingTop: '0.5rem' }}>
-                                {t.collective.role}
-                            </p>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        members.map((name, i) => (
+                            <div key={name} style={{
+                                marginTop: i % 2 !== 0 ? '4rem' : '0'
+                            }}>
+                                <div style={{
+                                    width: '100%',
+                                    height: '400px',
+                                    backgroundColor: '#e0e0e0',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    marginBottom: '1rem',
+                                    borderRadius: '4px'
+                                }}>
+                                    <span style={{ color: '#999' }}>{t.collective.placeholder}: {name}</span>
+                                </div>
+                                <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: '700' }}>{name}</h3>
+                                <p style={{ fontSize: '0.9rem', opacity: 0.8, borderTop: '1px solid #ddd', paddingTop: '0.5rem' }}>
+                                    {t.collective.role}
+                                </p>
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
         </section>
     )
 }
+

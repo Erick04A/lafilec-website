@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../store/LanguageContext'
 import { X } from 'lucide-react'
 
-// Linear interpolation utility for smooth speed transitions
+
 const lerp = (start, end, factor) => {
     return start + (end - start) * factor
 }
@@ -15,55 +15,55 @@ export default function Crowdfunding() {
     const [modalOpen, setModalOpen] = useState(false)
     const [isHovered, setIsHovered] = useState(false)
 
-    // Animation refs
+
     const boxRef = useRef(null)
     const animationRef = useRef(null)
     const rotationRef = useRef(0)
-    const speedRef = useRef(0.1) // Initial speed
+    const speedRef = useRef(0.1)
 
-    // Configuration for 8 Carousel Images
-    // Hybrid Selection: 5 User Originals + 3 User Selected Complementary Scenes (All Local)
+
+
     const baseUrl = import.meta.env.BASE_URL;
     const carouselImages = [
-        { id: 1, src: `${baseUrl}assets/carousel/img1.jpg` }, // User Image 1
-        { id: 2, src: `${baseUrl}assets/carousel/img2.jpg` }, // User Image 2
-        { id: 3, src: `${baseUrl}assets/carousel/img3.jpg` }, // User Image 3
-        { id: 4, src: `${baseUrl}assets/carousel/img4.jpg` }, // User Image 4
-        { id: 5, src: `${baseUrl}assets/carousel/img5.jpg` }, // User Image 5
-        { id: 6, src: `${baseUrl}assets/carousel/img6.jpg` }, // User Selected 1 (Slot 6)
-        { id: 7, src: `${baseUrl}assets/carousel/img7.jpg` }, // User Selected 2 (Slot 7)
-        { id: 8, src: `${baseUrl}assets/carousel/img8.jpg` }  // User Selected 3 (Slot 8)
+        { id: 1, src: `${baseUrl}assets/carousel/img1.jpg` },
+        { id: 2, src: `${baseUrl}assets/carousel/img2.jpg` },
+        { id: 3, src: `${baseUrl}assets/carousel/img3.jpg` },
+        { id: 4, src: `${baseUrl}assets/carousel/img4.jpg` },
+        { id: 5, src: `${baseUrl}assets/carousel/img5.jpg` },
+        { id: 6, src: `${baseUrl}assets/carousel/img6.jpg` },
+        { id: 7, src: `${baseUrl}assets/carousel/img7.jpg` },
+        { id: 8, src: `${baseUrl}assets/carousel/img8.jpg` }
     ]
 
-    // Calculate overall progress
+
     const totalTarget = t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.target, 0)
     const totalCurrent = t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.current, 0)
     const overallProgress = Math.round((totalCurrent / totalTarget) * 100)
 
-    // JS-driven Animation Loop
+
     useEffect(() => {
         const animate = () => {
-            // Target speed: 0.1 (normal) vs 0.02 (hover)
             const targetSpeed = isHovered ? 0.02 : 0.1
 
-            // Smoothly interpolate current speed towards target speed
+
+
             speedRef.current = lerp(speedRef.current, targetSpeed, 0.05)
 
-            // Update rotation angle
+
             rotationRef.current += speedRef.current
 
-            // Apply transform if ref exists
+
             if (boxRef.current) {
-                // Keep the 3D container transform logic here
-                // Note: The parent container handles the tilt (rotateX)
-                // We only rotate the carousel itself (rotateY)
+
+
+
                 boxRef.current.style.transform = `rotateY(-${rotationRef.current}deg)`
             }
 
             animationRef.current = requestAnimationFrame(animate)
         }
 
-        // Start loop
+
         animationRef.current = requestAnimationFrame(animate)
 
         return () => {
@@ -87,7 +87,7 @@ export default function Crowdfunding() {
 
     return (
         <section id="fuel" style={{ padding: '8rem 2rem', background: '#121212', color: '#fff', position: 'relative', fontFamily: 'sans-serif' }}>
-            {/* Ultra-thin Progress Bar at Top */}
+
             <div style={{
                 position: 'absolute',
                 top: 0,
@@ -107,7 +107,7 @@ export default function Crowdfunding() {
 
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-                {/* Header & Vision Block */}
+
                 <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
                     <h2 style={{
                         fontSize: '3.5rem',
@@ -133,23 +133,23 @@ export default function Crowdfunding() {
                     </p>
                 </div>
 
-                {/* 3D Carousel - Precise Engineering Control */}
+
                 <div
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     style={{
-                        height: '290px', // Increased 20% from 240px
-                        width: '290px',  // Increased 20%
+                        height: '290px',
+                        width: '290px',
                         perspective: '1200px',
                         margin: '4rem auto', // Balanced vertical spacing for centering
-                        transform: isHovered ? 'scale(1.15) rotateX(-10deg)' : 'scale(1.08) rotateX(-10deg)', // Smooth zoom on hover
+                        transform: isHovered ? 'scale(1.15) rotateX(-10deg)' : 'scale(1.08) rotateX(-10deg)',
                         transformStyle: 'preserve-3d',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         position: 'relative',
-                        transition: 'transform 0.8s ease-out', // Smooth scale/tilt transition
-                        zIndex: 1 // Keep carousel in lower z-index than goals
+                        transition: 'transform 0.8s ease-out',
+                        zIndex: 1
                     }}
                 >
                     <div
@@ -161,7 +161,7 @@ export default function Crowdfunding() {
                             position: 'absolute',
                             top: 0,
                             left: 0,
-                            // transform is handled by JS requestAnimationFrame
+
                             willChange: 'transform'
                         }}
                     >
@@ -169,15 +169,15 @@ export default function Crowdfunding() {
                             <div
                                 key={img.id}
                                 style={{
-                                    height: '290px', // Match container
-                                    width: '216px',  // Proportional width (approx 0.75 aspect)
+                                    height: '290px',
+                                    width: '216px',
                                     position: 'absolute',
                                     top: 0,
-                                    left: '37px', // Center horizontally in 290px container
+                                    left: '37px',
                                     boxShadow: '0 0 25px rgba(255, 215, 0, 0.6), 0 0 15px rgba(196, 216, 46, 0.4)',
                                     border: '2px solid',
                                     borderImage: 'linear-gradient(135deg, #FFD700, #C4D82E, #FFA500) 1',
-                                    transform: `rotateY(${index * 45}deg) translateZ(380px)`, // Increased Z to match new scale
+                                    transform: `rotateY(${index * 45}deg) translateZ(380px)`,
                                     transformStyle: 'preserve-3d',
                                     backfaceVisibility: 'hidden'
                                 }}
@@ -197,8 +197,8 @@ export default function Crowdfunding() {
                                             objectFit: 'cover',
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
-                                            pointerEvents: 'none', // CRITICAL: Prevents flicker bug
-                                            filter: 'brightness(0.9)' // REQUESTED: Organic dark integration
+                                            pointerEvents: 'none',
+                                            filter: 'brightness(0.9)'
                                         }}
                                         decoding="async"
                                         className="hardware-accelerated"
@@ -213,8 +213,8 @@ export default function Crowdfunding() {
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
                                             transform: 'rotateY(180deg)',
-                                            pointerEvents: 'none', // CRITICAL: Prevents flicker bug
-                                            filter: 'brightness(0.5) sepia(1) hue-rotate(20deg)' // Gold tint for back
+                                            pointerEvents: 'none',
+                                            filter: 'brightness(0.5) sepia(1) hue-rotate(20deg)'
                                         }}
                                         decoding="async"
                                         className="hardware-accelerated"
@@ -225,12 +225,12 @@ export default function Crowdfunding() {
                     </div>
                 </div>
 
-                {/* Goals 2026 - Main Focus with spacing */}
+
                 <div style={{
                     marginBottom: '4rem',
-                    marginTop: '220px', // Adjusted to EXACTLY 220px as requested
+                    marginTop: '220px',
                     position: 'relative',
-                    zIndex: 10 // Ensure it's definitively above any carousel reflections
+                    zIndex: 10
                 }}>
                     <h3 style={{
                         fontSize: '2rem',
@@ -261,7 +261,7 @@ export default function Crowdfunding() {
                                 }}
                                     onClick={() => setSelectedGoal(idx)}
                                 >
-                                    {/* Goal Header */}
+
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                                         <div>
                                             <h4 style={{
@@ -293,7 +293,7 @@ export default function Crowdfunding() {
                                         </div>
                                     </div>
 
-                                    {/* Progress Bar */}
+
                                     <div style={{
                                         width: '100%',
                                         height: '8px',
@@ -311,7 +311,7 @@ export default function Crowdfunding() {
                                         }} />
                                     </div>
 
-                                    {/* Contribution Selector - Only show if selected */}
+
                                     {isSelected && (
                                         <div style={{
                                             marginTop: '2rem',
@@ -386,7 +386,7 @@ export default function Crowdfunding() {
                     </div>
                 </div>
 
-                {/* Main Action Button */}
+
                 <div style={{ textAlign: 'center' }}>
                     <button
                         onClick={handleJoin}
@@ -410,7 +410,7 @@ export default function Crowdfunding() {
                 </div>
             </div>
 
-            {/* Secure Modal with Bank Details Image */}
+
             {modalOpen && (
                 <div style={{
                     position: 'fixed',
@@ -418,7 +418,7 @@ export default function Crowdfunding() {
                     left: 0,
                     width: '100%',
                     height: '100vh',
-                    background: 'rgba(0,0,0,0.95)', // 95% opacity black
+                    background: 'rgba(0,0,0,0.95)',
                     backdropFilter: 'blur(10px)',
                     display: 'flex',
                     alignItems: 'center',
@@ -430,9 +430,9 @@ export default function Crowdfunding() {
                 >
                     <div style={{
                         background: '#050505',
-                        padding: '2rem', // Compact padding
+                        padding: '2rem',
                         border: '1px solid #333',
-                        maxWidth: '500px', // Compact width
+                        maxWidth: '500px',
                         width: '100%',
                         position: 'relative',
                         boxShadow: '0 0 50px rgba(0,0,0,0.8)',
@@ -451,7 +451,7 @@ export default function Crowdfunding() {
                                 border: 'none',
                                 cursor: 'pointer',
                                 padding: '0.5rem',
-                                color: '#FFD700', // Gold close button
+                                color: '#FFD700',
                                 transition: 'transform 0.2s ease'
                             }}
                             onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
@@ -460,14 +460,14 @@ export default function Crowdfunding() {
                             <X size={24} />
                         </button>
 
-                        {/* Official Bank Details Image */}
+
                         <div style={{
                             marginBottom: '2rem',
                             marginTop: '1rem',
                             borderRadius: '8px',
                             overflow: 'hidden',
-                            border: '1px solid #FFD700', // Fine gold border
-                            boxShadow: '0 0 25px rgba(196, 216, 46, 0.2)' // Subtle neon green float
+                            border: '1px solid #FFD700',
+                            boxShadow: '0 0 25px rgba(196, 216, 46, 0.2)'
                         }}>
                             <img
                                 src={`${import.meta.env.BASE_URL}assets/images/bank_details.png`}
@@ -482,7 +482,7 @@ export default function Crowdfunding() {
                             />
                         </div>
 
-                        {/* Selected Goal & Amount Summary (Optional context, keeping compact) */}
+
                         {selectedGoal !== null && (
                             <p style={{
                                 color: '#666',
@@ -494,13 +494,13 @@ export default function Crowdfunding() {
                             </p>
                         )}
 
-                        {/* WhatsApp Button - High-End Styling */}
+
                         <button
                             onClick={handleWhatsApp}
                             style={{
-                                background: '#000', // Black bg
-                                color: '#C4D82E', // Neon text
-                                border: '1px solid #FFD700', // Gold border
+                                background: '#000',
+                                color: '#C4D82E',
+                                border: '1px solid #FFD700',
                                 padding: '1rem 3rem',
                                 fontSize: '0.9rem',
                                 fontWeight: '700',
@@ -513,7 +513,7 @@ export default function Crowdfunding() {
                                 boxShadow: '0 0 10px rgba(196, 216, 46, 0.1)'
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.boxShadow = '0 0 30px #C4D82E' // Intense neon glow
+                                e.currentTarget.style.boxShadow = '0 0 30px #C4D82E'
                                 e.currentTarget.style.textShadow = '0 0 10px #C4D82E'
                             }}
                             onMouseLeave={(e) => {

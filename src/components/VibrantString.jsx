@@ -20,7 +20,7 @@ export default function VibrantString() {
         updateSize()
         window.addEventListener('resize', updateSize)
 
-        // Scroll listener for tension effect
+
         const handleScroll = () => {
             const scrollY = window.scrollY
             const heroHeight = window.innerHeight
@@ -28,13 +28,13 @@ export default function VibrantString() {
         }
         window.addEventListener('scroll', handleScroll, { passive: true })
 
-        // Mouse move for explosive interaction
+
         const handleMouseMove = (e) => {
             if (isHovered) {
                 const rect = canvas.getBoundingClientRect()
                 mouseXRef.current = e.clientX - rect.left
 
-                // Create particle burst at cursor position
+
                 for (let i = 0; i < 5; i++) {
                     particlesRef.current.push({
                         x: mouseXRef.current,
@@ -60,7 +60,7 @@ export default function VibrantString() {
             const baseAmplitude = 3
             const scrollGlow = 4 + scrollIntensityRef.current * 12
 
-            // Draw the pulsing string with gradient
+
             ctx.beginPath()
             ctx.lineWidth = 2
             ctx.shadowBlur = scrollGlow
@@ -70,10 +70,10 @@ export default function VibrantString() {
                 const x = i * segmentWidth
                 let y = centerY
 
-                // Traveling wave (base animation)
+
                 y += Math.sin(i * 0.05 - time * 2) * baseAmplitude
 
-                // Explosive hover effect at cursor position
+
                 if (isHovered && mouseXRef.current !== null) {
                     const distance = Math.abs(x - mouseXRef.current)
                     const influence = Math.max(0, 1 - distance / 200)
@@ -88,7 +88,7 @@ export default function VibrantString() {
                 }
             }
 
-            // Gradient stroke
+
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0)
             gradient.addColorStop(0, 'rgba(196, 216, 46, 0)')
             gradient.addColorStop(0.5, 'rgba(196, 216, 46, 1)')
@@ -96,11 +96,11 @@ export default function VibrantString() {
             ctx.strokeStyle = gradient
             ctx.stroke()
 
-            // Draw and update particles
+
             particlesRef.current = particlesRef.current.filter(p => {
                 p.x += p.vx
                 p.y += p.vy
-                p.vy += 0.2 // gravity
+                p.vy += 0.2
                 p.life -= 0.02
 
                 if (p.life > 0) {

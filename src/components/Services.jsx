@@ -1,16 +1,26 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useLanguage } from '../store/LanguageContext'
 import { Download, X, Minus, Plus } from 'lucide-react'
+import CardSkeleton from './CardSkeleton'
 
-// Local Assets for Collection
 import imgStickers from '../assets/shop/stickers.jpg'
 import imgPlushies from '../assets/shop/peluche.jpg'
-const imgCookies = 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' // Artisan cookies
+const imgCookies = 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80'
 
 export default function Services() {
     const { t } = useLanguage()
     const [activeCategory, setActiveCategory] = useState(null)
-    const [cart, setCart] = useState({}) // { productId: quantity }
+    const [cart, setCart] = useState({})
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        // Simulated loading - remove or connect to real API in the future
+        const timer = setTimeout(() => {
+            setLoading(false)
+        }, 1200)
+
+        return () => clearTimeout(timer)
+    }, [])
 
     const categories = {
         stickers: {
@@ -45,7 +55,7 @@ export default function Services() {
     const { totalItems, totalPrice } = useMemo(() => {
         let count = 0
         let price = 0
-        // Iterate all categories to find products matching cart keys
+
         const allProducts = [
             ...t.shop.inventory.stickers,
             ...t.shop.inventory.plushies,
@@ -85,7 +95,7 @@ export default function Services() {
         <section id="curations" style={{ padding: '8rem 2rem', background: '#F9F9F9', color: '#1A1A1A' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-                {/* Events Header */}
+
                 <div style={{ marginBottom: '6rem', textAlign: 'center' }}>
                     <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1rem', fontFamily: 'var(--font-title)', fontWeight: '800' }}>
                         {t.events.title}
@@ -96,27 +106,27 @@ export default function Services() {
                     <div style={{ width: '60px', height: '4px', background: 'var(--color-primary)', margin: '0 auto' }}></div>
                 </div>
 
-                {/* 3-Card Grid */}
+
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', // Reduced min-width to ensure 1 col on narrow screens
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                     gap: '2.5rem',
                     marginBottom: '8rem',
-                    padding: '0 10px' // Extra internal safety padding
+                    padding: '0 10px'
                 }}>
-                    {/* Event Card 1 */}
+
                     <div
                         style={{
                             background: '#fff',
                             borderRadius: '12px',
                             overflow: 'hidden',
-                            boxShadow: '0 0 15px rgba(196, 216, 46, 0.2)', // Neon glow
+                            boxShadow: '0 0 15px rgba(196, 216, 46, 0.2)',
                             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                             cursor: 'default',
-                            border: '1px solid #C4D82E', // Neon Border
+                            border: '1px solid #C4D82E',
                             display: 'flex',
                             flexDirection: 'column',
-                            minHeight: '400px' // Revert to reasonable flexible height
+                            minHeight: '400px'
                         }}
                         onMouseEnter={e => {
                             e.currentTarget.style.transform = 'scale(1.05)';
@@ -153,22 +163,22 @@ export default function Services() {
                         </div>
                     </div>
 
-                    {/* PDF Program Card */}
+
                     <div
                         style={{
                             background: '#fff',
                             borderRadius: '12px',
-                            boxShadow: '0 0 15px rgba(196, 216, 46, 0.2)', // Neon glow
+                            boxShadow: '0 0 15px rgba(196, 216, 46, 0.2)',
                             transition: 'all 0.3s ease',
                             cursor: 'default',
-                            border: '1px solid #C4D82E', // Neon Border
+                            border: '1px solid #C4D82E',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
                             padding: '2rem 1.5rem',
-                            height: '300px', // Fixed compact height
-                            alignSelf: 'center' // Prevent grid stretching
+                            height: '300px',
+                            alignSelf: 'center'
                         }}
                         onMouseEnter={e => {
                             e.currentTarget.style.transform = 'translateY(-8px)';
@@ -194,8 +204,8 @@ export default function Services() {
                             rel="noopener noreferrer"
                             style={{
                                 padding: '0.75rem 1.5rem',
-                                background: '#C4D82E', // Neon Green
-                                color: '#000000', // Black Text
+                                background: '#C4D82E',
+                                color: '#000000',
                                 border: 'none',
                                 borderRadius: '50px',
                                 fontWeight: '700',
@@ -218,7 +228,7 @@ export default function Services() {
                         </a>
                     </div>
 
-                    {/* Event Card 2 */}
+
                     <div
                         style={{
                             background: '#fff',
@@ -268,7 +278,7 @@ export default function Services() {
                     </div>
                 </div>
 
-                {/* Shop Mini-Store (Human & Professional) */}
+
                 <div style={{ marginBottom: '8rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '3rem', borderBottom: '1px solid #ddd', paddingBottom: '1rem' }}>
                         <h3 style={{ fontSize: '2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: '#1A1A1A' }}>{t.shop.title}</h3>
@@ -282,134 +292,140 @@ export default function Services() {
                         </div>
                     </div>
 
-                    {/* Main Categories Grid */}
+
                     <div className="services-grid">
-                        {[
-                            {
-                                key: 'stickers',
-                                title: t.shop.sticker.title,
-                                desc: t.shop.sticker.desc,
-                                price: '3.00',
-                                img: imgStickers,
-                            },
-                            {
-                                key: 'plushies',
-                                title: t.shop.plushie.title,
-                                desc: t.shop.plushie.desc,
-                                price: '15.00',
-                                img: imgPlushies,
-                            },
-                            {
-                                key: 'cookies',
-                                title: t.shop.cookie.title,
-                                desc: t.shop.cookie.desc,
-                                price: '2.00',
-                                img: imgCookies,
-                                isCookie: true,
-                            }
-                        ].map((item) => (
-                            <div key={item.key} style={{
-                                background: '#fff',
-                                borderRadius: '16px',
-                                overflow: 'hidden',
-                                boxShadow: '0 4px 20px rgba(0,0,0,0.05)', // Soft shadow
-                                border: '1px solid #E0E0E0', // Subtle grey border
-                                transition: 'all 0.3s ease',
-                                cursor: 'pointer',
-                                position: 'relative',
-                                display: 'flex',
-                                flexDirection: 'column'
-                            }}
-                                onClick={() => setActiveCategory(item.key)}
-                                onMouseEnter={e => {
-                                    e.currentTarget.style.transform = 'translateY(-10px)';
-                                    e.currentTarget.style.boxShadow = '0 15px 40px rgba(196, 216, 46, 0.2)';
-                                    e.currentTarget.style.borderColor = '#C4D82E';
+                        {loading ? (
+                            [1, 2, 3].map((i) => (
+                                <CardSkeleton key={`skeleton-${i}`} type="product" />
+                            ))
+                        ) : (
+                            [
+                                {
+                                    key: 'stickers',
+                                    title: t.shop.sticker.title,
+                                    desc: t.shop.sticker.desc,
+                                    price: '3.00',
+                                    img: imgStickers,
+                                },
+                                {
+                                    key: 'plushies',
+                                    title: t.shop.plushie.title,
+                                    desc: t.shop.plushie.desc,
+                                    price: '15.00',
+                                    img: imgPlushies,
+                                },
+                                {
+                                    key: 'cookies',
+                                    title: t.shop.cookie.title,
+                                    desc: t.shop.cookie.desc,
+                                    price: '2.00',
+                                    img: imgCookies,
+                                    isCookie: true,
+                                }
+                            ].map((item) => (
+                                <div key={item.key} style={{
+                                    background: '#fff',
+                                    borderRadius: '16px',
+                                    overflow: 'hidden',
+                                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                                    border: '1px solid #E0E0E0',
+                                    transition: 'all 0.3s ease',
+                                    cursor: 'pointer',
+                                    position: 'relative',
+                                    display: 'flex',
+                                    flexDirection: 'column'
                                 }}
-                                onMouseLeave={e => {
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
-                                    e.currentTarget.style.borderColor = '#E0E0E0';
-                                }}
-                            >
-                                <div style={{ height: '240px', overflow: 'hidden' }}>
-                                    <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
-                                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
-                                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                                        loading="lazy"
-                                        decoding="async"
-                                        className="hardware-accelerated"
-                                    />
-                                </div>
-
-                                <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                                    <div>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                            <h4 style={{ fontSize: '1.4rem', fontWeight: '800', fontFamily: 'var(--font-title)', color: '#1A1A1A' }}>{item.title}</h4>
-                                            <span style={{ fontSize: '0.9rem', color: '#666' }}>{t.shop.price_from} ${item.price}</span>
-                                        </div>
-                                        <p style={{ color: '#555', marginBottom: '1.5rem', lineHeight: '1.4' }}>{item.desc}</p>
-
-                                        {item.isCookie && (
-                                            <div style={{
-                                                background: '#FFFEF2',
-                                                border: '1px solid var(--color-primary)',
-                                                borderRadius: '8px',
-                                                padding: '0.5rem',
-                                                marginBottom: '1.5rem',
-                                                fontSize: '0.85rem',
-                                                color: '#555'
-                                            }}>
-                                                <span style={{ display: 'block', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.2rem' }}>PROMO</span>
-                                                {t.shop.promo}
-                                            </div>
-                                        )}
+                                    onClick={() => setActiveCategory(item.key)}
+                                    onMouseEnter={e => {
+                                        e.currentTarget.style.transform = 'translateY(-10px)';
+                                        e.currentTarget.style.boxShadow = '0 15px 40px rgba(196, 216, 46, 0.2)';
+                                        e.currentTarget.style.borderColor = '#C4D82E';
+                                    }}
+                                    onMouseLeave={e => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
+                                        e.currentTarget.style.borderColor = '#E0E0E0';
+                                    }}
+                                >
+                                    <div style={{ height: '240px', overflow: 'hidden' }}>
+                                        <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
+                                            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
+                                            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="hardware-accelerated"
+                                        />
                                     </div>
 
-                                    <button style={{
-                                        padding: '0.8rem 1.5rem',
-                                        background: 'rgba(255, 255, 255, 0.7)',
-                                        backdropFilter: 'blur(4px)',
-                                        color: '#1A1A1A',
-                                        border: '1.5px solid #C4D82E',
-                                        borderRadius: '50px',
-                                        fontWeight: '700',
-                                        cursor: 'pointer',
-                                        width: '100%',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        gap: '0.5rem',
-                                        boxShadow: '0 0 10px rgba(196, 216, 46, 0.2)',
-                                        transition: 'all 0.3s ease-in-out',
-                                        transform: 'scale(1)'
-                                    }}
-                                        onMouseEnter={e => {
-                                            e.currentTarget.style.background = '#C4D82E'
-                                            e.currentTarget.style.color = '#5865F2' // Electric Blue
-                                            e.currentTarget.style.boxShadow = '0 0 20px rgba(170, 255, 0, 0.6)'
+                                    <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                        <div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                                <h4 style={{ fontSize: '1.4rem', fontWeight: '800', fontFamily: 'var(--font-title)', color: '#1A1A1A' }}>{item.title}</h4>
+                                                <span style={{ fontSize: '0.9rem', color: '#666' }}>{t.shop.price_from} ${item.price}</span>
+                                            </div>
+                                            <p style={{ color: '#555', marginBottom: '1.5rem', lineHeight: '1.4' }}>{item.desc}</p>
+
+                                            {item.isCookie && (
+                                                <div style={{
+                                                    background: '#FFFEF2',
+                                                    border: '1px solid var(--color-primary)',
+                                                    borderRadius: '8px',
+                                                    padding: '0.5rem',
+                                                    marginBottom: '1.5rem',
+                                                    fontSize: '0.85rem',
+                                                    color: '#555'
+                                                }}>
+                                                    <span style={{ display: 'block', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.2rem' }}>PROMO</span>
+                                                    {t.shop.promo}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <button style={{
+                                            padding: '0.8rem 1.5rem',
+                                            background: 'rgba(255, 255, 255, 0.7)',
+                                            backdropFilter: 'blur(4px)',
+                                            color: '#1A1A1A',
+                                            border: '1.5px solid #C4D82E',
+                                            borderRadius: '50px',
+                                            fontWeight: '700',
+                                            cursor: 'pointer',
+                                            width: '100%',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            gap: '0.5rem',
+                                            boxShadow: '0 0 10px rgba(196, 216, 46, 0.2)',
+                                            transition: 'all 0.3s ease-in-out',
+                                            transform: 'scale(1)'
                                         }}
-                                        onMouseLeave={e => {
-                                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.7)'
-                                            e.currentTarget.style.color = '#1A1A1A'
-                                            e.currentTarget.style.boxShadow = '0 0 10px rgba(196, 216, 46, 0.2)'
-                                            e.currentTarget.style.transform = 'scale(1)'
-                                        }}
-                                        onMouseDown={e => {
-                                            e.currentTarget.style.transform = 'scale(0.95)'
-                                        }}
-                                        onMouseUp={e => {
-                                            e.currentTarget.style.transform = 'scale(1)'
-                                        }}
-                                    >
-                                        {t.shop.btn_catalog}
-                                    </button>
+                                            onMouseEnter={e => {
+                                                e.currentTarget.style.background = '#C4D82E'
+                                                color: '#5865F2'
+                                                e.currentTarget.style.boxShadow = '0 0 20px rgba(170, 255, 0, 0.6)'
+                                            }}
+                                            onMouseLeave={e => {
+                                                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.7)'
+                                                e.currentTarget.style.color = '#1A1A1A'
+                                                e.currentTarget.style.boxShadow = '0 0 10px rgba(196, 216, 46, 0.2)'
+                                                e.currentTarget.style.transform = 'scale(1)'
+                                            }}
+                                            onMouseDown={e => {
+                                                e.currentTarget.style.transform = 'scale(0.95)'
+                                            }}
+                                            onMouseUp={e => {
+                                                e.currentTarget.style.transform = 'scale(1)'
+                                            }}
+                                        >
+                                            {t.shop.btn_catalog}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))
+                        )}
                     </div>
 
-                    {/* Sticky Checkout Button - Main Shop View */}
+
                     {totalItems > 0 && (
                         <div style={{
                             position: 'fixed',
@@ -448,7 +464,7 @@ export default function Services() {
 
             </div>
 
-            {/* Shop Modal */}
+
             {activeCategory && (
                 <div style={{
                     position: 'fixed',
@@ -525,7 +541,7 @@ export default function Services() {
                                         flexDirection: 'column',
                                         gap: '1rem'
                                     }}>
-                                        {/* Product Image Container with Zoom */}
+
                                         <div style={{
                                             borderRadius: '16px',
                                             overflow: 'hidden',
@@ -551,7 +567,7 @@ export default function Services() {
                                                 loading="lazy"
                                                 decoding="async"
                                             />
-                                            {/* Price Tag Removed from here */}
+
                                             <div style={{
                                                 position: 'absolute',
                                                 bottom: 0,
@@ -563,12 +579,12 @@ export default function Services() {
                                             }}></div>
                                         </div>
 
-                                        {/* Product Details & Quantity Control */}
+
                                         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0.5rem' }}>
                                             <div>
                                                 <h4 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.2rem', color: '#1A1A1A' }}>{product.title}</h4>
 
-                                                {/* Price Moved Here - Left Aligned */}
+
                                                 <p style={{
                                                     fontSize: '1.2rem',
                                                     color: '#B38728',
@@ -582,7 +598,7 @@ export default function Services() {
                                                 <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem', lineHeight: '1.4' }}>{product.desc}</p>
                                             </div>
 
-                                            {/* Logic for Custom vs Standard Items */}
+
                                             {product.isCustom ? (
                                                 <button
                                                     onClick={() => window.open(`https://wa.me/593998770378?text=Hola LA FIL, estoy interesado en los Stickers Personalizados.`, '_blank')}
@@ -618,7 +634,7 @@ export default function Services() {
                                                 </button>
                                             ) : (
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                                    {/* Quantity Selector - Clean & Centered */}
+
                                                     <div style={{
                                                         display: 'flex',
                                                         alignItems: 'center',

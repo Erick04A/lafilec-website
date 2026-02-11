@@ -15,12 +15,12 @@ export default function Vision() {
     const particlesRef = useRef([])
     const animationFrameRef = useRef(null)
 
-    // GSAP Animations
+
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            // 1. Particle Background Parallax (Depth Effect)
+
             gsap.to(canvasRef.current, {
-                yPercent: 30, // Moves slower than scroll (30% speed)
+                yPercent: 30,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: containerRef.current,
@@ -30,9 +30,9 @@ export default function Vision() {
                 }
             })
 
-            // 2. Text Reveal (Blur-to-Focus + Slide Up + Color Shift)
+
             textRef.current.forEach((line, i) => {
-                // Determine target color based on if it's the last line (Accent)
+
                 const isLast = i === textRef.current.length - 1
                 const targetColor = isLast ? '#B38728' : '#1A1A1A'
 
@@ -41,14 +41,14 @@ export default function Vision() {
                         opacity: 0,
                         y: 50,
                         filter: 'blur(10px)',
-                        color: '#999999', // Soft grey start
+                        color: '#999999',
                         willChange: 'transform, filter, opacity, color'
                     },
                     {
                         opacity: 1,
                         y: 0,
                         filter: 'blur(0px)',
-                        color: targetColor, // Deep Black or Bronze
+                        color: targetColor,
                         duration: 1.5,
                         ease: 'power3.out',
                         scrollTrigger: {
@@ -77,7 +77,7 @@ export default function Vision() {
         updateCanvasSize()
         window.addEventListener('resize', updateCanvasSize)
 
-        // Initialize particles with "Daylight Stardust" theme
+
         const isMobile = window.innerWidth <= 768
         const particleCount = isMobile ? 42 : 60
         particlesRef.current = Array.from({ length: particleCount }, () => ({
@@ -87,7 +87,7 @@ export default function Vision() {
             vy: (Math.random() - 0.5) * 0.3,
             size: Math.random() * 2 + 1,
             opacity: Math.random() * 0.4 + 0.1,
-            colorType: Math.random() > 0.6 ? 'gold' : 'grey', // Mix of Gold and Grey
+            colorType: Math.random() > 0.6 ? 'gold' : 'grey',
             baseX: 0,
             baseY: 0
         }))
@@ -132,10 +132,10 @@ export default function Vision() {
                 if (particle.baseY < 0) particle.baseY = canvas.height
                 if (particle.baseY > canvas.height) particle.baseY = 0
 
-                // Enhanced Particle Color: Gold or Soft Grey
+
                 const color = particle.colorType === 'gold'
-                    ? `rgba(179, 135, 40, ${particle.opacity})` // #B38728
-                    : `rgba(150, 150, 150, ${particle.opacity})` // Neutral Grey
+                    ? `rgba(179, 135, 40, ${particle.opacity})`
+                    : `rgba(150, 150, 150, ${particle.opacity})`
 
                 ctx.fillStyle = color
                 ctx.beginPath()
@@ -172,7 +172,7 @@ export default function Vision() {
             onMouseMove={handleMouseMove}
             style={{
                 padding: '10rem 2rem',
-                background: '#ffffff', // Explicit White background for contrast
+                background: '#ffffff',
                 minHeight: '80vh',
                 display: 'flex',
                 alignItems: 'center',
@@ -181,7 +181,7 @@ export default function Vision() {
                 overflow: 'hidden'
             }}
         >
-            {/* Particle Canvas Background */}
+
             <canvas
                 ref={canvasRef}
                 style={{
@@ -196,7 +196,7 @@ export default function Vision() {
                 }}
             />
 
-            {/* Content Layer */}
+
             <div style={{
                 maxWidth: '900px',
                 margin: '0 auto',
@@ -209,7 +209,7 @@ export default function Vision() {
                     textTransform: 'uppercase',
                     letterSpacing: '0.25em',
                     marginBottom: '5rem',
-                    color: '#B38728', // Bronze Title
+                    color: '#B38728',
                     fontFamily: 'var(--font-body)',
                     fontWeight: '700',
                     opacity: 0.9
@@ -217,7 +217,7 @@ export default function Vision() {
                     {t.about.title}
                 </h2>
 
-                {/* Poetic Lines with GSAP Reveal & High Contrast */}
+
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -238,13 +238,13 @@ export default function Vision() {
                                     fontFamily: 'var(--font-body)',
                                     fontSize: isLastLine ? 'clamp(1.5rem, 3.5vw, 2rem)' : 'clamp(1.2rem, 3vw, 1.6rem)',
                                     lineHeight: 1.6,
-                                    fontWeight: isLastLine ? '700' : '500', // Heavier weight for readability
+                                    fontWeight: isLastLine ? '700' : '500',
 
-                                    // High Contrast: Matte Black / Bronze Accent
+
                                     color: isLastLine ? '#B38728' : '#1A1A1A',
 
                                     marginBottom: 0,
-                                    letterSpacing: isHoveredLocal ? '0.05em' : '0.01em', // Vibration
+                                    letterSpacing: isHoveredLocal ? '0.05em' : '0.01em',
 
                                     // Subtle Paper Relief Shadow
                                     textShadow: '0 2px 4px rgba(0,0,0,0.05)',

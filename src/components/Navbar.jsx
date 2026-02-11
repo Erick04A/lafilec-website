@@ -7,7 +7,7 @@ export default function Navbar() {
   const { t, lang, switchLang } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // Dynamic links key access
+
   const links = [
     { key: 'curations', label: t.nav?.curations || 'Eventos' },
     { key: 'about', label: t.nav?.about || 'Nosotros' },
@@ -36,7 +36,7 @@ export default function Navbar() {
     }}>
       <ResonantSeal />
 
-      {/* Desktop Navigation */}
+
       <div style={{ display: window.innerWidth > 768 ? 'flex' : 'none', alignItems: 'center', gap: '3rem' }}>
         <ul style={{
           display: 'flex',
@@ -64,7 +64,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Language Selector */}
+
         <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.8rem', fontWeight: 'bold' }}>
           {['es', 'en', 'fr'].map((l) => (
             <button
@@ -86,7 +86,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Button */}
+
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         style={{
@@ -101,19 +101,19 @@ export default function Navbar() {
         {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
 
-      {/* Mobile Menu Overlay */}
+
       {mobileMenuOpen && window.innerWidth <= 768 && (
         <div style={{
           position: 'fixed',
-          top: '0', // Cover entire screen for better layout control
+          top: '0',
           left: 0,
           width: '100%',
-          height: '100vh', // Full height
-          background: 'rgba(18, 18, 18, 0.95)', // Dark Refined Background
+          height: '100vh',
+          background: 'rgba(18, 18, 18, 0.95)',
           backdropFilter: 'blur(15px)',
           WebkitBackdropFilter: 'blur(15px)',
-          padding: '6rem 2rem 2rem', // Top padding clears the logo area
-          zIndex: 98, // Below the navbar header (logo/close btn)
+          padding: '6rem 2rem 2rem',
+          zIndex: 98,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -125,9 +125,9 @@ export default function Navbar() {
             padding: 0,
             display: 'flex',
             flexDirection: 'column',
-            gap: '2rem', // Uniform Gap
+            gap: '2rem',
             width: '100%',
-            maxWidth: '400px', // Tablet constrain
+            maxWidth: '400px',
             alignItems: 'center'
           }}>
             {links.map((link, index) => (
@@ -145,7 +145,7 @@ export default function Navbar() {
                     display: 'block',
                     padding: '0.5rem 0',
                     opacity: 0,
-                    animation: `fadeInUp 0.4s ease forwards ${index * 0.1}s` // Stagger Animation
+                    animation: `fadeInUp 0.4s ease forwards ${index * 0.1}s`
                   }}
                 >
                   {link.label}
@@ -154,7 +154,7 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Language Selector Mobile */}
+
           <div style={{
             display: 'flex',
             gap: '1.5rem',
@@ -180,8 +180,8 @@ export default function Navbar() {
                   color: lang === l ? '#C4D82E' : '#FFF',
                   cursor: 'pointer',
                   textTransform: 'uppercase',
-                  padding: '0.8rem 0', // Uniform vertical padding
-                  width: '60px', // Fixed width for symmetry
+                  padding: '0.8rem 0',
+                  width: '60px',
                   fontWeight: 'bold',
                   borderRadius: '8px',
                   fontSize: '0.9rem',
