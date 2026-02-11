@@ -70,31 +70,30 @@ export default function Carousel3D() {
                                     height: '200px',
                                     width: '150px',
                                     position: 'absolute',
-                                    // Glassmorphism: Ultra-thin glass border
-                                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                                    // TRUE GLASSMORPHISM STRUCTURE
+                                    background: 'rgba(255, 255, 255, 0.05)',  // White tint almost invisible
+                                    backdropFilter: 'blur(12px) saturate(120%)',  // Frosted glass effect
+                                    WebkitBackdropFilter: 'blur(12px) saturate(120%)',
+                                    border: '1px solid rgba(255, 255, 255, 0.2)',  // Clean white glass edge
                                     borderRadius: '14px',
-                                    // Remove neon glow, add subtle glass shadow
-                                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-                                    // Backdrop blur for glass effect
-                                    backdropFilter: 'blur(8px)',
-                                    WebkitBackdropFilter: 'blur(8px)',
+                                    // DEEP BLACK SHADOW (no yellow/green glow)
+                                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.8)',
                                     transform: `rotateY(${index * 45}deg) translateZ(250px)`,
                                     overflow: 'hidden',
-                                    // Smooth transitions for hover
                                     transition: 'all 0.3s ease'
                                 }}
                             >
-                                {/* Glass overlay for crystal reflection */}
-                                <div style={{
+                                {/* Top light reflection (simulates sun on glass) */}
+                                <div className="glass-reflection" style={{
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
                                     width: '100%',
-                                    height: '100%',
-                                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%)',
+                                    height: '40%',
+                                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%)',
                                     pointerEvents: 'none',
-                                    zIndex: 2,
-                                    borderRadius: '14px'
+                                    zIndex: 3,
+                                    borderRadius: '14px 14px 0 0'
                                 }} />
 
                                 <div style={{
@@ -102,7 +101,8 @@ export default function Carousel3D() {
                                     width: '150px',
                                     transformStyle: 'preserve-3d',
                                     transition: '2s',
-                                    position: 'relative'
+                                    position: 'relative',
+                                    zIndex: 1  // Behind glass reflection
                                 }}>
                                     <img
                                         src={imgs.front}
@@ -114,9 +114,11 @@ export default function Carousel3D() {
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
                                             borderRadius: '14px',
-                                            // Enhanced for glass effect clarity
-                                            filter: 'brightness(1.05) contrast(1.05)',
-                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(255, 255, 255, 0.03))'
+                                            // Crystal clear image through glass
+                                            filter: 'brightness(1.1) contrast(1.08)',
+                                            zIndex: 1,
+                                            // Clean white reflection below
+                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(255, 255, 255, 0.02))'
                                         }}
                                     />
                                     <img
@@ -130,9 +132,11 @@ export default function Carousel3D() {
                                             backfaceVisibility: 'hidden',
                                             transform: 'rotateY(180deg)',
                                             borderRadius: '14px',
-                                            // Enhanced for glass effect clarity
-                                            filter: 'brightness(1.05) contrast(1.05)',
-                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(255, 255, 255, 0.03))'
+                                            // Crystal clear image through glass
+                                            filter: 'brightness(1.1) contrast(1.08)',
+                                            zIndex: 1,
+                                            // Clean white reflection below
+                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(255, 255, 255, 0.02))'
                                         }}
                                     />
                                 </div>
@@ -183,15 +187,19 @@ export default function Carousel3D() {
                     animation: rotar-3d 50s infinite linear;
                 }
 
-                /* Glassmorphism hover effects */
+                /* Glassmorphism hover effects - Crystal focus */
                 .elemento-3d:hover {
-                    border: 1px solid rgba(255, 255, 255, 0.35) !important;
-                    box-shadow: 0 8px 40px 0 rgba(255, 255, 255, 0.15) !important;
-                    transform: scale(1.05) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+                    boxShadow: '0 8px 40px 0 rgba(255, 255, 255, 0.12)' !important;
+                    transform: scale(1.03) !important;
                 }
 
                 .elemento-3d:hover img {
-                    filter: brightness(1.15) contrast(1.1) !important;
+                    filter: brightness(1.2) contrast(1.12) !important;
+                }
+                
+                .elemento-3d:hover .glass-reflection {
+                    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, transparent 100%) !important;
                 }
             `}</style>
         </section>
