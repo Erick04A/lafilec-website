@@ -345,6 +345,9 @@ export default function Services() {
                                 const collectionRefs = [collectionCard1, collectionCard2, collectionCard3]
                                 const cardReveal = collectionRefs[index]
 
+                                // Debug logging
+                                console.log('🛒 Collection Card:', item.title, 'isRevealed:', cardReveal.isRevealed)
+
                                 return (
                                     <div
                                         key={item.key}

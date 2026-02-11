@@ -422,3 +422,15 @@ h6 {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Fallback: Ensure visibility after 3 seconds if JS fails or doesn't trigger */
+.scroll-reveal {
+  animation: fallbackReveal 0.1s ease-out 3s forwards;
+}
+
+@keyframes fallbackReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

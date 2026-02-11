@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react'
  * @param {number} options.threshold - Intersection threshold (0-1)
  * @returns {Object} - Ref to attach to element and revealed state
  */
-export default function useScrollReveal({ delay = 0, once = true, threshold = 0.15 } = {}) {
+export default function useScrollReveal({ delay = 0, once = true, threshold = 0.1 } = {}) {
     const elementRef = useRef(null)
     const [isRevealed, setIsRevealed] = useState(false)
 
@@ -22,6 +22,7 @@ export default function useScrollReveal({ delay = 0, once = true, threshold = 0.
                 if (entry.isIntersecting) {
                     // Apply delay for stagger effect
                     setTimeout(() => {
+                        console.log('🎯 Scroll Reveal: Element revealed', { delay, threshold, element })
                         setIsRevealed(true)
                     }, delay)
 
@@ -33,7 +34,7 @@ export default function useScrollReveal({ delay = 0, once = true, threshold = 0.
             },
             {
                 threshold,
-                rootMargin: '0px 0px -50px 0px' // Trigger slightly before element is fully visible
+                rootMargin: '0px 0px -20px 0px' // Trigger earlier - reduced from -50px
             }
         )
 
