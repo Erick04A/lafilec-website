@@ -5,7 +5,7 @@ import CardSkeleton from './CardSkeleton'
 import useScrollReveal from '../hooks/useScrollReveal'
 
 import imgStickers from '../assets/shop/stickers.webp'
-import imgPlushies from '../assets/shop/peluche.webp'
+import imgPlushies from '../assets/shop/peluche.png'
 const imgCookies = 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80'
 
 export default function Services() {
