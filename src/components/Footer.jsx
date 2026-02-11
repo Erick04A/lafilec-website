@@ -224,7 +224,7 @@ export default function Footer() {
                 color: '#666',
                 letterSpacing: '0.05em'
             }}>
-                © 2026 LA FIL. {t.footer.rights}
+                <span>© 2026 LA FIL. {t.footer.rights}</span>
             </div>
         </footer>
     )
