@@ -3,8 +3,8 @@ import { useLanguage } from '../store/LanguageContext'
 import { Download, X, Minus, Plus } from 'lucide-react'
 import CardSkeleton from './CardSkeleton'
 
-import imgStickers from '../assets/shop/stickers.jpg'
-import imgPlushies from '../assets/shop/peluche.jpg'
+import imgStickers from '../assets/shop/stickers.webp'
+import imgPlushies from '../assets/shop/peluche.webp'
 const imgCookies = 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80'
 
 export default function Services() {
@@ -12,6 +12,7 @@ export default function Services() {
     const [activeCategory, setActiveCategory] = useState(null)
     const [cart, setCart] = useState({})
     const [loading, setLoading] = useState(true)
+    const [imageLoaded, setImageLoaded] = useState({})
 
     useEffect(() => {
         // Simulated loading - remove or connect to real API in the future
@@ -348,12 +349,16 @@ export default function Services() {
                                     }}
                                 >
                                     <div style={{ height: '240px', overflow: 'hidden' }}>
-                                        <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
-                                            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
-                                            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                        <img
+                                            src={item.img}
+                                            alt={item.title}
+                                            style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
+                                            className={`hardware-accelerated img-fade-in ${imageLoaded[item.key] ? 'img-loaded' : ''}`}
                                             loading="lazy"
                                             decoding="async"
-                                            className="hardware-accelerated"
+                                            onLoad={() => setImageLoaded(prev => ({ ...prev, [item.key]: true }))}
+                                            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
+                                            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                                         />
                                     </div>
 
