@@ -94,6 +94,47 @@
   animation: pulse 1.5s infinite;
 }
 
+/* Neon button glow effect (300ms fast reaction) */
+@keyframes neonGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(196, 216, 46, 0.3), 0 0 20px rgba(196, 216, 46, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(196, 216, 46, 0.6), 0 0 30px rgba(196, 216, 46, 0.4), 0 0 40px rgba(170, 255, 0, 0.3);
+  }
+}
+
+/* Neon button pulse scale effect (300ms) */
+@keyframes neonPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Apply to buttons with class neon-btn */
+.neon-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neon-btn:hover {
+  animation: neonGlow 0.6s ease-in-out, neonPulse 0.3s ease-out;
+}
+
+.neon-btn:active {
+  animation: neonPulse 0.15s ease-out;
+  transform: scale(0.98);
+}
+
+
 html,
 body {
   margin: 0;

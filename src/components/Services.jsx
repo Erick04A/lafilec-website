@@ -413,280 +413,280 @@ export default function Services() {
                                                 e.currentTarget.style.background = 'rgba(255, 255, 255, 0.7)'
                                                 e.currentTarget.style.color = '#1A1A1A'
                                                 e.currentTarget.style.boxShadow = '0 0 10px rgba(196, 216, 46, 0.2)'
-                                                e.currentTarget.style.transform = 'scale(1)'
-                                            }}
-                                            onMouseDown={e => {
-                                                e.currentTarget.style.transform = 'scale(0.95)'
-                                            }}
-                                            onMouseUp={e => {
-                                                e.currentTarget.style.transform = 'scale(1)'
-                                            }}
-                                        >
-                                            {t.shop.btn_catalog}
-                                        </button>
-                                    </div>
+                                                fontWeight: '700',
+                                                    fontSize: '0.9rem',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.05em',
+                                        boxShadow: '0 4px 15px rgba(196, 216, 46, 0.3)',
+                                        fontFamily: 'var(--font-title)'
+                                        }}>
+                                        {t.shop.btn_catalog}
+                                    </button>
                                 </div>
-                            ))
+                                </div>
+                    ))
                         )}
-                    </div>
-
-
-                    {totalItems > 0 && (
-                        <div style={{
-                            position: 'fixed',
-                            bottom: '2rem',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            zIndex: 1000,
-                            animation: 'slideUp 0.3s ease-out'
-                        }}>
-                            <button
-                                onClick={handleCheckout}
-                                style={{
-                                    background: '#25D366',
-                                    color: '#fff',
-                                    border: 'none',
-                                    padding: '1rem 3rem',
-                                    borderRadius: '50px',
-                                    fontWeight: '700',
-                                    fontSize: '1.1rem',
-                                    cursor: 'pointer',
-                                    boxShadow: '0 10px 30px rgba(37, 211, 102, 0.5)',
-                                    transition: 'transform 0.2s',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.5rem'
-                                }}
-                                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                {t.shop.btn_order} • ${totalPrice}
-                            </button>
-                        </div>
-                    )}
                 </div>
 
 
+                {totalItems > 0 && (
+                    <div style={{
+                        position: 'fixed',
+                        bottom: '2rem',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 1000,
+                        animation: 'slideUp 0.3s ease-out'
+                    }}>
+                        <button
+                            onClick={handleCheckout}
+                            style={{
+                                background: '#25D366',
+                                color: '#fff',
+                                border: 'none',
+                                padding: '1rem 3rem',
+                                borderRadius: '50px',
+                                fontWeight: '700',
+                                fontSize: '1.1rem',
+                                cursor: 'pointer',
+                                boxShadow: '0 10px 30px rgba(37, 211, 102, 0.5)',
+                                transition: 'transform 0.2s',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem'
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                        >
+                            {t.shop.btn_order} • ${totalPrice}
+                        </button>
+                    </div>
+                )}
             </div>
 
 
-            {activeCategory && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100vh',
-                    background: 'rgba(255,255,255,0.98)',
-                    zIndex: 2000,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    padding: '2rem',
-                    overflowY: 'auto'
-                }}>
-                    <button
-                        onClick={() => setActiveCategory(null)}
-                        style={{
-                            position: 'fixed',
-                            top: '2rem',
-                            right: '2rem',
-                            background: '#1A1A1A',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '50%',
-                            width: '50px',
-                            height: '50px',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 5px 15px rgba(0,0,0,0.2)',
-                            zIndex: 2010
-                        }}
-                    >
-                        <X size={24} />
-                    </button>
+        </div>
 
-                    <div style={{ maxWidth: '1200px', width: '100%', margin: '4rem auto', paddingBottom: '100px' }}>
-                        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                            <h2 style={{
-                                fontSize: 'clamp(2rem, 5vw, 3rem)',
-                                marginBottom: '1rem',
-                                fontFamily: 'var(--font-title)',
-                                fontWeight: '800',
+
+            {
+        activeCategory && (
+            <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100vh',
+                background: 'rgba(255,255,255,0.98)',
+                zIndex: 2000,
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '2rem',
+                overflowY: 'auto'
+            }}>
+                <button
+                    onClick={() => setActiveCategory(null)}
+                    style={{
+                        position: 'fixed',
+                        top: '2rem',
+                        right: '2rem',
+                        background: '#1A1A1A',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '50px',
+                        height: '50px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 5px 15px rgba(0,0,0,0.2)',
+                        zIndex: 2010
+                    }}
+                >
+                    <X size={24} />
+                </button>
+
+                <div style={{ maxWidth: '1200px', width: '100%', margin: '4rem auto', paddingBottom: '100px' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                        <h2 style={{
+                            fontSize: 'clamp(2rem, 5vw, 3rem)',
+                            marginBottom: '1rem',
+                            fontFamily: 'var(--font-title)',
+                            fontWeight: '800',
+                            color: '#1A1A1A'
+                        }}>
+                            {categories[activeCategory].title}
+                        </h2>
+                        {totalItems > 0 && (
+                            <div style={{
+                                display: 'inline-block',
+                                background: 'var(--color-primary)',
+                                padding: '0.5rem 1.5rem',
+                                borderRadius: '50px',
+                                fontWeight: 'bold',
+                                fontSize: '1.2rem',
                                 color: '#1A1A1A'
                             }}>
-                                {categories[activeCategory].title}
-                            </h2>
-                            {totalItems > 0 && (
-                                <div style={{
-                                    display: 'inline-block',
-                                    background: 'var(--color-primary)',
-                                    padding: '0.5rem 1.5rem',
-                                    borderRadius: '50px',
-                                    fontWeight: 'bold',
-                                    fontSize: '1.2rem',
-                                    color: '#1A1A1A'
-                                }}>
-                                    {t.shop.total}: ${totalPrice}
-                                </div>
-                            )}
-                        </div>
+                                {t.shop.total}: ${totalPrice}
+                            </div>
+                        )}
+                    </div>
 
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(3, 1fr)',
-                            gap: '2rem'
-                        }}>
-                            {categories[activeCategory].data.map((product) => {
-                                const quantity = cart[product.id] || 0
-                                return (
-                                    <div key={product.id} style={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: '1rem'
-                                    }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(3, 1fr)',
+                        gap: '2rem'
+                    }}>
+                        {categories[activeCategory].data.map((product) => {
+                            const quantity = cart[product.id] || 0
+                            return (
+                                <div key={product.id} style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '1rem'
+                                }}>
+
+                                    <div style={{
+                                        borderRadius: '16px',
+                                        overflow: 'hidden',
+                                        boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                                        background: '#fff',
+                                        aspectRatio: '1',
+                                        position: 'relative',
+                                        cursor: 'pointer'
+                                    }}
+                                        className="product-card"
+                                    >
+                                        <img
+                                            src={product.img || categories[activeCategory].img}
+                                            alt={product.title}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'contain',
+                                                padding: '1.5rem',
+                                                transition: 'transform 0.5s ease'
+                                            }}
+                                            className="product-img hardware-accelerated"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
 
                                         <div style={{
-                                            borderRadius: '16px',
-                                            overflow: 'hidden',
-                                            boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                                            background: '#fff',
-                                            aspectRatio: '1',
-                                            position: 'relative',
-                                            cursor: 'pointer'
-                                        }}
-                                            className="product-card"
-                                        >
-                                            <img
-                                                src={product.img || categories[activeCategory].img}
-                                                alt={product.title}
+                                            position: 'absolute',
+                                            bottom: 0,
+                                            left: 0,
+                                            width: '100%',
+                                            height: '4px',
+                                            background: 'linear-gradient(90deg, transparent, #FFD700, transparent)',
+                                            opacity: 0.5
+                                        }}></div>
+                                    </div>
+
+
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0.5rem' }}>
+                                        <div>
+                                            <h4 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.2rem', color: '#1A1A1A' }}>{product.title}</h4>
+
+
+                                            <p style={{
+                                                fontSize: '1.2rem',
+                                                color: '#B38728',
+                                                fontWeight: '700',
+                                                marginBottom: '0.5rem',
+                                                fontFamily: 'var(--font-heading)'
+                                            }}>
+                                                {product.isCustom ? 'Precio a consultar' : `Precio: $${product.price}`}
+                                            </p>
+
+                                            <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem', lineHeight: '1.4' }}>{product.desc}</p>
+                                        </div>
+
+
+                                        {product.isCustom ? (
+                                            <button
+                                                onClick={() => window.open(`https://wa.me/593998770378?text=Hola LA FIL, estoy interesado en los Stickers Personalizados.`, '_blank')}
                                                 style={{
                                                     width: '100%',
-                                                    height: '100%',
-                                                    objectFit: 'contain',
-                                                    padding: '1.5rem',
-                                                    transition: 'transform 0.5s ease'
+                                                    padding: '0.8rem',
+                                                    background: '#1A1A1A',
+                                                    color: '#FFD700',
+                                                    border: '1px solid #FFD700',
+                                                    borderRadius: '50px',
+                                                    fontWeight: '600',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.3s',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    gap: '0.5rem',
+                                                    marginTop: 'auto'
                                                 }}
-                                                className="product-img hardware-accelerated"
-                                                loading="lazy"
-                                                decoding="async"
-                                            />
+                                                onMouseEnter={e => {
+                                                    e.currentTarget.style.boxShadow = '0 0 15px #C4D82E'
+                                                    e.currentTarget.style.color = '#C4D82E'
+                                                    e.currentTarget.style.borderColor = '#C4D82E'
+                                                }}
+                                                onMouseLeave={e => {
+                                                    e.currentTarget.style.boxShadow = 'none'
+                                                    e.currentTarget.style.color = '#FFD700'
+                                                    e.currentTarget.style.borderColor = '#FFD700'
+                                                }}
+                                            >
 
-                                            <div style={{
-                                                position: 'absolute',
-                                                bottom: 0,
-                                                left: 0,
-                                                width: '100%',
-                                                height: '4px',
-                                                background: 'linear-gradient(90deg, transparent, #FFD700, transparent)',
-                                                opacity: 0.5
-                                            }}></div>
-                                        </div>
+                                                Cotizar en WhatsApp
+                                            </button>
+                                        ) : (
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-
-                                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0.5rem' }}>
-                                            <div>
-                                                <h4 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.2rem', color: '#1A1A1A' }}>{product.title}</h4>
-
-
-                                                <p style={{
-                                                    fontSize: '1.2rem',
-                                                    color: '#B38728',
-                                                    fontWeight: '700',
-                                                    marginBottom: '0.5rem',
-                                                    fontFamily: 'var(--font-heading)'
+                                                <div style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    gap: '1.5rem',
+                                                    background: '#FAFAFA',
+                                                    borderRadius: '12px',
+                                                    padding: '0.5rem',
+                                                    border: '1px solid #E0E0E0'
                                                 }}>
-                                                    {product.isCustom ? 'Precio a consultar' : `Precio: $${product.price}`}
-                                                </p>
-
-                                                <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem', lineHeight: '1.4' }}>{product.desc}</p>
-                                            </div>
-
-
-                                            {product.isCustom ? (
-                                                <button
-                                                    onClick={() => window.open(`https://wa.me/593998770378?text=Hola LA FIL, estoy interesado en los Stickers Personalizados.`, '_blank')}
-                                                    style={{
-                                                        width: '100%',
-                                                        padding: '0.8rem',
-                                                        background: '#1A1A1A',
-                                                        color: '#FFD700',
-                                                        border: '1px solid #FFD700',
-                                                        borderRadius: '50px',
-                                                        fontWeight: '600',
-                                                        cursor: 'pointer',
-                                                        transition: 'all 0.3s',
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        gap: '0.5rem',
-                                                        marginTop: 'auto'
+                                                    <button onClick={() => updateQuantity(product.id, -1)} style={{
+                                                        width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #ddd', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s'
                                                     }}
-                                                    onMouseEnter={e => {
-                                                        e.currentTarget.style.boxShadow = '0 0 15px #C4D82E'
-                                                        e.currentTarget.style.color = '#C4D82E'
-                                                        e.currentTarget.style.borderColor = '#C4D82E'
+                                                        onMouseEnter={e => e.currentTarget.style.background = '#f0f0f0'}
+                                                        onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+                                                    >
+                                                        <Minus size={16} color="#1A1A1A" />
+                                                    </button>
+                                                    <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#1A1A1A', minWidth: '30px', textAlign: 'center' }}>{quantity}</span>
+                                                    <button onClick={() => updateQuantity(product.id, 1)} style={{
+                                                        width: '36px', height: '36px', borderRadius: '50%', border: 'none', background: '#1A1A1A', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 10px rgba(0,0,0,0.2)', transition: 'all 0.3s'
                                                     }}
-                                                    onMouseLeave={e => {
-                                                        e.currentTarget.style.boxShadow = 'none'
-                                                        e.currentTarget.style.color = '#FFD700'
-                                                        e.currentTarget.style.borderColor = '#FFD700'
-                                                    }}
-                                                >
-
-                                                    Cotizar en WhatsApp
-                                                </button>
-                                            ) : (
-                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        gap: '1.5rem',
-                                                        background: '#FAFAFA',
-                                                        borderRadius: '12px',
-                                                        padding: '0.5rem',
-                                                        border: '1px solid #E0E0E0'
-                                                    }}>
-                                                        <button onClick={() => updateQuantity(product.id, -1)} style={{
-                                                            width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #ddd', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s'
+                                                        onMouseEnter={e => {
+                                                            e.currentTarget.style.transform = 'scale(1.1)'
+                                                            e.currentTarget.style.boxShadow = '0 0 10px #C4D82E'
+                                                            e.currentTarget.style.borderColor = '#C4D82E'
                                                         }}
-                                                            onMouseEnter={e => e.currentTarget.style.background = '#f0f0f0'}
-                                                            onMouseLeave={e => e.currentTarget.style.background = '#fff'}
-                                                        >
-                                                            <Minus size={16} color="#1A1A1A" />
-                                                        </button>
-                                                        <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#1A1A1A', minWidth: '30px', textAlign: 'center' }}>{quantity}</span>
-                                                        <button onClick={() => updateQuantity(product.id, 1)} style={{
-                                                            width: '36px', height: '36px', borderRadius: '50%', border: 'none', background: '#1A1A1A', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 10px rgba(0,0,0,0.2)', transition: 'all 0.3s'
+                                                        onMouseLeave={e => {
+                                                            e.currentTarget.style.transform = 'scale(1)'
+                                                            e.currentTarget.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)'
+                                                            e.currentTarget.style.borderColor = 'transparent'
                                                         }}
-                                                            onMouseEnter={e => {
-                                                                e.currentTarget.style.transform = 'scale(1.1)'
-                                                                e.currentTarget.style.boxShadow = '0 0 10px #C4D82E'
-                                                                e.currentTarget.style.borderColor = '#C4D82E'
-                                                            }}
-                                                            onMouseLeave={e => {
-                                                                e.currentTarget.style.transform = 'scale(1)'
-                                                                e.currentTarget.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)'
-                                                                e.currentTarget.style.borderColor = 'transparent'
-                                                            }}
-                                                        >
-                                                            <Plus size={16} color="#FFD700" />
-                                                        </button>
-                                                    </div>
+                                                    >
+                                                        <Plus size={16} color="#FFD700" />
+                                                    </button>
                                                 </div>
-                                            )}
-                                        </div>
+                                            </div>
+                                        )}
                                     </div>
-                                )
-                            })}
-                        </div>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
+            </div>
 
-            )}
-        </section>
+        )
+    }
+        </section >
     )
 }

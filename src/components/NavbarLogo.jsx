@@ -111,6 +111,28 @@ export default function ResonantSeal() {
                     0% { height: 6px; opacity: 0.8; }
                     100% { height: 16px; opacity: 1; }
                 }
+                
+                /* Visual pulse animation for logo (300ms) */
+                @keyframes logoPulse {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.08); }
+                }
+                
+                /* Visual glow animation for logo (300ms) */
+                @keyframes logoGlow {
+                    0%, 100% { filter: drop-shadow(0 0 8px rgba(170, 255, 0, 0.6)) drop-shadow(0 0 1px rgba(0,0,0,0.8)); }
+                    50% { filter: drop-shadow(0 0 16px rgba(170, 255, 0, 0.9)) drop-shadow(0 0 1px rgba(0,0,0,0.8)); }
+                }
+                
+                /* Apply pulse on hover */
+                .logo-holographic:hover {
+                    animation: logoPulse 0.3s ease-out;
+                }
+                
+                /* Apply glow to logo image on hover */
+                .logo-holographic:hover img {
+                    animation: logoGlow 0.3s ease-out;
+                }
             `}</style>
         </div>
     )
