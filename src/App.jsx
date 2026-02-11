@@ -47,7 +47,7 @@ function Content() {
       )}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route index element={<HomePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

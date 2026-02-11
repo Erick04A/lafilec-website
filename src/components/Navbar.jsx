@@ -6,6 +6,7 @@ import ResonantSeal from './NavbarLogo'
 export default function Navbar() {
   const { t, lang, switchLang } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [navHovered, setNavHovered] = useState(false) // State to trigger logo animation
 
 
   const links = [
@@ -34,7 +35,7 @@ export default function Navbar() {
       background: window.innerWidth <= 768 ? 'rgba(255, 254, 242, 0.95)' : 'transparent',
       backdropFilter: window.innerWidth <= 768 ? 'blur(10px)' : 'none'
     }}>
-      <ResonantSeal />
+      <ResonantSeal triggerPulse={navHovered} />
 
 
       <div style={{ display: window.innerWidth > 768 ? 'flex' : 'none', alignItems: 'center', gap: '3rem' }}>
@@ -49,13 +50,28 @@ export default function Navbar() {
             <li key={link.key}>
               <a
                 href={link.external ? link.url : `#${link.key}`}
+                onMouseEnter={() => setNavHovered(true)}
+                onMouseLeave={() => setNavHovered(false)}
                 style={{
                   textDecoration: 'none',
                   color: 'var(--color-text)',
                   fontWeight: '600',
                   fontSize: '0.85rem',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.05em'
+                  letterSpacing: '0.05em',
+                  position: 'relative',
+                  transition: 'color 0.3s ease, opacity 0.3s ease',
+                  opacity: 0.8
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.color = '#C4D82E'
+                  e.currentTarget.style.opacity = '1'
+                  e.currentTarget.style.filter = 'drop-shadow(0 0 8px rgba(196, 216, 46, 0.4))'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.color = 'var(--color-text)'
+                  e.currentTarget.style.opacity = '0.8'
+                  e.currentTarget.style.filter = 'none'
                 }}
               >
                 {link.label}
