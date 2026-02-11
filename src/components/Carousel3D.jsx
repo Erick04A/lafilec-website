@@ -70,29 +70,30 @@ export default function Carousel3D() {
                                     height: '200px',
                                     width: '150px',
                                     position: 'absolute',
-                                    // TRUE GLASSMORPHISM STRUCTURE
-                                    background: 'rgba(255, 255, 255, 0.05)',  // White tint almost invisible
-                                    backdropFilter: 'blur(12px) saturate(120%)',  // Frosted glass effect
-                                    WebkitBackdropFilter: 'blur(12px) saturate(120%)',
-                                    border: '1px solid rgba(255, 255, 255, 0.2)',  // Clean white glass edge
+                                    // TRUE GLASSMORPHISM STRUCTURE - FORCED PRIORITY
+                                    background: 'rgba(255, 255, 255, 0.05) !important',
+                                    backdropFilter: 'blur(12px) saturate(120%) !important',
+                                    WebkitBackdropFilter: 'blur(12px) saturate(120%) !important',
+                                    border: '1px solid rgba(255, 255, 255, 0.2) !important',
                                     borderRadius: '14px',
-                                    // DEEP BLACK SHADOW (no yellow/green glow)
-                                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.8)',
+                                    // DEEP BLACK SHADOW (no yellow/green glow) - FORCED
+                                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.8) !important',
                                     transform: `rotateY(${index * 45}deg) translateZ(250px)`,
-                                    overflow: 'hidden',
-                                    transition: 'all 0.3s ease'
+                                    overflow: 'visible',  // Don't hide glass reflection
+                                    transition: 'all 0.3s ease',
+                                    zIndex: 1
                                 }}
                             >
-                                {/* Top light reflection (simulates sun on glass) */}
+                                {/* Top light reflection (simulates sun on glass) - FORCED VISIBILITY */}
                                 <div className="glass-reflection" style={{
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
                                     width: '100%',
                                     height: '40%',
-                                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%)',
+                                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%) !important',
                                     pointerEvents: 'none',
-                                    zIndex: 3,
+                                    zIndex: 10,  // High z-index to be on top
                                     borderRadius: '14px 14px 0 0'
                                 }} />
 
