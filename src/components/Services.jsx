@@ -15,15 +15,11 @@ export default function Services() {
     const [loading, setLoading] = useState(true)
     const [imageLoaded, setImageLoaded] = useState({})
 
-    // Scroll reveal hooks for event cards (3 cards)
+    // Scroll reveal hooks for event cards only (3 cards)
+    // Collection cards will be always visible for reliability
     const eventCard1 = useScrollReveal({ delay: 0 })
     const eventCard2 = useScrollReveal({ delay: 100 })
     const eventCard3 = useScrollReveal({ delay: 200 })
-
-    // Scroll reveal hooks for collection cards (3 cards)
-    const collectionCard1 = useScrollReveal({ delay: 0 })
-    const collectionCard2 = useScrollReveal({ delay: 100 })
-    const collectionCard3 = useScrollReveal({ delay: 200 })
 
     useEffect(() => {
         // Simulated loading - remove or connect to real API in the future
@@ -340,107 +336,96 @@ export default function Services() {
                                     img: imgCookies,
                                     isCookie: true,
                                 }
-                            ].map((item, index) => {
-                                // Get the appropriate scroll reveal hook based on index
-                                const collectionRefs = [collectionCard1, collectionCard2, collectionCard3]
-                                const cardReveal = collectionRefs[index]
-
-                                // Debug logging
-                                console.log('🛒 Collection Card:', item.title, 'isRevealed:', cardReveal.isRevealed)
-
-                                return (
-                                    <div
-                                        key={item.key}
-                                        ref={cardReveal.ref}
-                                        className={`scroll-reveal ${cardReveal.isRevealed ? 'revealed' : ''}`}
-                                        style={{
-                                            background: '#fff',
-                                            borderRadius: '16px',
-                                            overflow: 'hidden',
-                                            boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                                            border: '1px solid #E0E0E0',
-                                            transition: 'all 0.3s ease',
-                                            cursor: 'pointer',
-                                            position: 'relative',
-                                            display: 'flex',
-                                            flexDirection: 'column'
-                                        }}
-                                        onClick={() => setActiveCategory(item.key)}
-                                        onMouseEnter={e => {
-                                            e.currentTarget.style.transform = 'translateY(-10px)';
-                                            e.currentTarget.style.boxShadow = '0 15px 40px rgba(196, 216, 46, 0.2)';
-                                            e.currentTarget.style.borderColor = '#C4D82E';
-                                        }}
-                                        onMouseLeave={e => {
-                                            e.currentTarget.style.transform = 'translateY(0)';
-                                            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
-                                            e.currentTarget.style.borderColor = '#E0E0E0';
-                                        }}
-                                    >
-                                        <div style={{ height: '240px', overflow: 'hidden' }}>
-                                            <img
-                                                src={item.img}
-                                                alt={item.title}
-                                                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
-                                                className={`hardware-accelerated img-fade-in ${imageLoaded[item.key] ? 'img-loaded' : ''}`}
-                                                loading="lazy"
-                                                decoding="async"
-                                                onLoad={() => setImageLoaded(prev => ({ ...prev, [item.key]: true }))}
-                                                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
-                                                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                                            />
-                                        </div>
-
-                                        <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                                            <div>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                                    <h4 style={{ fontSize: '1.4rem', fontWeight: '800', fontFamily: 'var(--font-title)', color: '#1A1A1A' }}>{item.title}</h4>
-                                                    <span style={{ fontSize: '0.9rem', color: '#666' }}>{t.shop.price_from} ${item.price}</span>
-                                                </div>
-                                                <p style={{ color: '#555', marginBottom: '1.5rem', lineHeight: '1.4' }}>{item.desc}</p>
-
-                                                {item.isCookie && (
-                                                    <div style={{
-                                                        background: '#FFFEF2',
-                                                        border: '1px solid var(--color-primary)',
-                                                        borderRadius: '8px',
-                                                        padding: '0.5rem',
-                                                        marginBottom: '1.5rem',
-                                                        fontSize: '0.85rem',
-                                                        color: '#555'
-                                                    }}>
-                                                        <span style={{ display: 'block', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.2rem' }}>PROMO</span>
-                                                        {t.shop.promo}
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            <button onClick={() => {
-                                                setActiveCategory(item.key)
-                                            }} className="neon-btn" style={{
-                                                padding: '0.85rem 2rem',
-                                                background: 'rgba(255, 255, 255, 0.7)',
-                                                color: '#1A1A1A',
-                                                border: '2px solid #C4D82E',
-                                                borderRadius: '10px',
-                                                cursor: 'pointer',
-                                                fontWeight: '700',
-                                                fontSize: '0.9rem',
-                                                textTransform: 'uppercase',
-                                                letterSpacing: '0.08em',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                gap: '0.5rem',
-                                                boxShadow: '0 0 10px rgba(196, 216, 46, 0.2)',
-                                                fontFamily: 'var(--font-title)'
-                                            }}>
-                                                {t.shop.btn_catalog}
-                                            </button>
-                                        </div>
+                            ].map((item) => (
+                                <div
+                                    key={item.key}
+                                    style={{
+                                        background: '#fff',
+                                        borderRadius: '16px',
+                                        overflow: 'hidden',
+                                        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                                        border: '1px solid #E0E0E0',
+                                        transition: 'all 0.3s ease',
+                                        cursor: 'pointer',
+                                        position: 'relative',
+                                        display: 'flex',
+                                        flexDirection: 'column'
+                                    }}
+                                    onClick={() => setActiveCategory(item.key)}
+                                    onMouseEnter={e => {
+                                        e.currentTarget.style.transform = 'translateY(-10px)';
+                                        e.currentTarget.style.boxShadow = '0 15px 40px rgba(196, 216, 46, 0.2)';
+                                        e.currentTarget.style.borderColor = '#C4D82E';
+                                    }}
+                                    onMouseLeave={e => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
+                                        e.currentTarget.style.borderColor = '#E0E0E0';
+                                    }}
+                                >
+                                    <div style={{ height: '240px', overflow: 'hidden' }}>
+                                        <img
+                                            src={item.img}
+                                            alt={item.title}
+                                            style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
+                                            className={`hardware-accelerated img-fade-in ${imageLoaded[item.key] ? 'img-loaded' : ''}`}
+                                            loading="lazy"
+                                            decoding="async"
+                                            onLoad={() => setImageLoaded(prev => ({ ...prev, [item.key]: true }))}
+                                            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
+                                            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                        />
                                     </div>
-                                )
-                            })
+
+                                    <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                        <div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                                <h4 style={{ fontSize: '1.4rem', fontWeight: '800', fontFamily: 'var(--font-title)', color: '#1A1A1A' }}>{item.title}</h4>
+                                                <span style={{ fontSize: '0.9rem', color: '#666' }}>{t.shop.price_from} ${item.price}</span>
+                                            </div>
+                                            <p style={{ color: '#555', marginBottom: '1.5rem', lineHeight: '1.4' }}>{item.desc}</p>
+
+                                            {item.isCookie && (
+                                                <div style={{
+                                                    background: '#FFFEF2',
+                                                    border: '1px solid var(--color-primary)',
+                                                    borderRadius: '8px',
+                                                    padding: '0.5rem',
+                                                    marginBottom: '1.5rem',
+                                                    fontSize: '0.85rem',
+                                                    color: '#555'
+                                                }}>
+                                                    <span style={{ display: 'block', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.2rem' }}>PROMO</span>
+                                                    {t.shop.promo}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <button onClick={() => {
+                                            setActiveCategory(item.key)
+                                        }} className="neon-btn" style={{
+                                            padding: '0.85rem 2rem',
+                                            background: 'rgba(255, 255, 255, 0.7)',
+                                            color: '#1A1A1A',
+                                            border: '2px solid #C4D82E',
+                                            borderRadius: '10px',
+                                            cursor: 'pointer',
+                                            fontWeight: '700',
+                                            fontSize: '0.9rem',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.08em',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            gap: '0.5rem',
+                                            boxShadow: '0 0 10px rgba(196, 216, 46, 0.2)',
+                                            fontFamily: 'var(--font-title)'
+                                        }}>
+                                            {t.shop.btn_catalog}
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
                         )}
                     </div>
 
