@@ -70,16 +70,39 @@ export default function Carousel3D() {
                                     height: '200px',
                                     width: '150px',
                                     position: 'absolute',
-                                    boxShadow: '0 0 15px rgba(196, 216, 46, 0.5)',
-                                    border: '1px solid #C4D82E',
-                                    transform: `rotateY(${index * 45}deg) translateZ(250px)`
+                                    // Glassmorphism: Ultra-thin glass border
+                                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                                    borderRadius: '14px',
+                                    // Remove neon glow, add subtle glass shadow
+                                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                                    // Backdrop blur for glass effect
+                                    backdropFilter: 'blur(8px)',
+                                    WebkitBackdropFilter: 'blur(8px)',
+                                    transform: `rotateY(${index * 45}deg) translateZ(250px)`,
+                                    overflow: 'hidden',
+                                    // Smooth transitions for hover
+                                    transition: 'all 0.3s ease'
                                 }}
                             >
+                                {/* Glass overlay for crystal reflection */}
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%)',
+                                    pointerEvents: 'none',
+                                    zIndex: 2,
+                                    borderRadius: '14px'
+                                }} />
+
                                 <div style={{
                                     height: '200px',
                                     width: '150px',
                                     transformStyle: 'preserve-3d',
-                                    transition: '2s'
+                                    transition: '2s',
+                                    position: 'relative'
                                 }}>
                                     <img
                                         src={imgs.front}
@@ -90,7 +113,10 @@ export default function Carousel3D() {
                                             objectFit: 'cover',
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
-                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(196, 216, 46, 0.05))'
+                                            borderRadius: '14px',
+                                            // Enhanced for glass effect clarity
+                                            filter: 'brightness(1.05) contrast(1.05)',
+                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(255, 255, 255, 0.03))'
                                         }}
                                     />
                                     <img
@@ -103,7 +129,10 @@ export default function Carousel3D() {
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
                                             transform: 'rotateY(180deg)',
-                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(196, 216, 46, 0.05))'
+                                            borderRadius: '14px',
+                                            // Enhanced for glass effect clarity
+                                            filter: 'brightness(1.05) contrast(1.05)',
+                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(255, 255, 255, 0.03))'
                                         }}
                                     />
                                 </div>
@@ -152,6 +181,17 @@ export default function Carousel3D() {
 
                 .box-3d {
                     animation: rotar-3d 50s infinite linear;
+                }
+
+                /* Glassmorphism hover effects */
+                .elemento-3d:hover {
+                    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+                    box-shadow: 0 8px 40px 0 rgba(255, 255, 255, 0.15) !important;
+                    transform: scale(1.05) !important;
+                }
+
+                .elemento-3d:hover img {
+                    filter: brightness(1.15) contrast(1.1) !important;
                 }
             `}</style>
         </section>
