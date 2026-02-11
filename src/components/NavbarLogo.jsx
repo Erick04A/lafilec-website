@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-export default function ResonantSeal() {
+export default function ResonantSeal({ triggerPulse = false }) {
     const [isHovered, setIsHovered] = useState(false)
+    const [isPulsing, setIsPulsing] = useState(false)
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
 
@@ -10,6 +11,15 @@ export default function ResonantSeal() {
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
     }, [])
+
+    // Trigger pulse animation when navbar links are hovered
+    useEffect(() => {
+        if (triggerPulse) {
+            setIsPulsing(true)
+            const timeout = setTimeout(() => setIsPulsing(false), 300)
+            return () => clearTimeout(timeout)
+        }
+    }, [triggerPulse])
 
     const handleClick = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -36,7 +46,7 @@ export default function ResonantSeal() {
             onClick={handleClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="logo-holographic"
+            className={`logo-holographic ${isPulsing ? 'logo-pulsing' : ''}`}
             style={{
                 position: 'relative',
                 cursor: 'pointer',
@@ -44,8 +54,7 @@ export default function ResonantSeal() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '0 10px',
-                height: isMobile ? '40px' : '50px', // Smaller on mobile
-                // No background/border - Frameless
+                height: isMobile ? '40px' : '50px',
                 background: 'transparent',
                 transition: 'transform 0.3s ease',
                 transform: isHovered ? 'scale(1.1)' : 'scale(1)',
@@ -132,6 +141,15 @@ export default function ResonantSeal() {
                 /* Apply glow to logo image on hover */
                 .logo-holographic:hover img {
                     animation: logoGlow 0.3s ease-out;
+                }
+                
+                /* Apply pulse when navbar links are hovered (triggered by state) */
+                .logo-pulsing {
+                    animation: logoPulse 0.3s ease-out !important;
+                }
+                
+                .logo-pulsing img {
+                    animation: logoGlow 0.3s ease-out !important;
                 }
             `}</style>
         </div>
