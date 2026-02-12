@@ -7,7 +7,7 @@ import TermsModal from './TermsModal'
 export default function Footer() {
     const { t } = useLanguage()
     const [hoveredLink, setHoveredLink] = useState(null)
-    const [logoHovered, setLogoHovered] = useState(false)
+    const [logoGroupHovered, setLogoGroupHovered] = useState(false) // Unified state
     const [pulseIntensity, setPulseIntensity] = useState(6)
     const [isTermsOpen, setIsTermsOpen] = useState(false)
     const animationRef = useRef(null)
@@ -17,14 +17,14 @@ export default function Footer() {
         const animate = () => {
             time += 0.02
             const basePulse = 6 + Math.sin(time) * 2
-            setPulseIntensity(logoHovered ? 16 : basePulse)
+            setPulseIntensity(logoGroupHovered ? 16 : basePulse)
             animationRef.current = requestAnimationFrame(animate)
         }
         animate()
         return () => {
             if (animationRef.current) cancelAnimationFrame(animationRef.current)
         }
-    }, [logoHovered])
+    }, [logoGroupHovered])
 
     const socialLinks = [
         {
@@ -61,7 +61,7 @@ export default function Footer() {
     ]
 
     const linkStyle = (index) => ({
-        color: hoveredLink === index ? '#C4D82E' : '#ccc',
+        color: hoveredLink === index ? '#C4D82E' : '#FFFFFF', // Pure White default, Neon hover
         textDecoration: 'none',
         display: 'flex',
         alignItems: 'center',
@@ -77,10 +77,11 @@ export default function Footer() {
         <footer
             id="contact"
             style={{
-                background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.95), #1A1A1A)',
-                color: '#fff',
+                background: '#2C2C2C', // Semi-Dark Premium Charcoal
+                color: '#FFFFFF', // Pure White text base
                 padding: '5rem 3rem 3rem',
-                position: 'relative'
+                position: 'relative',
+                borderTop: '1px solid rgba(255, 255, 255, 0.2)' // Clean White Divider (0.2 opacity)
             }}
         >
             <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
@@ -94,14 +95,24 @@ export default function Footer() {
                 marginBottom: '4rem'
             }}>
 
-                <div>
+                {/* Unified Logo Group Container */}
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        cursor: 'pointer',
+                        transition: 'all 0.4s ease'
+                    }}
+                    onMouseEnter={() => setLogoGroupHovered(true)}
+                    onMouseLeave={() => setLogoGroupHovered(false)}
+                >
                     <div
-                        onMouseEnter={() => setLogoHovered(true)}
-                        onMouseLeave={() => setLogoHovered(false)}
                         style={{
-                            cursor: 'pointer',
-                            transition: 'transform 0.3s ease',
-                            transform: logoHovered ? 'scale(1.05)' : 'scale(1)'
+                            transition: 'transform 0.4s ease',
+                            transform: logoGroupHovered ? 'scale(1.05)' : 'scale(1)',
+                            marginLeft: '-10px',
+                            filter: logoGroupHovered ? 'drop-shadow(0 0 15px rgba(196, 216, 46, 0.4))' : 'none' // Shared glow on container hover
                         }}
                     >
                         <img
@@ -110,21 +121,29 @@ export default function Footer() {
                             style={{
                                 height: '90px',
                                 width: 'auto',
-                                marginBottom: '1.5rem',
+                                marginBottom: '1.0rem', // Reduced gap for tighter lockup
                                 filter: `drop-shadow(0 0 ${pulseIntensity}px rgba(196, 216, 46, 0.6))`,
                                 transition: 'filter 0.3s ease'
                             }}
                         />
                     </div>
-                    <p style={{
-                        fontFamily: 'var(--font-body)',
-                        fontSize: '1rem',
-                        fontWeight: '200',
-                        letterSpacing: '0.2em',
-                        color: '#999',
-                        marginTop: '1rem',
-                        textTransform: 'uppercase'
-                    }}>
+                    <p
+                        style={{
+                            fontFamily: '"La Belle Aurore", cursive', // Signature/Annotation style
+                            fontSize: '1.5rem', // Larger for the thin signature look
+                            fontWeight: '400', // Light weight as requested
+                            letterSpacing: logoGroupHovered ? '0.1em' : '0.05em', // Tighter for signature feel
+                            color: 'var(--color-neon-green)', // Neon Green Vibrante
+                            opacity: logoGroupHovered ? 1 : 0.9,
+                            marginTop: '0.2rem',
+                            textTransform: 'none',
+                            transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                            textShadow: logoGroupHovered ? '0 0 12px rgba(196, 216, 46, 0.8)' : 'none',
+                            filter: logoGroupHovered ? 'brightness(1.2)' : 'brightness(1)',
+                            cursor: 'default',
+                            transform: 'translateX(-35px) rotate(-4deg)',
+                            userSelect: 'none' // Protected
+                        }}>
                         {t.footer.motto}
                     </p>
                 </div>
@@ -136,7 +155,7 @@ export default function Footer() {
                         fontSize: '1rem',
                         fontWeight: '700',
                         marginBottom: '1.5rem',
-                        color: '#C4D82E',
+                        color: '#C4D82E', // Neon Green Title (Original Identity)
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em'
                     }}>
@@ -163,7 +182,7 @@ export default function Footer() {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.75rem',
-                            color: '#999',
+                            color: '#FFFFFF', // White Icon Text
                             marginTop: '0.5rem',
                             fontSize: '0.9rem'
                         }}>
@@ -180,7 +199,7 @@ export default function Footer() {
                         fontSize: '1rem',
                         fontWeight: '700',
                         marginBottom: '1.5rem',
-                        color: '#C4D82E',
+                        color: '#C4D82E', // Neon Green Title (Original Identity)
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em'
                     }}>
@@ -199,14 +218,14 @@ export default function Footer() {
                                     }
                                 }}
                                 style={{
-                                    color: '#ccc',
+                                    color: '#FFFFFF', // Pure White links
                                     textDecoration: 'none',
                                     fontSize: '0.95rem',
                                     transition: 'color 0.3s ease',
                                     cursor: 'pointer'
                                 }}
-                                onMouseEnter={(e) => e.target.style.color = '#888'}
-                                onMouseLeave={(e) => e.target.style.color = '#ccc'}
+                                onMouseEnter={(e) => e.target.style.color = '#C4D82E'}
+                                onMouseLeave={(e) => e.target.style.color = '#FFFFFF'}
                             >
                                 {link.label}
                             </a>
@@ -216,16 +235,27 @@ export default function Footer() {
             </div>
 
 
+            {/* Neon Divider Line */}
             <div style={{
-                borderTop: '1px solid rgba(196, 216, 46, 0.2)',
-                paddingTop: '2rem',
+                height: '1px',
+                width: '100%',
+                background: 'rgba(46, 91, 255, 0.4)', // Solid but translucent core
+                boxShadow: '0 0 8px rgba(0, 102, 255, 0.6)', // Electric blue glow
+                border: 'none',
+                marginBottom: '2rem',
+                marginTop: '0rem'
+            }} />
+
+            {/* Copyright Text */}
+            <div style={{
                 textAlign: 'center',
                 fontSize: '0.85rem',
-                color: '#666',
-                letterSpacing: '0.05em'
+                color: '#FFFFFF',
+                letterSpacing: '0.05em',
+                opacity: 0.8
             }}>
                 <span>© 2026 LA FIL. {t.footer.rights}</span>
             </div>
-        </footer>
+        </footer >
     )
 }

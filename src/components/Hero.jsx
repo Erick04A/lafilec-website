@@ -27,7 +27,8 @@ export default function Hero() {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '0 2rem'
+            padding: '0 2rem',
+            transition: 'background-color 0.4s ease, color 0.4s ease'
         }}>
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
                 <Canvas camera={{ position: [0, 0, 5] }}>
@@ -102,7 +103,8 @@ export default function Hero() {
                         color: 'var(--color-text)',
                         textAlign: 'center',
                         letterSpacing: '0.01em',
-                        padding: '0 1rem'
+                        padding: '0 1rem',
+                        transition: 'color 0.4s ease'
                     }}
                 >
                     {t.hero.mantra}

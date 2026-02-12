@@ -86,7 +86,14 @@ export default function Crowdfunding() {
     }
 
     return (
-        <section id="fuel" style={{ padding: '8rem 2rem', background: '#121212', color: '#fff', position: 'relative', fontFamily: 'sans-serif' }}>
+        <section id="fuel" style={{
+            padding: '8rem 2rem',
+            background: 'var(--color-bg)',
+            color: 'var(--color-text)',
+            position: 'relative',
+            fontFamily: 'sans-serif',
+            transition: 'background-color 0.4s ease, color 0.4s ease'
+        }}>
 
             <div style={{
                 position: 'absolute',
@@ -112,7 +119,7 @@ export default function Crowdfunding() {
                     <h2 style={{
                         fontSize: '3.5rem',
                         marginBottom: '1.5rem',
-                        color: '#fff',
+                        color: '#1A1A1A',
                         fontFamily: 'var(--font-title)',
                         fontWeight: '900',
                         letterSpacing: '-1px'
@@ -122,12 +129,21 @@ export default function Crowdfunding() {
                     <p style={{
                         maxWidth: '700px',
                         margin: '0 auto',
-                        fontSize: '1.1rem',
-                        color: '#C4D82E',
-                        lineHeight: '1.8',
+                        fontSize: '1.25rem',
+                        // Animated Neon Gradient
+                        background: 'linear-gradient(90deg, #C4D82E 0%, #8A9A1B 50%, #C4D82E 100%)',
+                        backgroundSize: '200% auto',
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
+                        color: 'transparent', // Essential for background-clip
+                        animation: 'shimmer 8s linear infinite', // Slow smooth flow
+                        // Typography & Glow
+                        lineHeight: '2.0',
                         fontFamily: 'sans-serif',
-                        fontWeight: '400',
-                        fontStyle: 'italic'
+                        fontWeight: '600',
+                        fontStyle: 'italic',
+                        letterSpacing: '0.03em',
+                        textShadow: '0 0 30px rgba(196, 216, 46, 0.4)' // Soft neon glow
                     }}>
                         {t.crowdfunding.vision}
                     </p>
@@ -174,9 +190,9 @@ export default function Crowdfunding() {
                                     position: 'absolute',
                                     top: 0,
                                     left: '37px',
-                                    boxShadow: '0 0 25px rgba(255, 215, 0, 0.6), 0 0 15px rgba(196, 216, 46, 0.4)',
-                                    border: '2px solid',
-                                    borderImage: 'linear-gradient(135deg, #FFD700, #C4D82E, #FFA500) 1',
+                                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0,0,0,0.06)',
+                                    border: '1px solid rgba(0,0,0,0.08)',
+                                    borderRadius: '12px',
                                     transform: `rotateY(${index * 45}deg) translateZ(380px)`,
                                     transformStyle: 'preserve-3d',
                                     backfaceVisibility: 'hidden'
@@ -198,7 +214,7 @@ export default function Crowdfunding() {
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
                                             pointerEvents: 'none',
-                                            filter: 'brightness(0.9)'
+                                            filter: 'brightness(1.05)'
                                         }}
                                         decoding="async"
                                         className="hardware-accelerated"
@@ -235,7 +251,7 @@ export default function Crowdfunding() {
                     <h3 style={{
                         fontSize: '2rem',
                         marginBottom: '3rem',
-                        color: '#fff',
+                        color: '#1A1A1A',
                         fontFamily: 'var(--font-title)',
                         fontWeight: '700',
                         textAlign: 'center'
@@ -251,12 +267,12 @@ export default function Crowdfunding() {
 
                             return (
                                 <div key={idx} style={{
-                                    background: 'rgba(255,255,255,0.03)',
-                                    border: `2px solid ${isSelected ? '#C4D82E' : (isNearComplete ? '#C4D82E' : '#333')}`,
+                                    background: 'rgba(0,0,0,0.03)',
+                                    border: `2px solid ${isSelected ? '#C4D82E' : (isNearComplete ? '#C4D82E' : '#E0E0E0')}`,
                                     padding: '2rem',
                                     borderRadius: '8px',
                                     transition: 'all 0.3s ease',
-                                    boxShadow: (isSelected || isNearComplete) ? '0 0 30px rgba(196, 216, 46, 0.3)' : 'none',
+                                    boxShadow: (isSelected || isNearComplete) ? '0 10px 30px rgba(196, 216, 46, 0.2)' : '0 8px 20px rgba(0,0,0,0.08)',
                                     cursor: 'pointer'
                                 }}
                                     onClick={() => setSelectedGoal(idx)}
@@ -267,7 +283,7 @@ export default function Crowdfunding() {
                                             <h4 style={{
                                                 fontSize: '1.5rem',
                                                 fontWeight: '700',
-                                                color: (isSelected || isNearComplete) ? '#C4D82E' : '#fff',
+                                                color: (isSelected || isNearComplete) ? '#C4D82E' : '#1A1A1A',
                                                 transition: 'color 0.3s ease',
                                                 marginBottom: '0.5rem',
                                                 fontFamily: 'var(--font-title)',
@@ -277,7 +293,7 @@ export default function Crowdfunding() {
                                             </h4>
                                             <span style={{
                                                 fontSize: '0.9rem',
-                                                color: '#aaa',
+                                                color: '#666',
                                                 fontFamily: 'monospace'
                                             }}>
                                                 ${goal.current} / ${goal.target}
@@ -297,7 +313,7 @@ export default function Crowdfunding() {
                                     <div style={{
                                         width: '100%',
                                         height: '8px',
-                                        background: '#222',
+                                        background: '#EEE',
                                         borderRadius: '4px',
                                         overflow: 'hidden',
                                         marginBottom: '1.5rem'
@@ -305,7 +321,7 @@ export default function Crowdfunding() {
                                         <div style={{
                                             width: `${progress}%`,
                                             height: '100%',
-                                            background: (isSelected || isNearComplete) ? 'linear-gradient(90deg, #FFD700, #FFA500, #C4D82E)' : '#555',
+                                            background: (isSelected || isNearComplete) ? 'linear-gradient(90deg, #C4D82E, #AEC225)' : '#CCC',
                                             transition: 'all 0.5s ease',
                                             boxShadow: (isSelected || isNearComplete) ? '0 0 15px rgba(255, 215, 0, 0.6)' : 'none'
                                         }} />
@@ -316,11 +332,11 @@ export default function Crowdfunding() {
                                         <div style={{
                                             marginTop: '2rem',
                                             paddingTop: '2rem',
-                                            borderTop: '1px solid #333'
+                                            borderTop: '1px solid #E0E0E0'
                                         }}>
                                             <p style={{
                                                 fontSize: '0.9rem',
-                                                color: '#aaa',
+                                                color: '#555',
                                                 marginBottom: '1rem',
                                                 textTransform: 'uppercase',
                                                 letterSpacing: '1px'
@@ -342,9 +358,9 @@ export default function Crowdfunding() {
                                                         }}
                                                         style={{
                                                             padding: '1rem',
-                                                            background: selectedAmount === amount ? '#C4D82E' : 'rgba(255,255,255,0.05)',
-                                                            color: selectedAmount === amount ? '#000' : '#fff',
-                                                            border: `1px solid ${selectedAmount === amount ? '#C4D82E' : '#444'}`,
+                                                            background: selectedAmount === amount ? '#C4D82E' : '#FFF',
+                                                            color: selectedAmount === amount ? '#FFF' : '#333',
+                                                            border: `1px solid ${selectedAmount === amount ? '#C4D82E' : '#DDD'}`,
                                                             borderRadius: '4px',
                                                             cursor: 'pointer',
                                                             fontWeight: '700',
@@ -367,9 +383,9 @@ export default function Crowdfunding() {
                                                     }}
                                                     style={{
                                                         padding: '1rem',
-                                                        background: customAmount ? '#C4D82E' : 'rgba(255,255,255,0.05)',
-                                                        color: customAmount ? '#000' : '#fff',
-                                                        border: `1px solid ${customAmount ? '#C4D82E' : '#444'}`,
+                                                        background: customAmount ? '#C4D82E' : '#FFF',
+                                                        color: customAmount ? '#FFF' : '#333',
+                                                        border: `1px solid ${customAmount ? '#C4D82E' : '#DDD'}`,
                                                         borderRadius: '4px',
                                                         fontWeight: '700',
                                                         fontSize: '1rem',
@@ -392,9 +408,9 @@ export default function Crowdfunding() {
                         onClick={handleJoin}
                         style={{
                             padding: '1.2rem 5rem',
-                            background: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#000' : '#333',
-                            color: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#C4D82E' : '#666',
-                            border: `2px solid ${(selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#C4D82E' : '#444'}`,
+                            background: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#1A1A1A' : '#E0E0E0',
+                            color: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#C4D82E' : '#999',
+                            border: `2px solid ${(selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#1A1A1A' : '#CCC'}`,
                             fontWeight: '800',
                             textTransform: 'uppercase',
                             fontSize: '1.1rem',

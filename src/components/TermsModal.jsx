@@ -53,16 +53,16 @@ export default function TermsModal({ isOpen, onClose }) {
                 onClick={(e) => e.stopPropagation()}
                 onMouseMove={handleMouseMove}
                 style={{
-                    background: 'rgba(255, 255, 255, 0.85)',
+                    background: 'var(--color-modal-bg)',
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
                     borderRadius: '24px',
                     width: 'min(90%, 480px)', // Responsive width
                     maxWidth: '480px',
                     padding: '3rem 1.5rem', // Reduced side padding for mobile
-                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5) inset',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1) inset',
                     position: 'relative',
-                    color: '#1A1A1A',
+                    color: 'var(--color-text)',
                     animation: 'elasticScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
                     overflow: 'hidden',
                     border: '1px solid rgba(196, 216, 46, 0.3)'
@@ -121,10 +121,10 @@ export default function TermsModal({ isOpen, onClose }) {
                         fontFamily: 'var(--font-title)',
                         fontSize: '1.8rem',
                         fontWeight: '800',
-                        color: '#1A1A1A',
+                        color: 'var(--color-text)',
                         marginBottom: '1.5rem',
                         letterSpacing: '-0.02em',
-                        background: 'linear-gradient(45deg, #1A1A1A, #4a4a4a)',
+                        background: 'linear-gradient(45deg, var(--color-text), #4a4a4a)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent'
                     }}>

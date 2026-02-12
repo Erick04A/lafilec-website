@@ -100,7 +100,7 @@ export default function Services() {
     }
 
     return (
-        <section id="curations" style={{ padding: '8rem 2rem', background: '#F9F9F9', color: '#1A1A1A' }}>
+        <section id="curations" className="services-section">
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
 
@@ -127,13 +127,14 @@ export default function Services() {
                         ref={eventCard1.ref}
                         className={`scroll-reveal ${eventCard1.isRevealed ? 'revealed' : ''}`}
                         style={{
-                            background: '#fff',
+                            background: 'var(--card-bg, #fff)', // Fallback to white if var not set (Light Mode default handled by index.css or fallback)
                             borderRadius: '12px',
                             overflow: 'hidden',
-                            boxShadow: '0 0 15px rgba(196, 216, 46, 0.2)',
+                            // Default Light Mode Shadow
+                            boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
                             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                             cursor: 'default',
-                            border: '1px solid #C4D82E',
+                            border: '1px solid #C4D82E', // Light mode default
                             display: 'flex',
                             flexDirection: 'column',
                             minHeight: '400px'
@@ -159,14 +160,14 @@ export default function Services() {
                             />
                         </div>
                         <div style={{ padding: '0.6rem 1rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <h3 style={{ fontSize: '1.15rem', marginBottom: '0.2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: '#1A2238' }}>
+                            <h3 style={{ fontSize: '1.15rem', marginBottom: '0.2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: 'var(--color-text)' }}>
                                 {t.events.items[0].name}
                             </h3>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <p style={{ fontSize: '0.85rem', color: '#1A2238', fontWeight: '700' }}>
+                                <p className="event-date" style={{ fontSize: '0.85rem', color: 'var(--color-text)', fontWeight: '700', transition: 'text-shadow 0.3s' }}>
                                     {t.events.items[0].date}
                                 </p>
-                                <p style={{ fontSize: '0.8rem', color: '#666' }}>
+                                <p style={{ fontSize: '0.8rem', color: 'var(--color-text)', opacity: 0.8 }}>
                                     {t.events.items[0].location}
                                 </p>
                             </div>
@@ -178,9 +179,9 @@ export default function Services() {
                         ref={eventCard2.ref}
                         className={`scroll-reveal ${eventCard2.isRevealed ? 'revealed' : ''}`}
                         style={{
-                            background: '#fff',
+                            background: 'var(--card-bg, #fff)',
                             borderRadius: '12px',
-                            boxShadow: '0 0 15px rgba(196, 216, 46, 0.2)',
+                            boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
                             transition: 'all 0.3s ease',
                             cursor: 'default',
                             border: '1px solid #C4D82E',
@@ -245,10 +246,10 @@ export default function Services() {
                         ref={eventCard3.ref}
                         className={`scroll-reveal ${eventCard3.isRevealed ? 'revealed' : ''}`}
                         style={{
-                            background: '#fff',
+                            background: 'var(--card-bg, #fff)',
                             borderRadius: '12px',
                             overflow: 'hidden',
-                            boxShadow: '0 0 15px rgba(196, 216, 46, 0.2)',
+                            boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
                             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                             cursor: 'default',
                             border: '1px solid #C4D82E',
@@ -277,14 +278,14 @@ export default function Services() {
                             />
                         </div>
                         <div style={{ padding: '0.6rem 1rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <h3 style={{ fontSize: '1.15rem', marginBottom: '0.2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: '#1A2238' }}>
+                            <h3 style={{ fontSize: '1.15rem', marginBottom: '0.2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: 'var(--color-text)' }}>
                                 {t.events.items[1].name}
                             </h3>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <p style={{ fontSize: '0.85rem', color: '#1A2238', fontWeight: '700' }}>
+                                <p className="event-date" style={{ fontSize: '0.85rem', color: 'var(--color-text)', fontWeight: '700', transition: 'text-shadow 0.3s' }}>
                                     {t.events.items[1].date}
                                 </p>
-                                <p style={{ fontSize: '0.8rem', color: '#666' }}>
+                                <p style={{ fontSize: '0.8rem', color: 'var(--color-text)', opacity: 0.8 }}>
                                     {t.events.items[1].location}
                                 </p>
                             </div>
@@ -339,18 +340,7 @@ export default function Services() {
                             ].map((item) => (
                                 <div
                                     key={item.key}
-                                    style={{
-                                        background: '#fff',
-                                        borderRadius: '16px',
-                                        overflow: 'hidden',
-                                        boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                                        border: '1px solid #E0E0E0',
-                                        transition: 'all 0.3s ease',
-                                        cursor: 'pointer',
-                                        position: 'relative',
-                                        display: 'flex',
-                                        flexDirection: 'column'
-                                    }}
+                                    className="collection-card"
                                     onClick={() => setActiveCategory(item.key)}
                                     onMouseEnter={e => {
                                         e.currentTarget.style.transform = 'translateY(-10px)';
@@ -380,10 +370,10 @@ export default function Services() {
                                     <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                         <div>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                                <h4 style={{ fontSize: '1.4rem', fontWeight: '800', fontFamily: 'var(--font-title)', color: '#1A1A1A' }}>{item.title}</h4>
-                                                <span style={{ fontSize: '0.9rem', color: '#666' }}>{t.shop.price_from} ${item.price}</span>
+                                                <h4 className="product-title" style={{ fontSize: '1.4rem', fontWeight: '800', fontFamily: 'var(--font-title)', color: 'var(--color-text)' }}>{item.title}</h4>
+                                                <span className="product-price" style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7 }}>{t.shop.price_from} ${item.price}</span>
                                             </div>
-                                            <p style={{ color: '#555', marginBottom: '1.5rem', lineHeight: '1.4' }}>{item.desc}</p>
+                                            <p className="product-desc" style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '1.5rem', lineHeight: '1.4' }}>{item.desc}</p>
 
                                             {item.isCookie && (
                                                 <div style={{
@@ -403,11 +393,9 @@ export default function Services() {
 
                                         <button onClick={() => {
                                             setActiveCategory(item.key)
-                                        }} className="neon-btn" style={{
+                                        }} className="neon-btn collection-btn" style={{
                                             padding: '0.85rem 2rem',
-                                            background: 'rgba(255, 255, 255, 0.7)',
-                                            color: '#1A1A1A',
-                                            border: '2px solid #C4D82E',
+                                            // background/color handled by class
                                             borderRadius: '10px',
                                             cursor: 'pointer',
                                             fontWeight: '700',
@@ -418,7 +406,6 @@ export default function Services() {
                                             justifyContent: 'center',
                                             alignItems: 'center',
                                             gap: '0.5rem',
-                                            boxShadow: '0 0 10px rgba(196, 216, 46, 0.2)',
                                             fontFamily: 'var(--font-title)'
                                         }}>
                                             {t.shop.btn_catalog}

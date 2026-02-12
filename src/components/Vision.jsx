@@ -172,13 +172,14 @@ export default function Vision() {
             onMouseMove={handleMouseMove}
             style={{
                 padding: '10rem 2rem',
-                background: '#ffffff',
+                background: 'var(--color-bg)',
                 minHeight: '80vh',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                transition: 'background-color 0.4s ease'
             }}
         >
 
@@ -241,7 +242,7 @@ export default function Vision() {
                                     fontWeight: isLastLine ? '700' : '500',
 
 
-                                    color: isLastLine ? '#B38728' : '#1A1A1A',
+                                    color: isLastLine ? '#B38728' : 'var(--color-text)',
 
                                     marginBottom: 0,
                                     letterSpacing: isHoveredLocal ? '0.05em' : '0.01em',

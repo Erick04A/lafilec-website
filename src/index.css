@@ -1,22 +1,69 @@
 :root {
   scroll-behavior: smooth;
 
-  /* Primary Brand Colors */
-  --color-bg: #FFFEF2;
+  /* Primary Brand Colors (Light Mode Default - Cream) */
+  --color-bg: #F5F2E9;
+  --color-text: #1A1A1A;
+  --color-footer-bg: #F5F2E9;
+  --color-glass: rgba(255, 255, 255, 0.15);
+  /* Light Mode Glass */
+
   --color-primary: #C4D82E;
   --color-secondary: #F7FF3C;
-  --color-text: #1A1A1A;
-
-  /* Extended Palette */
   --color-lime-neon: #C4D82E;
-  --color-electric-blue: #5865F2;
+
+  /* Divider specific */
+  --color-divider: #2E5BFF;
+  /* Electric Blue */
+
   --color-gold: #FFD700;
   --color-dark: #1A1A1A;
   --color-light-gray: #F9F9F9;
 
+  /* Effects */
+  --effect-neon-glow: none;
+  /* Clean in light mode */
+  --color-modal-bg: rgba(255, 255, 255, 0.85);
+
   /* Typography */
   --font-title: 'Montserrat', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Dark Mode Override */
+[data-theme='dark'] {
+  --color-bg: #000000;
+  /* Deep Black */
+  --color-text: #FFFFFF;
+  /* Pure White */
+  --color-footer-bg: #1A1A1A;
+  /* Slate Gray */
+  --color-glass: rgba(0, 0, 0, 0.4);
+  /* Dark Mode Glass */
+  --color-light-gray: #F9F9F9;
+  /* Default Light BG */
+
+  --color-divider: #2E5BFF;
+  /* Keep Electric Blue visible */
+
+  /* Neon Accents Glow in Dark Mode */
+  --effect-neon-glow: 0 0 10px rgba(196, 216, 46, 0.5);
+
+  --color-modal-bg: rgba(20, 20, 20, 0.9);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  /* Global Smooth Transition */
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Ensure containers inherit or use the transition */
+section,
+header,
+footer {
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .hardware-accelerated {
@@ -24,7 +71,6 @@
   transform: translateZ(0);
   backface-visibility: hidden;
 }
-
 
 
 @keyframes spin {
@@ -433,4 +479,116 @@ h6 {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Service Section defaults */
+.services-section {
+  padding: 8rem 2rem;
+  background-color: var(--color-light-gray);
+  color: var(--color-text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+[data-theme='dark'] .services-section {
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%) !important;
+  color: #FFFFFF !important;
+}
+
+/* --- DARK MODE REFINEMENTS (Events & Collection) --- */
+
+/* 2. Events Cards (Dark Mode) */
+[data-theme='dark'] .scroll-reveal {
+  background: rgba(10, 10, 10, 0.8) !important;
+  /* Dark tinted glass */
+  border: 1px solid #2E5BFF !important;
+  /* Electric Blue Border */
+  box-shadow: 0 0 10px rgba(46, 91, 255, 0.3) !important;
+  /* Soft Neon Glow */
+}
+
+[data-theme='dark'] .scroll-reveal h3 {
+  color: #FFFFFF !important;
+  /* Pure White Titles */
+}
+
+[data-theme='dark'] .event-date,
+[data-theme='dark'] .event-time {
+  color: #C4D82E !important;
+  /* Neon Green */
+  text-shadow: 0 0 10px rgba(196, 216, 46, 0.5);
+  font-weight: 800 !important;
+}
+
+/* 3. Collection/Shop Cards (Dark Mode) */
+/* 3. Collection/Shop Cards (Dark Mode) */
+.collection-card {
+  background: #fff;
+  /* Light mode default */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  /* Light mode shadow */
+  border: 1px solid #E0E0E0;
+  /* Light mode border */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-theme='dark'] .collection-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  /* Dark Glass */
+  border: 1px solid #C4D82E !important;
+  /* Neon Green Border */
+  box-shadow: 0 0 15px rgba(196, 216, 46, 0.1) !important;
+  /* Soft Glow */
+  backdrop-filter: blur(10px);
+}
+
+[data-theme='dark'] .collection-card:hover {
+  /* Intense Neon Glow on Hover */
+  box-shadow: 0 0 30px rgba(196, 216, 46, 0.4), inset 0 0 20px rgba(196, 216, 46, 0.2) !important;
+  transform: translateY(-10px);
+  border-color: #C4D82E !important;
+}
+
+[data-theme='dark'] .product-title {
+  color: #FFFFFF !important;
+  /* Pure White */
+  font-weight: 600 !important;
+}
+
+[data-theme='dark'] .product-price {
+  color: #E0E0E0 !important;
+  /* Silver Gray */
+  font-weight: 400 !important;
+}
+
+[data-theme='dark'] .product-desc {
+  color: #CCCCCC !important;
+}
+
+/* Dark Mode Buttons in Collection */
+[data-theme='dark'] .collection-btn {
+  background: transparent !important;
+  border: 1px solid #C4D82E !important;
+  color: #C4D82E !important;
+  box-shadow: 0 0 10px rgba(196, 216, 46, 0.2);
+}
+
+[data-theme='dark'] .collection-btn:hover {
+  background: rgba(196, 216, 46, 0.1) !important;
+  box-shadow: 0 0 20px rgba(196, 216, 46, 0.5);
+  transform: scale(1.05);
+}
+
+/* Ensure images fade in cleanly in dark mode */
+[data-theme='dark'] .product-img {
+  filter: brightness(0.9);
+}
+
+[data-theme='dark'] .collection-card:hover .product-img {
+  filter: brightness(1.1);
 }

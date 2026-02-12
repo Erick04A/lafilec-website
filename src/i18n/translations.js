@@ -114,7 +114,7 @@ export const translations = {
                 items: [
                     { name: 'Vestuario', target: 500, current: 320 },
                     { name: 'Equipos', target: 800, current: 450 },
-                    { name: 'Festivals', target: 1200, current: 280 }
+                    { name: 'Festivales', target: 1200, current: 280 }
                 ]
             },
             contribution_amounts: [10, 25, 50, 100],
@@ -378,8 +378,8 @@ export const translations = {
             goals: {
                 title: "Objectifs 2026",
                 items: [
-                    { name: "Residencia Sonora", target: 500, current: 320, img: "/src/assets/events/residencia.jpg" },
-                    { name: "Neuvième Symphonie de Beethoven", target: 800, current: 450, img: imgBeethoven },
+                    { name: "Costumes", target: 500, current: 320 },
+                    { name: "Équipement", target: 800, current: 450 },
                     { name: "Festivals", target: 1200, current: 280 }
                 ]
             },

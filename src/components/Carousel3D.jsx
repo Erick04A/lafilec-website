@@ -65,45 +65,49 @@ export default function Carousel3D() {
                         {placeholderImages.map((imgs, index) => (
                             <div
                                 key={index}
-                                className="elemento-3d"
+                                className="carousel-card"
                                 style={{
                                     height: '200px',
                                     width: '150px',
                                     position: 'absolute',
-                                    // TRUE GLASSMORPHISM STRUCTURE - FORCED PRIORITY
-                                    background: 'rgba(255, 255, 255, 0.05) !important',
-                                    backdropFilter: 'blur(12px) saturate(120%) !important',
-                                    WebkitBackdropFilter: 'blur(12px) saturate(120%) !important',
-                                    border: '1px solid rgba(255, 255, 255, 0.2) !important',
-                                    borderRadius: '14px',
-                                    // DEEP BLACK SHADOW (no yellow/green glow) - FORCED
-                                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.8) !important',
+                                    // CRYSTAL MIRROR AURA
+                                    background: 'var(--color-glass)', // Uses variable for light/dark mode
+                                    backdropFilter: 'blur(4px)', // Subtle blur per request
+                                    WebkitBackdropFilter: 'blur(4px)',
+                                    // Electric Subtle Border
+                                    border: '1px solid rgba(255, 255, 255, 0.4)', // Base lighter border
+                                    borderTop: '1px solid rgba(255, 255, 255, 0.6)',
+                                    borderBottom: '1px solid rgba(173, 216, 230, 0.3)', // Blue tint at bottom
+                                    borderRadius: '30px',
+                                    // Box Reflect for Floor Reflection (Handled via CSS class if complex, but here inline)
+                                    // We can try to use a variable for the gradient alpha if supported, or just keep it simple.
+                                    // User asked for opacity 0.1 in dark mode.
+                                    // Soft shadow usually accompanies reflection
+                                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
                                     transform: `rotateY(${index * 45}deg) translateZ(250px)`,
-                                    overflow: 'visible',  // Don't hide glass reflection
-                                    transition: 'all 0.3s ease',
+                                    overflow: 'hidden',
+                                    transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                                     zIndex: 1
                                 }}
                             >
-                                {/* Top light reflection (simulates sun on glass) - FORCED VISIBILITY */}
-                                <div className="glass-reflection" style={{
+                                {/* Surface Gloss (Glossy effect) */}
+                                <div className="glass-overlay" style={{
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
                                     width: '100%',
-                                    height: '40%',
-                                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%) !important',
+                                    height: '100%',
+                                    background: 'radial-gradient(circle at 10% 10%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.0) 40%)', // Gloss in corner
                                     pointerEvents: 'none',
-                                    zIndex: 10,  // High z-index to be on top
-                                    borderRadius: '14px 14px 0 0'
+                                    zIndex: 10,
+                                    mixBlendMode: 'overlay'
                                 }} />
 
                                 <div style={{
-                                    height: '200px',
-                                    width: '150px',
-                                    transformStyle: 'preserve-3d',
-                                    transition: '2s',
+                                    height: '100%',
+                                    width: '100%',
                                     position: 'relative',
-                                    zIndex: 1  // Behind glass reflection
+                                    zIndex: 1
                                 }}>
                                     <img
                                         src={imgs.front}
@@ -114,12 +118,10 @@ export default function Carousel3D() {
                                             objectFit: 'cover',
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
-                                            borderRadius: '14px',
-                                            // Crystal clear image through glass
-                                            filter: 'brightness(1.1) contrast(1.08)',
-                                            zIndex: 1,
-                                            // Clean white reflection below
-                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(255, 255, 255, 0.02))'
+                                            borderRadius: '30px',
+                                            // Make photo look like it's behind cold glass
+                                            filter: 'brightness(1.02) contrast(1.05)',
+                                            transition: 'filter 0.4s ease'
                                         }}
                                     />
                                     <img
@@ -132,12 +134,9 @@ export default function Carousel3D() {
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
                                             transform: 'rotateY(180deg)',
-                                            borderRadius: '14px',
-                                            // Crystal clear image through glass
-                                            filter: 'brightness(1.1) contrast(1.08)',
-                                            zIndex: 1,
-                                            // Clean white reflection below
-                                            WebkitBoxReflect: 'below 10px linear-gradient(transparent, transparent, rgba(255, 255, 255, 0.02))'
+                                            borderRadius: '30px',
+                                            filter: 'brightness(1.02) contrast(1.05)',
+                                            transition: 'filter 0.4s ease'
                                         }}
                                     />
                                 </div>
@@ -149,29 +148,14 @@ export default function Carousel3D() {
                             height: '43em',
                             width: '43em',
                             transform: 'rotateX(90deg) translateX(-280px) translateY(40px) translateZ(140px)',
-                            background: 'radial-gradient(circle at center, rgba(196, 216, 46, 0.07), transparent)',
+                            background: 'radial-gradient(circle at center, rgba(173, 216, 230, 0.1), transparent 70%)', // Blue tint for floor
                             borderRadius: '50%',
                             display: 'flex',
                             justifyContent: 'center',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            filter: 'blur(40px)',
+                            opacity: 0.6
                         }}>
-                            <div style={{
-                                height: '200px',
-                                width: '300px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                color: 'rgba(196, 216, 46, 0.3)',
-                                fontFamily: 'var(--font-title)',
-                                fontWeight: '700',
-                                fontSize: '1.5em',
-                                letterSpacing: '0.1em',
-                                textTransform: 'uppercase'
-                            }}>
-                                <p style={{ margin: 0, padding: '5px' }}>Nuestra</p>
-                                <p style={{ margin: 0, padding: '5px' }}>Trayectoria</p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -187,20 +171,26 @@ export default function Carousel3D() {
                 .box-3d {
                     animation: rotar-3d 50s infinite linear;
                 }
+                
+                .box-3d:hover {
+                    animation-play-state: paused;
+                }
 
-                /* Glassmorphism hover effects - Crystal focus */
+                /* Crystal Interaction */
                 .elemento-3d:hover {
-                    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-                    boxShadow: '0 8px 40px 0 rgba(255, 255, 255, 0.12)' !important;
-                    transform: scale(1.03) !important;
+                    transform: translateY(-10px) scale(1.03) !important;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+                    border-color: rgba(255, 255, 255, 0.9) !important;
+                    z-index: 100 !important;
+                    /* Intensify reflection on lift? Box-reflect handles itself mainly */
                 }
 
                 .elemento-3d:hover img {
-                    filter: brightness(1.2) contrast(1.12) !important;
+                    filter: brightness(1.1) saturate(1.1) !important;
                 }
                 
-                .elemento-3d:hover .glass-reflection {
-                    background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, transparent 100%) !important;
+                .elemento-3d:hover .glass-overlay {
+                    background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.0) 50%) !important;
                 }
             `}</style>
         </section>
