@@ -99,10 +99,7 @@
 .theme-toggle input:checked+.power-button .power-icon {
     color: #C4D82E;
     /* Neon Green */
-    filter: drop-shadow(0 0 4px rgba(196, 216, 46, 0.6));
+    filter: drop-shadow(0 0 4px #C4D82E) drop-shadow(0 0 8px #1B2A41);
 }
 
 /* Hover State for Interactivity Polish */
-.theme-toggle:hover .power-button {
-    /* Slight lift or intensification? User asked for minimalist, keep it simpler */
-}

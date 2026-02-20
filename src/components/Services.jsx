@@ -134,7 +134,7 @@ export default function Services() {
                             boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
                             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                             cursor: 'default',
-                            border: '1px solid #C4D82E', // Light mode default
+                            border: '1px solid var(--color-divider)', // Dynamic Border
                             display: 'flex',
                             flexDirection: 'column',
                             minHeight: '400px'
@@ -184,7 +184,7 @@ export default function Services() {
                             boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
                             transition: 'all 0.3s ease',
                             cursor: 'default',
-                            border: '1px solid #C4D82E',
+                            border: '1px solid var(--color-divider)',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
@@ -252,7 +252,7 @@ export default function Services() {
                             boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
                             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                             cursor: 'default',
-                            border: '1px solid #C4D82E',
+                            border: '1px solid var(--color-divider)',
                             display: 'flex',
                             flexDirection: 'column',
                             minHeight: '400px'
@@ -295,10 +295,10 @@ export default function Services() {
 
 
                 <div style={{ marginBottom: '8rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '3rem', borderBottom: '1px solid #ddd', paddingBottom: '1rem' }}>
-                        <h3 style={{ fontSize: '2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: '#1A1A1A' }}>{t.shop.title}</h3>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '3rem', borderBottom: '1px solid var(--color-divider)', paddingBottom: '1rem' }}>
+                        <h3 className="section-title-collection" style={{ fontSize: '2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: '#1A1A1A' }}>{t.shop.title}</h3>
                         <div style={{ textAlign: 'right' }}>
-                            <span style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--color-primary)', display: 'block' }}>{t.shop.collectionLabel}</span>
+                            <span className="collection-label" style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--color-primary)', display: 'block' }}>{t.shop.collectionLabel}</span>
                             {totalItems > 0 && (
                                 <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#1A1A1A', display: 'block', marginTop: '0.5rem' }}>
                                     {t.shop.total}: ${totalPrice}
@@ -342,16 +342,6 @@ export default function Services() {
                                     key={item.key}
                                     className="collection-card"
                                     onClick={() => setActiveCategory(item.key)}
-                                    onMouseEnter={e => {
-                                        e.currentTarget.style.transform = 'translateY(-10px)';
-                                        e.currentTarget.style.boxShadow = '0 15px 40px rgba(196, 216, 46, 0.2)';
-                                        e.currentTarget.style.borderColor = '#C4D82E';
-                                    }}
-                                    onMouseLeave={e => {
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
-                                        e.currentTarget.style.borderColor = '#E0E0E0';
-                                    }}
                                 >
                                     <div style={{ height: '240px', overflow: 'hidden' }}>
                                         <img
@@ -376,15 +366,7 @@ export default function Services() {
                                             <p className="product-desc" style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '1.5rem', lineHeight: '1.4' }}>{item.desc}</p>
 
                                             {item.isCookie && (
-                                                <div style={{
-                                                    background: '#FFFEF2',
-                                                    border: '1px solid var(--color-primary)',
-                                                    borderRadius: '8px',
-                                                    padding: '0.5rem',
-                                                    marginBottom: '1.5rem',
-                                                    fontSize: '0.85rem',
-                                                    color: '#555'
-                                                }}>
+                                                <div className="promo-badge">
                                                     <span style={{ display: 'block', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.2rem' }}>PROMO</span>
                                                     {t.shop.promo}
                                                 </div>

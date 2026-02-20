@@ -13,8 +13,8 @@
   --color-lime-neon: #C4D82E;
 
   /* Divider specific */
-  --color-divider: #2E5BFF;
-  /* Electric Blue */
+  --color-divider: #C4D82E;
+  /* Neon Green Default */
 
   --color-gold: #FFD700;
   --color-dark: #1A1A1A;
@@ -32,8 +32,8 @@
 
 /* Dark Mode Override */
 [data-theme='dark'] {
-  --color-bg: #000000;
-  /* Deep Black */
+  --color-bg: #02040A;
+  /* Deep Bluish Black */
   --color-text: #FFFFFF;
   /* Pure White */
   --color-footer-bg: #1A1A1A;
@@ -490,7 +490,7 @@ h6 {
 }
 
 [data-theme='dark'] .services-section {
-  background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%) !important;
+  background: radial-gradient(circle at center, #1B2A41 0%, #02040A 100%) !important;
   color: #FFFFFF !important;
 }
 
@@ -519,8 +519,54 @@ h6 {
   font-weight: 800 !important;
 }
 
-/* 3. Collection/Shop Cards (Dark Mode) */
-/* 3. Collection/Shop Cards (Dark Mode) */
+/* Promo Badge - Default Light Mode */
+.promo-badge {
+  background: #FFFEF2;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+[data-theme='dark'] .promo-badge {
+  background: #000000;
+  border: 1px solid #FFD700;
+  /* Neon Yellow */
+  color: #FFF;
+}
+
+[data-theme='dark'] .promo-badge span {
+  color: #FFD700 !important;
+}
+
+
+/* Dark Mode Visibility Fixes (Hebra 2) */
+[data-theme='dark'] .section-title-collection {
+  color: #FFFFFF !important;
+  text-shadow: 0 0 8px rgba(196, 216, 46, 0.5);
+}
+
+[data-theme='dark'] .collection-label {
+  color: #C4D82E !important;
+  text-shadow: 0 0 5px rgba(196, 216, 46, 0.3);
+}
+
+/* Dark Mode Manifesto Visibility (Vision.jsx) */
+[data-theme='dark'] .manifesto-line {
+  color: #F5F5F5 !important;
+  /* White Smoke */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .manifesto-line:last-child {
+  color: #C4D82E !important;
+  /* Neon Green Highlight */
+  text-shadow: 0 0 10px rgba(196, 216, 46, 0.5);
+}
+
+/* 3. Collection/Shop Cards (Dark Mode - HEBRA 2 VOID STYLE) */
 .collection-card {
   background: #fff;
   /* Light mode default */
@@ -528,7 +574,7 @@ h6 {
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   /* Light mode shadow */
-  border: 1px solid #E0E0E0;
+  border: 1px solid var(--color-divider);
   /* Light mode border */
   transition: all 0.3s ease;
   cursor: pointer;
@@ -537,32 +583,65 @@ h6 {
   flex-direction: column;
 }
 
+.collection-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(196, 216, 46, 0.2);
+  /* Neon Green Glow shared or overridden */
+}
+
+/* Light Mode specific hover fix to ensure it stays Neon Green */
+html:not([data-theme='dark']) .collection-card:hover {
+  border-color: var(--color-divider);
+  /* Force Neon Green */
+}
+
 [data-theme='dark'] .collection-card {
-  background: rgba(255, 255, 255, 0.05) !important;
-  /* Dark Glass */
-  border: 1px solid #C4D82E !important;
-  /* Neon Green Border */
-  box-shadow: 0 0 15px rgba(196, 216, 46, 0.1) !important;
-  /* Soft Glow */
-  backdrop-filter: blur(10px);
+  background: #0a0f18 !important;
+  /* Deep Blue-Black (Softer than Void) */
+  border: 1px solid #2E5BFF !important;
+  /* Electric Blue Persistent */
+  box-shadow: 0 0 15px rgba(46, 91, 255, 0.1) !important;
+  /* Soft Blue Atmosphere */
+  position: relative;
+}
+
+/* Internal Glow & Border Gradient Simulation for Dark Mode */
+[data-theme='dark'] .collection-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(45deg, #2E5BFF, #C4D82E);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
 }
 
 [data-theme='dark'] .collection-card:hover {
-  /* Intense Neon Glow on Hover */
-  box-shadow: 0 0 30px rgba(196, 216, 46, 0.4), inset 0 0 20px rgba(196, 216, 46, 0.2) !important;
+  box-shadow: 0 0 30px rgba(46, 91, 255, 0.3), inset 0 0 30px rgba(27, 42, 65, 0.8) !important;
   transform: translateY(-10px);
-  border-color: #C4D82E !important;
+  border-color: transparent !important;
+  /* Let pseudo-element shine */
+}
+
+[data-theme='dark'] .collection-card:hover::before {
+  opacity: 1;
+  /* Intense Border on Hover */
 }
 
 [data-theme='dark'] .product-title {
   color: #FFFFFF !important;
-  /* Pure White */
-  font-weight: 600 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 12px rgba(196, 216, 46, 0.6);
+  /* Enhanced Neon Text Shadow */
 }
 
 [data-theme='dark'] .product-price {
   color: #E0E0E0 !important;
-  /* Silver Gray */
   font-weight: 400 !important;
 }
 
@@ -575,13 +654,256 @@ h6 {
   background: transparent !important;
   border: 1px solid #C4D82E !important;
   color: #C4D82E !important;
-  box-shadow: 0 0 10px rgba(196, 216, 46, 0.2);
+  box-shadow: 0 0 10px rgba(196, 216, 46, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Light Mode Button Redesign */
+html:not([data-theme='dark']) .collection-btn {
+  background: transparent !important;
+  border: 1px solid #C4D82E !important;
+  color: #1A1A1A !important;
+  /* Charcoal Text */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html:not([data-theme='dark']) .collection-btn:hover {
+  background: #C4D82E !important;
+  /* Neon Fill */
+  color: #FFFFFF !important;
+  /* White Text */
+  box-shadow: 0 0 15px rgba(196, 216, 46, 0.6);
+  transform: translateY(-2px);
 }
 
 [data-theme='dark'] .collection-btn:hover {
   background: rgba(196, 216, 46, 0.1) !important;
   box-shadow: 0 0 20px rgba(196, 216, 46, 0.5);
   transform: scale(1.05);
+}
+
+/* =========================================
+   4. Crowdfunding / Metas 2026 Redesign
+   ========================================= */
+
+/* Goal Cards - Neumorphic Light Mode */
+.goal-card {
+  background: #F5F2E9;
+  /* Cream Base */
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  /* Neumorphic Shadow: Light Top-Left, Dark Bottom-Right */
+  box-shadow: 9px 9px 18px #dccfc2,
+    -9px -9px 18px #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.goal-card:hover {
+  transform: translateY(-5px);
+  /* Deeper relief on hover */
+  box-shadow: 12px 12px 24px #dccfc2,
+    -12px -12px 24px #ffffff;
+}
+
+.goal-card.selected {
+  border: 1px solid #C4D82E;
+  /* Active State Signal */
+}
+
+/* Dark Mode - High Fidelity "Hebra 2" */
+[data-theme='dark'] .goal-card {
+  background: #02040A;
+  /* Deep Bluish Black */
+  border: 1px solid #1B2A41;
+  /* Electric Navy Border */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  /* Deep Shadow */
+}
+
+[data-theme='dark'] .goal-card:hover,
+[data-theme='dark'] .goal-card.selected {
+  border-color: #2E5BFF;
+  /* Electric Blue Activation */
+  box-shadow: 0 0 20px rgba(46, 91, 255, 0.2);
+  /* Blue Glow */
+}
+
+/* Typography */
+.goal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  /* Charcoal */
+  margin-bottom: 0.5rem;
+  font-family: var(--font-title);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+[data-theme='dark'] .goal-title {
+  color: #FFFFFF;
+}
+
+.goal-title.active {
+  color: #C4D82E;
+  /* Highlight in both modes if active */
+}
+
+.goal-amount {
+  font-size: 0.95rem;
+  color: #666;
+  font-family: monospace;
+}
+
+[data-theme='dark'] .goal-amount {
+  color: #AAA;
+}
+
+.goal-percent {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #C4D82E;
+  /* Neon Green Always */
+  font-family: var(--font-title);
+  text-shadow: 0 0 10px rgba(196, 216, 46, 0.3);
+}
+
+/* Progress Bars - Inset Tracks */
+.progress-track {
+  width: 100%;
+  height: 12px;
+  background: #F5F2E9;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  /* Neumorphic Inset Shadow */
+  box-shadow: inset 4px 4px 8px #dccfc2,
+    inset -4px -4px 8px #ffffff;
+}
+
+[data-theme='dark'] .progress-track {
+  background: #000;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+  border: 1px solid #1B2A41;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #C4D82E;
+  /* Neon Green */
+  border-radius: 6px;
+  box-shadow: 0 0 15px #C4D82E;
+  /* LED Glow */
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Join Button */
+.join-btn {
+  padding: 1.2rem 4rem;
+  background: transparent;
+  color: #999;
+  border: 1px solid #CCC;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  cursor: not-allowed;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  margin-top: 2rem;
+}
+
+.join-btn.active {
+  color: #1A1A1A;
+  border: 1px solid #C4D82E;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Dark Mode Goal Cards (Hebra 2) */
+[data-theme='dark'] .goal-card {
+  background: #0a0f18 !important;
+  /* Deep Blue-Black */
+  border: 1px solid #2E5BFF !important;
+  /* Fine Electric Blue */
+  box-shadow: 0 0 15px rgba(46, 91, 255, 0.1) !important;
+}
+
+[data-theme='dark'] .goal-card.selected,
+[data-theme='dark'] .goal-card:hover {
+  box-shadow: 0 0 25px rgba(46, 91, 255, 0.3) !important;
+  border-color: #C4D82E !important;
+  /* Neon Green on interaction */
+}
+
+/* Dark Mode Titles */
+[data-theme='dark'] .section-title-crowdfunding,
+[data-theme='dark'] .section-title-goals {
+  color: #FFFFFF !important;
+  text-shadow: 0 0 10px rgba(196, 216, 46, 0.5);
+}
+
+[data-theme='dark'] .goal-title {
+  color: #FFFFFF !important;
+}
+
+[data-theme='dark'] .goal-amount {
+  color: #CCCCCC !important;
+}
+
+/* Dark Mode Progress Bars */
+[data-theme='dark'] .goal-percent {
+  color: #C4D82E !important;
+  text-shadow: 0 0 5px rgba(196, 216, 46, 0.5);
+  font-weight: 700;
+}
+
+[data-theme='dark'] .progress-track {
+  background: #000000 !important;
+  border: 1px solid #333;
+}
+
+[data-theme='dark'] .progress-fill {
+  background: #C4D82E !important;
+  box-shadow: 0 0 10px rgba(196, 216, 46, 0.5);
+}
+
+/* Dark Mode Join Button */
+[data-theme='dark'] .join-btn {
+  background: transparent !important;
+  border: 1px solid #C4D82E !important;
+  color: #C4D82E !important;
+  box-shadow: 0 0 10px rgba(196, 216, 46, 0.2);
+}
+
+[data-theme='dark'] .join-btn:hover:not(:disabled),
+[data-theme='dark'] .join-btn.active {
+  background: #C4D82E !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px rgba(196, 216, 46, 0.6);
+}
+
+.join-btn.active:hover {
+  background: #C4D82E;
+  color: #FFFFFF;
+  box-shadow: 0 0 30px rgba(196, 216, 46, 0.6);
+  transform: translateY(-3px);
+  border-color: #C4D82E;
+}
+
+[data-theme='dark'] .join-btn.active {
+  color: #C4D82E;
+  border-color: #C4D82E;
+}
+
+[data-theme='dark'] .join-btn.active:hover {
+  background: rgba(196, 216, 46, 0.1);
+  box-shadow: 0 0 30px rgba(196, 216, 46, 0.4);
 }
 
 /* Ensure images fade in cleanly in dark mode */

@@ -232,6 +232,7 @@ export default function Vision() {
                         return (
                             <p
                                 key={index}
+                                className="manifesto-line"
                                 ref={el => textRef.current[index] = el}
                                 onMouseEnter={() => setHoveredLine(index)}
                                 onMouseLeave={() => setHoveredLine(null)}

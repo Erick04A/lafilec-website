@@ -116,7 +116,7 @@ export default function Crowdfunding() {
 
 
                 <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                    <h2 style={{
+                    <h2 className="section-title-crowdfunding" style={{
                         fontSize: '3.5rem',
                         marginBottom: '1.5rem',
                         color: '#1A1A1A',
@@ -248,7 +248,7 @@ export default function Crowdfunding() {
                     position: 'relative',
                     zIndex: 10
                 }}>
-                    <h3 style={{
+                    <h3 className="section-title-goals" style={{
                         fontSize: '2rem',
                         marginBottom: '3rem',
                         color: '#1A1A1A',
@@ -266,65 +266,33 @@ export default function Crowdfunding() {
                             const isSelected = selectedGoal === idx
 
                             return (
-                                <div key={idx} style={{
-                                    background: 'rgba(0,0,0,0.03)',
-                                    border: `2px solid ${isSelected ? '#C4D82E' : (isNearComplete ? '#C4D82E' : '#E0E0E0')}`,
-                                    padding: '2rem',
-                                    borderRadius: '8px',
-                                    transition: 'all 0.3s ease',
-                                    boxShadow: (isSelected || isNearComplete) ? '0 10px 30px rgba(196, 216, 46, 0.2)' : '0 8px 20px rgba(0,0,0,0.08)',
-                                    cursor: 'pointer'
-                                }}
+                                <div key={idx}
+                                    className={`goal-card ${isSelected ? 'selected' : ''} ${isNearComplete ? 'near-complete' : ''}`}
                                     onClick={() => setSelectedGoal(idx)}
                                 >
 
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                                         <div>
-                                            <h4 style={{
-                                                fontSize: '1.5rem',
-                                                fontWeight: '700',
-                                                color: (isSelected || isNearComplete) ? '#C4D82E' : '#1A1A1A',
-                                                transition: 'color 0.3s ease',
-                                                marginBottom: '0.5rem',
-                                                fontFamily: 'var(--font-title)',
-                                                textTransform: 'uppercase'
-                                            }}>
+                                            <h4 className={`goal-title ${isSelected || isNearComplete ? 'active' : ''}`}>
                                                 {goal.name}
                                             </h4>
-                                            <span style={{
-                                                fontSize: '0.9rem',
-                                                color: '#666',
-                                                fontFamily: 'monospace'
-                                            }}>
+                                            <span className="goal-amount">
                                                 ${goal.current} / ${goal.target}
                                             </span>
                                         </div>
-                                        <div style={{
-                                            fontSize: '2rem',
-                                            fontWeight: '900',
-                                            color: (isSelected || isNearComplete) ? '#C4D82E' : '#555',
-                                            fontFamily: 'var(--font-title)'
-                                        }}>
+                                        <div className={`goal-percent ${isSelected || isNearComplete ? 'active' : ''}`}>
                                             {Math.round(progress)}%
                                         </div>
                                     </div>
 
 
-                                    <div style={{
-                                        width: '100%',
-                                        height: '8px',
-                                        background: '#EEE',
-                                        borderRadius: '4px',
-                                        overflow: 'hidden',
-                                        marginBottom: '1.5rem'
-                                    }}>
-                                        <div style={{
-                                            width: `${progress}%`,
-                                            height: '100%',
-                                            background: (isSelected || isNearComplete) ? 'linear-gradient(90deg, #C4D82E, #AEC225)' : '#CCC',
-                                            transition: 'all 0.5s ease',
-                                            boxShadow: (isSelected || isNearComplete) ? '0 0 15px rgba(255, 215, 0, 0.6)' : 'none'
-                                        }} />
+                                    <div className="progress-track">
+                                        <div
+                                            className="progress-fill"
+                                            style={{
+                                                width: `${progress}%`,
+                                            }}
+                                        />
                                     </div>
 
 
@@ -406,20 +374,8 @@ export default function Crowdfunding() {
                 <div style={{ textAlign: 'center' }}>
                     <button
                         onClick={handleJoin}
-                        style={{
-                            padding: '1.2rem 5rem',
-                            background: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#1A1A1A' : '#E0E0E0',
-                            color: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#C4D82E' : '#999',
-                            border: `2px solid ${(selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '#1A1A1A' : '#CCC'}`,
-                            fontWeight: '800',
-                            textTransform: 'uppercase',
-                            fontSize: '1.1rem',
-                            cursor: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? 'pointer' : 'not-allowed',
-                            letterSpacing: '2px',
-                            transition: 'all 0.3s ease',
-                            boxShadow: (selectedGoal !== null && (selectedAmount !== null || customAmount)) ? '0 0 40px rgba(196, 216, 46, 0.5)' : 'none',
-                            borderRadius: '2px'
-                        }}
+                        disabled={!(selectedGoal !== null && (selectedAmount !== null || customAmount))}
+                        className={`join-btn ${(selectedGoal !== null && (selectedAmount !== null || customAmount)) ? 'active' : ''}`}
                     >
                         {t.crowdfunding.join_button}
                     </button>
