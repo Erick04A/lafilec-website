@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Mail, Instagram, Phone, MapPin } from 'lucide-react'
 import { useLanguage } from '../store/LanguageContext'
-
 import TermsModal from './TermsModal'
 
 export default function Footer() {
@@ -239,8 +238,8 @@ export default function Footer() {
             <div style={{
                 height: '1px',
                 width: '100%',
-                background: 'rgba(46, 91, 255, 0.4)', // Solid but translucent core
-                boxShadow: '0 0 8px rgba(0, 102, 255, 0.6)', // Electric blue glow
+                background: 'rgba(46, 91, 255, 0.4)',
+                boxShadow: '0 0 8px rgba(0, 102, 255, 0.6)',
                 border: 'none',
                 marginBottom: '2rem',
                 marginTop: '0rem'

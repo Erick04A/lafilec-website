@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
+import ReactDOM from 'react-dom'
 import { useLanguage } from '../store/LanguageContext'
 import { Download, X, Minus, Plus } from 'lucide-react'
 import CardSkeleton from './CardSkeleton'
@@ -127,14 +128,14 @@ export default function Services() {
                         ref={eventCard1.ref}
                         className={`scroll-reveal ${eventCard1.isRevealed ? 'revealed' : ''}`}
                         style={{
-                            background: 'var(--card-bg, #fff)', // Fallback to white if var not set (Light Mode default handled by index.css or fallback)
+                            background: 'var(--card-bg, #fff)',
                             borderRadius: '12px',
                             overflow: 'hidden',
-                            // Default Light Mode Shadow
                             boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
-                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            willChange: 'transform, opacity',
                             cursor: 'default',
-                            border: '1px solid var(--color-divider)', // Dynamic Border
+                            border: '1px solid var(--color-divider)',
                             display: 'flex',
                             flexDirection: 'column',
                             minHeight: '400px'
@@ -150,7 +151,7 @@ export default function Services() {
                             e.currentTarget.style.zIndex = '1';
                         }}
                     >
-                        <div style={{ height: '480px', overflow: 'hidden', background: '#F9F9F9' }}>
+                        <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: '#F9F9F9' }}>
                             <img
                                 src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80"
                                 alt={t.events.items[0].name}
@@ -182,7 +183,8 @@ export default function Services() {
                             background: 'var(--card-bg, #fff)',
                             borderRadius: '12px',
                             boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
-                            transition: 'all 0.3s ease',
+                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                            willChange: 'transform, opacity',
                             cursor: 'default',
                             border: '1px solid var(--color-divider)',
                             display: 'flex',
@@ -250,7 +252,8 @@ export default function Services() {
                             borderRadius: '12px',
                             overflow: 'hidden',
                             boxShadow: 'var(--card-shadow, 0 0 15px rgba(196, 216, 46, 0.2))',
-                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            willChange: 'transform, opacity',
                             cursor: 'default',
                             border: '1px solid var(--color-divider)',
                             display: 'flex',
@@ -268,7 +271,7 @@ export default function Services() {
                             e.currentTarget.style.zIndex = '1';
                         }}
                     >
-                        <div style={{ height: '480px', overflow: 'hidden', background: '#F9F9F9' }}>
+                        <div style={{ aspectRatio: '4/3', overflow: 'hidden', background: '#F9F9F9' }}>
                             <img
                                 src={t.events.items[1].img}
                                 alt={t.events.items[1].name}
@@ -343,7 +346,7 @@ export default function Services() {
                                     className="collection-card"
                                     onClick={() => setActiveCategory(item.key)}
                                 >
-                                    <div style={{ height: '240px', overflow: 'hidden' }}>
+                                    <div style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
                                         <img
                                             src={item.img}
                                             alt={item.title}
@@ -439,38 +442,50 @@ export default function Services() {
 
 
             {
-                activeCategory && (
-                    <div style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100vh',
-                        background: 'rgba(255,255,255,0.98)',
-                        zIndex: 2000,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: '2rem',
-                        overflowY: 'auto'
-                    }}>
+                activeCategory && ReactDOM.createPortal(
+                    <div
+                        className="detail-overlay"
+                        onClick={e => e.stopPropagation()}
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100vh',
+                            background: 'rgba(255,255,255,0.98)',
+                            zIndex: 9990,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            padding: '2rem',
+                            overflowY: 'auto'
+                        }}
+                    >
                         <button
-                            onClick={() => setActiveCategory(null)}
+                            type="button"
+                            id="detail-panel-close"
+                            className="detail-close-btn"
+                            onClick={e => {
+                                e.stopPropagation()
+                                setActiveCategory(null)
+                            }}
+                            aria-label="Cerrar panel"
                             style={{
                                 position: 'fixed',
-                                top: '2rem',
-                                right: '2rem',
+                                top: '1.5rem',
+                                right: '1.5rem',
                                 background: '#1A1A1A',
                                 color: '#fff',
-                                border: 'none',
+                                border: '2px solid transparent',
                                 borderRadius: '50%',
-                                width: '50px',
-                                height: '50px',
+                                width: '52px',
+                                height: '52px',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                boxShadow: '0 5px 15px rgba(0,0,0,0.2)',
-                                zIndex: 2010
+                                boxShadow: '0 5px 20px rgba(0,0,0,0.35)',
+                                zIndex: 9999,
+                                flexShrink: 0,
                             }}
                         >
                             <X size={24} />
@@ -478,7 +493,7 @@ export default function Services() {
 
                         <div style={{ maxWidth: '1200px', width: '100%', margin: '4rem auto', paddingBottom: '100px' }}>
                             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                                <h2 style={{
+                                <h2 className="detail-title" style={{
                                     fontSize: 'clamp(2rem, 5vw, 3rem)',
                                     marginBottom: '1rem',
                                     fontFamily: 'var(--font-title)',
@@ -488,7 +503,7 @@ export default function Services() {
                                     {categories[activeCategory].title}
                                 </h2>
                                 {totalItems > 0 && (
-                                    <div style={{
+                                    <div className="detail-total-badge" style={{
                                         display: 'inline-block',
                                         background: 'var(--color-primary)',
                                         padding: '0.5rem 1.5rem',
@@ -556,10 +571,10 @@ export default function Services() {
 
                                             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0.5rem' }}>
                                                 <div>
-                                                    <h4 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.2rem', color: '#1A1A1A' }}>{product.title}</h4>
+                                                    <h4 className="product-title-label" style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.2rem', color: '#1A1A1A' }}>{product.title}</h4>
 
 
-                                                    <p style={{
+                                                    <p className="product-price-label" style={{
                                                         fontSize: '1.2rem',
                                                         color: '#B38728',
                                                         fontWeight: '700',
@@ -569,7 +584,7 @@ export default function Services() {
                                                         {product.isCustom ? 'Precio a consultar' : `Precio: $${product.price}`}
                                                     </p>
 
-                                                    <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem', lineHeight: '1.4' }}>{product.desc}</p>
+                                                    <p className="product-desc-text" style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem', lineHeight: '1.4' }}>{product.desc}</p>
                                                 </div>
 
 
@@ -609,7 +624,7 @@ export default function Services() {
                                                 ) : (
                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-                                                        <div style={{
+                                                        <div className="quantity-selector" style={{
                                                             display: 'flex',
                                                             alignItems: 'center',
                                                             justifyContent: 'center',
@@ -625,7 +640,7 @@ export default function Services() {
                                                                 onMouseEnter={e => e.currentTarget.style.background = '#f0f0f0'}
                                                                 onMouseLeave={e => e.currentTarget.style.background = '#fff'}
                                                             >
-                                                                <Minus size={16} color="#1A1A1A" />
+                                                                <Minus size={16} />
                                                             </button>
                                                             <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#1A1A1A', minWidth: '30px', textAlign: 'center' }}>{quantity}</span>
                                                             <button onClick={() => updateQuantity(product.id, 1)} style={{
@@ -655,7 +670,7 @@ export default function Services() {
                         </div>
                     </div>
 
-                )
+                    , document.body)
             }
         </section >
     )

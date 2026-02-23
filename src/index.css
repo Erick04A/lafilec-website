@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   scroll-behavior: smooth;
 
   /* Primary Brand Colors (Light Mode Default - Cream) */
@@ -55,6 +55,8 @@
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
   /* Global Smooth Transition */
   transition: background-color 0.4s ease, color 0.4s ease;
 }
@@ -188,10 +190,6 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -569,14 +567,12 @@ h6 {
 /* 3. Collection/Shop Cards (Dark Mode - HEBRA 2 VOID STYLE) */
 .collection-card {
   background: #fff;
-  /* Light mode default */
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  /* Light mode shadow */
   border: 1px solid var(--color-divider);
-  /* Light mode border */
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform, opacity;
   cursor: pointer;
   position: relative;
   display: flex;
@@ -614,6 +610,7 @@ html:not([data-theme='dark']) .collection-card:hover {
   padding: 1px;
   background: linear-gradient(45deg, #2E5BFF, #C4D82E);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
@@ -689,47 +686,24 @@ html:not([data-theme='dark']) .collection-btn:hover {
 /* Goal Cards - Neumorphic Light Mode */
 .goal-card {
   background: #F5F2E9;
-  /* Cream Base */
   border-radius: 16px;
   padding: 2.5rem;
   margin-bottom: 2rem;
-  /* Neumorphic Shadow: Light Top-Left, Dark Bottom-Right */
-  box-shadow: 9px 9px 18px #dccfc2,
-    -9px -9px 18px #ffffff;
+  box-shadow: 9px 9px 18px #dccfc2, -9px -9px 18px #ffffff;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform, opacity;
   position: relative;
 }
 
 .goal-card:hover {
   transform: translateY(-5px);
-  /* Deeper relief on hover */
-  box-shadow: 12px 12px 24px #dccfc2,
-    -12px -12px 24px #ffffff;
+  box-shadow: 12px 12px 24px #dccfc2, -12px -12px 24px #ffffff;
 }
 
 .goal-card.selected {
   border: 1px solid #C4D82E;
-  /* Active State Signal */
-}
-
-/* Dark Mode - High Fidelity "Hebra 2" */
-[data-theme='dark'] .goal-card {
-  background: #02040A;
-  /* Deep Bluish Black */
-  border: 1px solid #1B2A41;
-  /* Electric Navy Border */
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  /* Deep Shadow */
-}
-
-[data-theme='dark'] .goal-card:hover,
-[data-theme='dark'] .goal-card.selected {
-  border-color: #2E5BFF;
-  /* Electric Blue Activation */
-  box-shadow: 0 0 20px rgba(46, 91, 255, 0.2);
-  /* Blue Glow */
 }
 
 /* Typography */
@@ -737,30 +711,20 @@ html:not([data-theme='dark']) .collection-btn:hover {
   font-size: 1.5rem;
   font-weight: 700;
   color: #1A1A1A;
-  /* Charcoal */
   margin-bottom: 0.5rem;
   font-family: var(--font-title);
   text-transform: uppercase;
   transition: color 0.3s ease;
 }
 
-[data-theme='dark'] .goal-title {
-  color: #FFFFFF;
-}
-
 .goal-title.active {
   color: #C4D82E;
-  /* Highlight in both modes if active */
 }
 
 .goal-amount {
   font-size: 0.95rem;
   color: #666;
   font-family: monospace;
-}
-
-[data-theme='dark'] .goal-amount {
-  color: #AAA;
 }
 
 .goal-percent {
@@ -785,12 +749,6 @@ html:not([data-theme='dark']) .collection-btn:hover {
     inset -4px -4px 8px #ffffff;
 }
 
-[data-theme='dark'] .progress-track {
-  background: #000;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
-  border: 1px solid #1B2A41;
-}
-
 .progress-fill {
   height: 100%;
   background: #C4D82E;
@@ -812,7 +770,8 @@ html:not([data-theme='dark']) .collection-btn:hover {
   font-size: 1.1rem;
   cursor: not-allowed;
   letter-spacing: 2px;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  will-change: transform, opacity;
   border-radius: 4px;
   margin-top: 2rem;
 }
@@ -821,96 +780,396 @@ html:not([data-theme='dark']) .collection-btn:hover {
   color: #1A1A1A;
   border: 1px solid #C4D82E;
   cursor: pointer;
-  transition: all 0.3s ease;
   position: relative;
 }
 
-/* Dark Mode Goal Cards (Hebra 2) */
+/* Dark Mode Goal Cards (Hebra 2 â€” #0a0f18 Bluish Black) */
 [data-theme='dark'] .goal-card {
-  background: #0a0f18 !important;
-  /* Deep Blue-Black */
-  border: 1px solid #2E5BFF !important;
-  /* Fine Electric Blue */
-  box-shadow: 0 0 15px rgba(46, 91, 255, 0.1) !important;
+  background: #0a0f18;
+  border: 1px solid #2E5BFF;
+  box-shadow: 0 0 15px rgba(46, 91, 255, 0.1);
 }
 
 [data-theme='dark'] .goal-card.selected,
 [data-theme='dark'] .goal-card:hover {
-  box-shadow: 0 0 25px rgba(46, 91, 255, 0.3) !important;
-  border-color: #C4D82E !important;
-  /* Neon Green on interaction */
-}
-
-/* Dark Mode Titles */
-[data-theme='dark'] .section-title-crowdfunding,
-[data-theme='dark'] .section-title-goals {
-  color: #FFFFFF !important;
-  text-shadow: 0 0 10px rgba(196, 216, 46, 0.5);
+  box-shadow: 0 0 25px rgba(46, 91, 255, 0.3);
+  border-color: #C4D82E;
 }
 
 [data-theme='dark'] .goal-title {
-  color: #FFFFFF !important;
+  color: #FFFFFF;
 }
 
 [data-theme='dark'] .goal-amount {
-  color: #CCCCCC !important;
+  color: #CCCCCC;
+}
+
+/* =========================================
+   Fondo ComÃºn â€” Vision Paragraph
+   Light: animated neon shimmer gradient
+   Dark: readable silver, zero glow
+   ========================================= */
+.crowdfunding-vision {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.25rem;
+  background: linear-gradient(90deg, #C4D82E 0%, #8A9A1B 50%, #C4D82E 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s linear infinite;
+  line-height: 2.0;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+/* Dark Mode Override â€” kill the gradient, restore solid readable text */
+[data-theme='dark'] .crowdfunding-vision {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #E0E0E0;
+  animation: none;
+  text-shadow: none;
+}
+
+/* Section Title â€” Fondo ComÃºn (Light: Charcoal, Dark: White) */
+.section-title-crowdfunding {
+  color: #1A1A1A;
+}
+
+[data-theme='dark'] #fuel {
+  background: #0a0f18 !important;
+}
+
+[data-theme='dark'] .section-title-crowdfunding {
+  color: #FFFFFF !important;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(196, 216, 46, 0.15) !important;
+}
+
+/* Section Title â€” Goals (Light: Charcoal, Dark: White) */
+.section-title-goals {
+  color: #1A1A1A;
+}
+
+[data-theme='dark'] .section-title-goals {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Support Label inside expanded goal card */
+.crowdfunding-support-label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+[data-theme='dark'] .crowdfunding-support-label {
+  color: #AAAAAA;
 }
 
 /* Dark Mode Progress Bars */
 [data-theme='dark'] .goal-percent {
-  color: #C4D82E !important;
+  color: #C4D82E;
   text-shadow: 0 0 5px rgba(196, 216, 46, 0.5);
   font-weight: 700;
 }
 
 [data-theme='dark'] .progress-track {
-  background: #000000 !important;
-  border: 1px solid #333;
+  background: #000;
+  border: 1px solid #1B2A41;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 [data-theme='dark'] .progress-fill {
-  background: #C4D82E !important;
+  background: #C4D82E;
   box-shadow: 0 0 10px rgba(196, 216, 46, 0.5);
 }
 
 /* Dark Mode Join Button */
 [data-theme='dark'] .join-btn {
-  background: transparent !important;
-  border: 1px solid #C4D82E !important;
-  color: #C4D82E !important;
+  background: transparent;
+  border: 1px solid #C4D82E;
+  color: #C4D82E;
   box-shadow: 0 0 10px rgba(196, 216, 46, 0.2);
 }
 
 [data-theme='dark'] .join-btn:hover:not(:disabled),
 [data-theme='dark'] .join-btn.active {
-  background: #C4D82E !important;
-  color: #000 !important;
+  background: #C4D82E;
+  color: #000;
   box-shadow: 0 0 20px rgba(196, 216, 46, 0.6);
 }
 
 .join-btn.active:hover {
   background: #C4D82E;
-  color: #FFFFFF;
+  color: #1A1A1A;
   box-shadow: 0 0 30px rgba(196, 216, 46, 0.6);
   transform: translateY(-3px);
   border-color: #C4D82E;
 }
 
-[data-theme='dark'] .join-btn.active {
-  color: #C4D82E;
-  border-color: #C4D82E;
-}
-
 [data-theme='dark'] .join-btn.active:hover {
   background: rgba(196, 216, 46, 0.1);
+  color: #C4D82E;
   box-shadow: 0 0 30px rgba(196, 216, 46, 0.4);
 }
 
-/* Ensure images fade in cleanly in dark mode */
+/* Images fade in cleanly in dark mode */
 [data-theme='dark'] .product-img {
   filter: brightness(0.9);
 }
 
 [data-theme='dark'] .collection-card:hover .product-img {
   filter: brightness(1.1);
+}
+
+/* =============================================
+   FONDO CÃ“SMICO â€” Hebra 2 (Dark Mode)
+   Exclusivo: #curations (Cartelera + Productos)
+             y #fuel (Fondo ComÃºn)
+   ============================================= */
+
+/* Hebra 1 Shield â€” sin cambios en Light Mode */
+html:not([data-theme='dark']) #curations,
+html:not([data-theme='dark']) #fuel {
+  background: var(--color-bg) !important;
+}
+
+/* â”€â”€ Fondo cÃ³smico principal â”€â”€ */
+[data-theme='dark'] #curations,
+[data-theme='dark'] #fuel {
+  background: radial-gradient(circle at top right,
+      #061a12 0%,
+      #0a0f18 70%) !important;
+  position: relative;
+}
+
+/* â”€â”€ Capa de estrellas via ::before â”€â”€ */
+[data-theme='dark'] #curations::before,
+[data-theme='dark'] #fuel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgba(255, 255, 255, 0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 31% 67%, rgba(196, 216, 46, 0.50) 0%, transparent 100%),
+    radial-gradient(1px 1px at 54% 42%, rgba(255, 255, 255, 0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 73% 88%, rgba(46, 91, 255, 0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 89% 25%, rgba(255, 255, 255, 0.50) 0%, transparent 100%),
+    radial-gradient(1px 1px at 6% 80%, rgba(196, 216, 46, 0.40) 0%, transparent 100%),
+    radial-gradient(1px 1px at 48% 10%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 55%, rgba(46, 91, 255, 0.45) 0%, transparent 100%),
+    radial-gradient(2px 2px at 23% 35%, rgba(255, 255, 255, 0.30) 0%, transparent 100%),
+    radial-gradient(2px 2px at 61% 72%, rgba(196, 216, 46, 0.35) 0%, transparent 100%),
+    radial-gradient(2px 2px at 82% 15%, rgba(46, 91, 255, 0.40) 0%, transparent 100%),
+    radial-gradient(2px 2px at 40% 90%, rgba(255, 255, 255, 0.25) 0%, transparent 100%),
+    radial-gradient(2px 2px at 77% 48%, rgba(196, 216, 46, 0.30) 0%, transparent 100%);
+  background-size:
+    400px 400px, 500px 500px, 450px 450px, 550px 550px, 480px 480px,
+    420px 420px, 530px 530px, 460px 460px,
+    700px 700px, 800px 800px, 750px 750px, 650px 650px, 720px 720px;
+  background-repeat: repeat;
+  opacity: 0.8;
+}
+
+/* â”€â”€ Asegurar que el contenido estÃ© sobre la capa de estrellas â”€â”€ */
+[data-theme='dark'] #curations>*,
+[data-theme='dark'] #fuel>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* â”€â”€ TÃ­tulos sobre el fondo cÃ³smico â”€â”€ */
+[data-theme='dark'] #curations h2,
+[data-theme='dark'] #curations h3 {
+  color: #FFFFFF;
+  text-shadow: 0 0 20px rgba(196, 216, 46, 0.15);
+}
+
+[data-theme='dark'] #curations p {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* =============================================
+   FOOTER — Hebra 2 (Dark Mode)
+   Deep Space landing — identidad técnica final
+   Light Mode: inline styles dominan, sin changes
+   ============================================= */
+
+[data-theme='dark'] footer#contact {
+  background: #080c10 !important;
+  border-top: 1px solid rgba(46, 91, 255, 0.2) !important;
+  color: #F5F5F5 !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* Línea de Horizonte Neón — Verde #C4D82E, desde el centro hacia la derecha */
+[data-theme='dark'] footer#contact::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  /* Cubre el border-top, se posiciona encima */
+  left: 50%;
+  /* Empieza desde el centro */
+  width: 50%;
+  /* Cubre exactamente la mitad derecha */
+  height: 2px;
+  background: #C4D82E;
+  box-shadow:
+    0 0 6px #C4D82E,
+    0 0 14px rgba(196, 216, 46, 0.6),
+    0 0 28px rgba(196, 216, 46, 0.3);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Links — Blanco Humo con transición suave → Verde Neón al hover */
+[data-theme='dark'] footer#contact a {
+  color: #F5F5F5 !important;
+  transition: color 0.3s ease, filter 0.3s ease !important;
+}
+
+[data-theme='dark'] footer#contact a:hover {
+  color: #C4D82E !important;
+  filter: drop-shadow(0 0 5px rgba(196, 216, 46, 0.65)) !important;
+}
+
+/* Texto general: Blanco Humo */
+[data-theme='dark'] footer#contact span,
+[data-theme='dark'] footer#contact p:not([style*="var(--color-neon"]) {
+  color: #F5F5F5 !important;
+}
+
+/* Copyright — Gris Azulado discreto (#6b7280) */
+[data-theme='dark'] footer#contact>div:last-child span {
+  color: #6b7280 !important;
+}
+
+/* =============================================
+   PANEL VER DETALLES — Hebra 2 (Dark Mode)
+   Las 3 tiendas: fondo cósmico, textos legibles
+   Hebra 1: inline styles dominan, sin cambios
+   ============================================= */
+
+/* ── Overlay principal — fondo cosmic tech ── */
+[data-theme='dark'] .detail-overlay {
+  background: radial-gradient(circle at top left,
+      #061a12 0%,
+      #0a0f18 60%,
+      #05080d 100%) !important;
+}
+
+/* ── Botón cerrar (X) ── */
+[data-theme='dark'] .detail-close-btn {
+  background: #0f1923 !important;
+  border: 1px solid rgba(196, 216, 46, 0.4) !important;
+  color: #C4D82E !important;
+  box-shadow: 0 0 12px rgba(196, 216, 46, 0.2) !important;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+[data-theme='dark'] .detail-close-btn:hover {
+  border-color: #C4D82E !important;
+  box-shadow: 0 0 20px rgba(196, 216, 46, 0.45) !important;
+}
+
+/* ── Título de sección ── */
+[data-theme='dark'] .detail-title {
+  color: #FFFFFF !important;
+  text-shadow: 0 0 20px rgba(196, 216, 46, 0.12);
+}
+
+/* ── Badge total del carrito ── */
+[data-theme='dark'] .detail-total-badge {
+  background: rgba(196, 216, 46, 0.15) !important;
+  border: 1px solid rgba(196, 216, 46, 0.4) !important;
+  color: #C4D82E !important;
+}
+
+/* ── Tarjeta de producto individual ── */
+[data-theme='dark'] .product-card {
+  background: #0d1622 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(46, 91, 255, 0.15) !important;
+}
+
+/* ── Título del producto ── */
+[data-theme='dark'] .product-title-label {
+  color: #FFFFFF !important;
+}
+
+/* ── Precio del producto — Verde Neón ── */
+[data-theme='dark'] .product-price-label {
+  color: #C4D82E !important;
+}
+
+/* ── Descripción — Gris Plata legible ── */
+[data-theme='dark'] .product-desc-text {
+  color: #E0E0E0 !important;
+}
+
+/* ── Selector de cantidad ── */
+[data-theme='dark'] .quantity-selector {
+  background: #0f1923 !important;
+  border-color: rgba(46, 91, 255, 0.3) !important;
+}
+
+/* Botón minus (−) — Azul Eléctrico Neón */
+[data-theme='dark'] .quantity-selector button:first-child {
+  background: rgba(46, 91, 255, 0.12) !important;
+  border: 1px solid rgba(46, 91, 255, 0.5) !important;
+  color: #2E5BFF !important;
+  box-shadow: 0 0 8px rgba(46, 91, 255, 0.4) !important;
+  width: 36px !important;
+  height: 36px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+[data-theme='dark'] .quantity-selector button:first-child:hover {
+  background: rgba(46, 91, 255, 0.22) !important;
+  box-shadow: 0 0 16px rgba(46, 91, 255, 0.7), 0 0 32px rgba(46, 91, 255, 0.3) !important;
+  transform: scale(1.1) !important;
+  border-color: #2E5BFF !important;
+}
+
+/* Fuerza el icono SVG del Minus a blanco — el prop color="#1A1A1A" setea stroke directamente */
+[data-theme='dark'] .quantity-selector button:first-child svg,
+[data-theme='dark'] .quantity-selector button:first-child svg path,
+[data-theme='dark'] .quantity-selector button:first-child svg line {
+  stroke: #FFFFFF !important;
+  color: #FFFFFF !important;
+}
+
+
+/* Número de cantidad */
+[data-theme='dark'] .quantity-selector span {
+  color: #FFFFFF !important;
+}
+
+/* Botón plus (+) — Turquesa Neón encendido */
+[data-theme='dark'] .quantity-selector button:last-child {
+  background: rgba(0, 229, 255, 0.12) !important;
+  border: 1px solid rgba(0, 229, 255, 0.5) !important;
+  color: #00F5FF !important;
+  box-shadow: 0 0 8px rgba(0, 245, 255, 0.4) !important;
+  width: 36px !important;
+  height: 36px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+[data-theme='dark'] .quantity-selector button:last-child:hover {
+  background: rgba(0, 229, 255, 0.22) !important;
+  box-shadow: 0 0 16px rgba(0, 245, 255, 0.7), 0 0 32px rgba(0, 229, 255, 0.3) !important;
+  transform: scale(1.1) !important;
+  border-color: #00F5FF !important;
 }

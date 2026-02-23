@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import VibrantString from './components/VibrantString'
+import Pentagrama from './components/FooterPentagrama'
 import Vision from './components/Vision'
 import Services from './components/Services'
 import Crowdfunding from './components/Crowdfunding'
@@ -14,7 +14,7 @@ function HomePage() {
     <>
       <Navbar />
       <Hero />
-      <VibrantString />
+      <Pentagrama />
       <Services />
       <Vision />
       <Crowdfunding />

@@ -119,32 +119,13 @@ export default function Crowdfunding() {
                     <h2 className="section-title-crowdfunding" style={{
                         fontSize: '3.5rem',
                         marginBottom: '1.5rem',
-                        color: '#1A1A1A',
                         fontFamily: 'var(--font-title)',
                         fontWeight: '900',
                         letterSpacing: '-1px'
                     }}>
                         {t.crowdfunding.title}
                     </h2>
-                    <p style={{
-                        maxWidth: '700px',
-                        margin: '0 auto',
-                        fontSize: '1.25rem',
-                        // Animated Neon Gradient
-                        background: 'linear-gradient(90deg, #C4D82E 0%, #8A9A1B 50%, #C4D82E 100%)',
-                        backgroundSize: '200% auto',
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        color: 'transparent', // Essential for background-clip
-                        animation: 'shimmer 8s linear infinite', // Slow smooth flow
-                        // Typography & Glow
-                        lineHeight: '2.0',
-                        fontFamily: 'sans-serif',
-                        fontWeight: '600',
-                        fontStyle: 'italic',
-                        letterSpacing: '0.03em',
-                        textShadow: '0 0 30px rgba(196, 216, 46, 0.4)' // Soft neon glow
-                    }}>
+                    <p className="crowdfunding-vision">
                         {t.crowdfunding.vision}
                     </p>
                 </div>
@@ -251,7 +232,6 @@ export default function Crowdfunding() {
                     <h3 className="section-title-goals" style={{
                         fontSize: '2rem',
                         marginBottom: '3rem',
-                        color: '#1A1A1A',
                         fontFamily: 'var(--font-title)',
                         fontWeight: '700',
                         textAlign: 'center'
@@ -300,15 +280,9 @@ export default function Crowdfunding() {
                                         <div style={{
                                             marginTop: '2rem',
                                             paddingTop: '2rem',
-                                            borderTop: '1px solid #E0E0E0'
+                                            borderTop: '1px solid var(--color-divider)'
                                         }}>
-                                            <p style={{
-                                                fontSize: '0.9rem',
-                                                color: '#555',
-                                                marginBottom: '1rem',
-                                                textTransform: 'uppercase',
-                                                letterSpacing: '1px'
-                                            }}>
+                                            <p className="crowdfunding-support-label">
                                                 {t.crowdfunding.select_amount}
                                             </p>
                                             <div style={{
