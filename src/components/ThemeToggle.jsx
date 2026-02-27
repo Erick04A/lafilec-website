@@ -33,7 +33,7 @@ export default function ThemeToggle() {
                 {/* The Neumorphic Circle */}
                 <span className="power-button">
                     <Power
-                        size={18}
+                        size={19}
                         className="power-icon"
                         strokeWidth={2.5}
                     />

@@ -54,7 +54,7 @@ export default function ResonantSeal({ triggerPulse = false }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '0 10px',
-                height: isMobile ? '40px' : '50px',
+                height: isMobile ? '42px' : '52.5px',
                 background: 'transparent',
                 transition: 'transform 0.3s ease',
                 transform: isHovered ? 'scale(1.1)' : 'scale(1)',
@@ -72,7 +72,7 @@ export default function ResonantSeal({ triggerPulse = false }) {
                 {barsLeft.map((bar, i) => (
                     <div key={`l-${i}`} style={{
                         width: '2px',
-                        height: isMobile ? '10px' : '12px',
+                        height: isMobile ? '10.5px' : '12.6px',
                         background: '#C4D82E', // High visibility Lime
                         borderRadius: '1px',
                         animation: `pulse-height ${isHovered ? '0.6s' : bar.duration} ease-in-out infinite alternate`,
@@ -86,7 +86,7 @@ export default function ResonantSeal({ triggerPulse = false }) {
                 src={`${import.meta.env.BASE_URL}logo.png`}
                 alt="LA FIL"
                 style={{
-                    height: isMobile ? '24px' : '32px', // 20% smaller reduction roughly
+                    height: isMobile ? '25.2px' : '33.5px', // 20% smaller reduction roughly
                     width: 'auto',
                     objectFit: 'contain',
                     zIndex: 2,
@@ -106,7 +106,7 @@ export default function ResonantSeal({ triggerPulse = false }) {
                 {barsRight.map((bar, i) => (
                     <div key={`r-${i}`} style={{
                         width: '2px',
-                        height: isMobile ? '10px' : '12px',
+                        height: isMobile ? '10.5px' : '12.6px',
                         background: '#C4D82E',
                         borderRadius: '1px',
                         animation: `pulse-height ${isHovered ? '0.6s' : bar.duration} ease-in-out infinite alternate`,

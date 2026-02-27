@@ -23,11 +23,11 @@ export default function Navbar() {
 
   return (
     <nav style={{
-      position: 'fixed',
+      position: 'absolute',
       top: 0,
       left: 0,
       width: '100%',
-      padding: '1.5rem 3rem',
+      padding: '1.575rem 3.15rem',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -40,10 +40,10 @@ export default function Navbar() {
       <ResonantSeal triggerPulse={navHovered} />
 
 
-      <div style={{ display: window.innerWidth > 768 ? 'flex' : 'none', alignItems: 'center', gap: '3rem' }}>
+      <div style={{ display: window.innerWidth > 768 ? 'flex' : 'none', alignItems: 'center', gap: '3.15rem' }}>
         <ul style={{
           display: 'flex',
-          gap: '2rem',
+          gap: '2.1rem',
           listStyle: 'none',
           margin: 0,
           padding: 0
@@ -52,29 +52,7 @@ export default function Navbar() {
             <li key={link.key}>
               <a
                 href={link.external ? link.url : `#${link.key}`}
-                onMouseEnter={() => setNavHovered(true)}
-                onMouseLeave={() => setNavHovered(false)}
-                style={{
-                  textDecoration: 'none',
-                  color: 'var(--color-text)',
-                  fontWeight: '600',
-                  fontSize: '0.85rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  position: 'relative',
-                  transition: 'color 0.3s ease, opacity 0.3s ease',
-                  opacity: 0.8
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.color = '#C4D82E'
-                  e.currentTarget.style.opacity = '1'
-                  e.currentTarget.style.filter = 'drop-shadow(0 0 8px rgba(196, 216, 46, 0.4))'
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.color = 'var(--color-text)'
-                  e.currentTarget.style.opacity = '0.8'
-                  e.currentTarget.style.filter = 'none'
-                }}
+                className="navbar-main-link"
               >
                 {link.label}
               </a>
@@ -83,23 +61,25 @@ export default function Navbar() {
         </ul>
 
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2.1rem' }}>
           {/* Sofi Neumorphic Theme Switch */}
           <ThemeToggle />
 
-          <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.8rem', fontWeight: 'bold' }}>
+          <div style={{ display: 'flex', gap: '0.55rem', fontSize: '0.85rem' }}>
             {['es', 'en', 'fr'].map((l) => (
               <button
                 key={l}
                 onClick={() => switchLang(l)}
+                className="navbar-lang-link"
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: lang === l ? 'var(--color-primary)' : 'var(--color-text)',
+                  color: lang === l ? 'var(--color-primary)' : '#555555',
                   cursor: 'pointer',
                   textTransform: 'uppercase',
                   padding: '0 0.2rem',
-                  opacity: lang === l ? 1 : 0.5,
+                  fontWeight: '300 !important',
+                  opacity: 1,
                   transition: 'color 0.3s'
                 }}
               >
@@ -160,18 +140,8 @@ export default function Navbar() {
                   <a
                     href={link.external ? link.url : `#${link.key}`}
                     onClick={handleLinkClick}
-                    style={{
-                      textDecoration: 'none',
-                      color: '#FFF', // White text for dark bg
-                      fontWeight: '600',
-                      fontSize: '1.5rem', // Larger for mobile
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      display: 'block',
-                      padding: '0.5rem 0',
-                      opacity: 0,
-                      animation: `fadeInUp 0.4s ease forwards ${index * 0.1}s`
-                    }}
+                    className="navbar-main-link-mobile"
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     {link.label}
                   </a>
@@ -199,15 +169,16 @@ export default function Navbar() {
                     switchLang(l)
                     setMobileMenuOpen(false)
                   }}
+                  className="navbar-lang-link-mobile"
                   style={{
                     background: lang === l ? 'rgba(196, 216, 46, 0.2)' : 'transparent',
-                    border: `1px solid ${lang === l ? '#C4D82E' : 'rgba(255,255,255,0.3)'}`,
-                    color: lang === l ? '#C4D82E' : '#FFF',
+                    border: `1px solid ${lang === l ? '#C4D82E' : '#FFFFFF'}`,
+                    color: lang === l ? '#C4D82E' : '#FFFFFF',
                     cursor: 'pointer',
                     textTransform: 'uppercase',
                     padding: '0.8rem 0',
                     width: '60px',
-                    fontWeight: 'bold',
+                    fontWeight: '300',
                     borderRadius: '8px',
                     fontSize: '0.9rem',
                     transition: 'all 0.2s'

@@ -79,30 +79,31 @@ export const translations = {
             msg_total: 'Total estimado:',
             inventory: {
                 stickers: [
-                    { id: 's1', title: 'Mini', price: '0.25', desc: 'Pequeños pero con actitud.', img: imgStickerMini },
-                    { id: 's2', title: 'Medianos', price: '0.50', desc: 'El equilibrio ideal entre estilo y presencia.', img: imgStickerMedium },
+                    { id: 's1', title: 'Mini', price: '1.00', desc: 'Pequeños pero con actitud.', img: imgStickerMini },
+                    { id: 's2', title: 'Medianos', price: '1.00', desc: 'El equilibrio ideal entre estilo y presencia.', img: imgStickerMedium },
                     { id: 's3', title: 'Grandes', price: '1.00', desc: 'Imposibles de ignorar.', img: imgStickerLarge },
-                    { id: 's4', title: 'Exclusivo LA FIL', price: '1.50', desc: 'Símbolo de elegancia y rebeldía creativa.', img: imgStickerExclusive },
-                    { id: 's5', title: 'Pack Misterioso', price: '3.00', desc: 'Sobre con sorpresas únicas.', img: imgStickerMystery },
+                    { id: 's4', title: 'Exclusivo LA FIL', price: '1.00', desc: 'Símbolo de elegancia y rebeldía creativa.', img: imgStickerExclusive },
+                    { id: 's5', title: 'Pack Misterioso', price: '1.00', desc: 'Sobre con sorpresas únicas.', img: imgStickerMystery },
                     { id: 's6', title: 'Stickers Personalizables', price: '—', isCustom: true, desc: 'Haz realidad tus ideas con nuestra calidad premium.', img: imgStickerMystery }
                 ],
                 plushies: [
-                    { id: 'p1', title: 'Vaquita Corazón', price: '2.99', desc: 'Ternura en cada detalle.', img: imgVaquitaCorazon },
-                    { id: 'p2', title: 'Diablo Rojo', price: '2.50', desc: 'Picardía y suavidad.', img: imgDiablo },
-                    { id: 'p3', title: 'Oso Dorado', price: '4.50', desc: 'Clásico con brillo premium.', img: imgOsoDorado },
-                    { id: 'p4', title: 'Oso Vintage', price: '4.25', desc: 'Elegancia envuelta en suavidad.', img: imgOsoVintage },
-                    { id: 'p5', title: 'Conejo Cariñoso', price: '4.50', desc: 'Delicado y dulce en cada detalle.', img: imgConejoCarinoso },
-                    { id: 'p6', title: 'Mini Mueble', price: '9.00', desc: 'Para decorar tus figuras favoritas.', img: imgMiniMueble },
-                    { id: 'p7', title: 'Conejo Te Amo', price: '8.00', desc: 'Un regalo con intención profunda.', img: imgConejoTeamo },
-                    { id: 'p8', title: 'Oso de Feliz Día', price: '4.00', desc: 'Ideal para alegrar cualquier momento.', img: imgOsoFelizDia },
+                    { id: 'p1', title: 'Vaquita Corazón', price: '1.99', desc: 'Ternura en cada detalle.', img: imgVaquitaCorazon },
+                    { id: 'p2', title: 'Diablo Rojo', price: '1.99', desc: 'Picardía y suavidad.', img: imgDiablo },
+                    { id: 'p3', title: 'Oso Dorado', price: '1.99', desc: 'Clásico con brillo premium.', img: imgOsoDorado },
+                    { id: 'p4', title: 'Oso Vintage', price: '1.99', desc: 'Elegancia envuelta en suavidad.', img: imgOsoVintage },
+                    { id: 'p5', title: 'Conejo Cariñoso', price: '1.99', desc: 'Delicado y dulce en cada detalle.', img: imgConejoCarinoso },
+                    { id: 'p6', title: 'Mini Mueble', price: '1.99', desc: 'Para decorar tus figuras favoritas.', img: imgMiniMueble },
+                    { id: 'p7', title: 'Conejo Te Amo', price: '1.99', desc: 'Un regalo con intención profunda.', img: imgConejoTeamo },
+                    { id: 'p8', title: 'Oso de Feliz Día', price: '1.99', desc: 'Ideal para alegrar cualquier momento.', img: imgOsoFelizDia },
                     { id: 'p9', title: 'Vaquita de Adorno', price: '1.99', desc: 'Pequeña, adorable y con sonido.', img: imgVaquitaAdorno }
                 ],
                 cookies: [
                     { id: 'c1', title: 'Clásica de Chocolate', price: '1.50', desc: 'Nuestra receta original con chips de chocolate premium.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
                     { id: 'c2', title: 'Red Velvet', price: '1.50', desc: 'Elegancia y sabor en cada mordida.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
                     { id: 'c3', title: 'Double Chocolat', price: '1.50', desc: 'Pour les amateurs de cacao intense.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
-                    { id: 'c4', title: 'Pack Surtido (x6)', price: '7.00', desc: 'Llévate la experiencia completa: 6 galletas surtidas a un precio especial.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' }
+                    { id: 'c4', title: 'Pack Surtido (x6)', price: '1.50', desc: 'Llévate la experiencia completa: 6 galletas surtidas a un precio especial.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' }
                 ]
+
             }
         },
         crowdfunding: {
@@ -211,29 +212,29 @@ export const translations = {
             msg_total: 'Estimated Total:',
             inventory: {
                 stickers: [
-                    { id: 's1', title: 'Mini', price: '0.25', desc: 'Small but with attitude.', img: imgStickerMini },
-                    { id: 's2', title: 'Medium', price: '0.50', desc: 'Ideal balance between style and presence.', img: imgStickerMedium },
+                    { id: 's1', title: 'Mini', price: '1.00', desc: 'Small but with attitude.', img: imgStickerMini },
+                    { id: 's2', title: 'Medium', price: '1.00', desc: 'Ideal balance between style and presence.', img: imgStickerMedium },
                     { id: 's3', title: 'Large', price: '1.00', desc: 'Impossible to ignore.', img: imgStickerLarge },
-                    { id: 's4', title: 'LA FIL Exclusive', price: '1.50', desc: 'Symbol of elegance and creative rebellion.', img: imgStickerExclusive },
-                    { id: 's5', title: 'Mystery Pack', price: '3.00', desc: 'Envelope with unique surprises.', img: imgStickerMystery },
+                    { id: 's4', title: 'LA FIL Exclusive', price: '1.00', desc: 'Symbol of elegance and creative rebellion.', img: imgStickerExclusive },
+                    { id: 's5', title: 'Mystery Pack', price: '1.00', desc: 'Envelope with unique surprises.', img: imgStickerMystery },
                     { id: 's6', title: 'Custom Stickers', price: '—', isCustom: true, desc: 'Bring your ideas to life with our premium quality.', img: imgStickerMystery }
                 ],
                 plushies: [
-                    { id: 'p1', title: 'Heart Cow', price: '2.99', desc: 'Tenderness in every detail.', img: imgVaquitaCorazon },
-                    { id: 'p2', title: 'Red Devil', price: '2.50', desc: 'Mischief and softness.', img: imgDiablo },
-                    { id: 'p3', title: 'Golden Bear', price: '4.50', desc: 'Classic with premium shine.', img: imgOsoDorado },
-                    { id: 'p4', title: 'Vintage Bear', price: '4.25', desc: 'Elegancia wrapped in softness.', img: imgOsoVintage },
-                    { id: 'p5', title: 'Affectionate Bunny', price: '4.50', desc: 'Delicate and sweet in every detail.', img: imgConejoCarinoso },
-                    { id: 'p6', title: 'Mini Furniture', price: '9.00', desc: 'To decorate your favorite figures.', img: imgMiniMueble },
-                    { id: 'p7', title: 'I Love You Bunny', price: '8.00', desc: 'A gift with deep intention.', img: imgConejoTeamo },
-                    { id: 'p8', title: 'Happy Day Bear', price: '4.00', desc: 'Ideal to brighten any moment.', img: imgOsoFelizDia },
+                    { id: 'p1', title: 'Heart Cow', price: '1.99', desc: 'Tenderness in every detail.', img: imgVaquitaCorazon },
+                    { id: 'p2', title: 'Red Devil', price: '1.99', desc: 'Mischief and softness.', img: imgDiablo },
+                    { id: 'p3', title: 'Golden Bear', price: '1.99', desc: 'Classic with premium shine.', img: imgOsoDorado },
+                    { id: 'p4', title: 'Vintage Bear', price: '1.99', desc: 'Elegancia wrapped in softness.', img: imgOsoVintage },
+                    { id: 'p5', title: 'Affectionate Bunny', price: '1.99', desc: 'Delicate and sweet in every detail.', img: imgConejoCarinoso },
+                    { id: 'p6', title: 'Mini Furniture', price: '1.99', desc: 'To decorate your favorite figures.', img: imgMiniMueble },
+                    { id: 'p7', title: 'I Love You Bunny', price: '1.99', desc: 'A gift with deep intention.', img: imgConejoTeamo },
+                    { id: 'p8', title: 'Happy Day Bear', price: '1.99', desc: 'Ideal to brighten any moment.', img: imgOsoFelizDia },
                     { id: 'p9', title: 'Decorative Cow', price: '1.99', desc: 'Small, adorable and with sound.', img: imgVaquitaAdorno }
                 ],
                 cookies: [
                     { id: 'c1', title: 'Classic Chocolate', price: '1.50', desc: 'Our original recipe with premium chocolate chips.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
                     { id: 'c2', title: 'Red Velvet', price: '1.50', desc: 'Elegancia and flavor in every bite.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
                     { id: 'c3', title: 'Double Chocolate', price: '1.50', desc: 'For intense cocoa lovers.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' },
-                    { id: 'c4', title: 'Assorted Pack (x6)', price: '7.00', desc: 'Get the full experience: 6 assorted cookies at a special price.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' }
+                    { id: 'c4', title: 'Assorted Pack (x6)', price: '1.50', desc: 'Get the full experience: 6 assorted cookies at a special price.', img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80' }
                 ]
             }
         },
@@ -344,29 +345,29 @@ export const translations = {
             msg_total: "Total estimé :",
             inventory: {
                 stickers: [
-                    { id: "s1", title: "Mini", price: "0.25", desc: "Petits mais avec de l'attitude.", img: imgStickerMini },
-                    { id: "s2", title: "Moyens", price: "0.50", desc: "L'équilibre idéal entre style et présence.", img: imgStickerMedium },
+                    { id: "s1", title: "Mini", price: "1.00", desc: "Petits mais avec de l'attitude.", img: imgStickerMini },
+                    { id: "s2", title: "Moyens", price: "1.00", desc: "L'équilibre idéal entre style et présence.", img: imgStickerMedium },
                     { id: "s3", title: "Grands", price: "1.00", desc: "Impossibles à ignorer.", img: imgStickerLarge },
-                    { id: "s4", title: "Exclusivité LA FIL", price: "1.50", desc: "Symbole d'élégance et de rébellion créative.", img: imgStickerExclusive },
-                    { id: "s5", title: "Pack Mystère", price: "3.00", desc: "Enveloppe avec des surprises uniques.", img: imgStickerMystery },
+                    { id: "s4", title: "Exclusivité LA FIL", price: "1.00", desc: "Symbole d'élégance et de rébellion créative.", img: imgStickerExclusive },
+                    { id: "s5", title: "Pack Mystère", price: "1.00", desc: "Enveloppe avec des surprises uniques.", img: imgStickerMystery },
                     { id: "s6", title: "Stickers Personnalisables", price: "—", isCustom: true, desc: "Donnez vie à vos idées avec notre qualité premium.", img: imgStickerMystery }
                 ],
                 plushies: [
-                    { id: "p1", title: "Vache Cœur", price: "2.99", desc: "Tendresse dans chaque détail.", img: imgVaquitaCorazon },
-                    { id: "p2", title: "Diablo Rouge", price: "2.50", desc: "Espièglerie et douceur.", img: imgDiablo },
-                    { id: "p3", title: "Ours Doré", price: "4.50", desc: "Classique avec un éclat premium.", img: imgOsoDorado },
-                    { id: "p4", title: "Ours Vintage", price: "4.25", desc: "Élégance enveloppée de douceur.", img: imgOsoVintage },
-                    { id: "p5", title: "Lapin Affectueux", price: "4.50", desc: "Délicat et doux dans chaque détail.", img: imgConejoCarinoso },
-                    { id: "p6", title: "Mini Meuble", price: "9.00", desc: "Pour décorer vos figurines préférées.", img: imgMiniMueble },
-                    { id: "p7", title: "Lapin Je T'aime", price: "8.00", desc: "Un cadeau avec une intention profonde.", img: imgConejoTeamo },
-                    { id: "p8", title: "Ours Joyeux Jour", price: "4.00", desc: "Idéal pour égayer n'importe quel moment.", img: imgOsoFelizDia },
+                    { id: "p1", title: "Vache Cœur", price: "1.99", desc: "Tendresse dans chaque détail.", img: imgVaquitaCorazon },
+                    { id: "p2", title: "Diablo Rouge", price: "1.99", desc: "Espièglerie et douceur.", img: imgDiablo },
+                    { id: "p3", title: "Ours Doré", price: "1.99", desc: "Classique avec un éclat premium.", img: imgOsoDorado },
+                    { id: "p4", title: "Ours Vintage", price: "1.99", desc: "Élégance enveloppée de douceur.", img: imgOsoVintage },
+                    { id: "p5", title: "Lapin Affectueux", price: "1.99", desc: "Délicat et doux dans chaque détail.", img: imgConejoCarinoso },
+                    { id: "p6", title: "Mini Meuble", price: "1.99", desc: "Pour décorer vos figurines préférées.", img: imgMiniMueble },
+                    { id: "p7", title: "Lapin Je T'aime", price: "1.99", desc: "Un cadeau avec une intention profonde.", img: imgConejoTeamo },
+                    { id: "p8", title: "Ours Joyeux Jour", price: "1.99", desc: "Idéal pour égayer n'importe quel moment.", img: imgOsoFelizDia },
                     { id: "p9", title: "Vache Décorative", price: "1.99", desc: "Petite, adorable et avec du son.", img: imgVaquitaAdorno }
                 ],
                 cookies: [
                     { id: "c1", title: "Chocolat Classique", price: "1.50", desc: "Notre recette originale aux pépites de chocolat premium.", img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80" },
                     { id: "c2", title: "Red Velvet", price: "1.50", desc: "Élégance et saveur à chaque bouchée.", img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80" },
                     { id: "c3", title: "Double Chocolat", price: "1.50", desc: "Pour les amateurs de cacao intense.", img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80" },
-                    { id: "c4", title: "Pack Assorti (x6)", price: "7.00", desc: "Profitez de l'expérience complète : 6 biscuits assortis à un prix spécial.", img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80" }
+                    { id: "c4", title: "Pack Assorti (x6)", price: "1.50", desc: "Profitez de l'expérience complète : 6 biscuits assortis à un prix spécial.", img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80" }
                 ]
             }
         },

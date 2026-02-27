@@ -83,11 +83,10 @@ function makeNote(W, startY, idx) {
     const baseY = startY + lineIndex * LINE_SPACING
     return {
         x: Math.random() * W,
-        y: baseY,
+        y: 0, // Will be set relative to startY in draw loop
         vy: 0,
-        baseY,
         lineIndex,
-        speed: 0.38 + Math.random() * 0.72,
+        speed: 0.35 + Math.random() * 0.35, // Slower flow for 130s range
         type: GLYPH_TYPES[Math.floor(Math.random() * GLYPH_TYPES.length)],
         size: 3.2 + Math.random() * 2.2,
         opacity: 0.58 + Math.random() * 0.38,
@@ -149,7 +148,7 @@ export default function Pentagrama() {
             const W = canvas.getBoundingClientRect().width
             const H = canvas.getBoundingClientRect().height
             const staffH = LINE_SPACING * 4
-            const startY = (H - staffH) / 2
+            const startY = 100 // Final Balanced Descent (+10%) [SHIELD: 280px height]
 
             // Seed notes once (or if canvas was resized and emptied)
             if (notesRef.current.length === 0) {
@@ -199,11 +198,15 @@ export default function Pentagrama() {
 
             /* ── Note particles ── */
             notesRef.current.forEach(note => {
+                // IMPORTANT: Recalculate baseY every frame to stay synced with lines
+                // during container resizes or layout shifts.
+                const noteBaseY = startY + note.lineIndex * LINE_SPACING
+
                 // Wave-synced base Y (note follows the string it sits on)
-                const waveBase = note.baseY
+                const waveBase = noteBaseY
                     + Math.sin(time * 1.1 + note.x * 0.013 + note.lineIndex * 0.72) * 1.4
 
-                // Spring: pull Y toward wave base
+                // Spring: pull Y toward current wave base
                 note.vy += (waveBase - note.y) * SPRING_K
                 note.vy *= DAMPING
 
@@ -264,10 +267,11 @@ export default function Pentagrama() {
             onMouseLeave={handleMouseLeave}
             style={{
                 width: '100%',
-                height: '72px',       // taller to give clef glyphs vertical room
+                height: '280px',       // radical expansion to avoid clipped notes
                 background: 'var(--color-bg)',
                 position: 'relative',
                 cursor: 'crosshair',
+                zIndex: 0,            // Layered behind Mantra
             }}
         >
             <canvas
@@ -275,7 +279,7 @@ export default function Pentagrama() {
                 aria-hidden="true"
                 style={{
                     width: '100%',
-                    height: '72px',
+                    height: '180px', // Recalibrated for lower rezoning
                     display: 'block',
                     pointerEvents: 'none',
                 }}
