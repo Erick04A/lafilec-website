@@ -60,7 +60,7 @@ export default function Footer() {
     ]
 
     const linkStyle = (index) => ({
-        color: hoveredLink === index ? '#C4D82E' : '#FFFFFF', // Pure White default, Neon hover
+        color: hoveredLink === index ? '#C4D82E' : 'rgba(224, 224, 224, 0.9)',
         textDecoration: 'none',
         display: 'flex',
         alignItems: 'center',
@@ -69,20 +69,30 @@ export default function Footer() {
         transition: 'all 0.3s ease',
         position: 'relative',
         paddingBottom: '0.25rem',
-        filter: hoveredLink === index ? 'drop-shadow(0 0 6px rgba(196, 216, 46, 0.8))' : 'none'
+        filter: hoveredLink === index ? 'drop-shadow(0 0 6px rgba(196, 216, 46, 0.4))' : 'none'
     })
 
     return (
         <footer
             id="contact"
             style={{
-                background: '#2C2C2C', // Semi-Dark Premium Charcoal
-                color: '#FFFFFF', // Pure White text base
+                background: 'linear-gradient(135deg, #001F3F 0%, #0B3D2E 100%)',
+                color: '#F5F5DC',
                 padding: '5rem 3rem 3rem',
                 position: 'relative',
-                borderTop: '1px solid rgba(255, 255, 255, 0.2)' // Clean White Divider (0.2 opacity)
+                borderTop: 'none'
             }}
         >
+            {/* Top Light Spark Divider */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '1px',
+                background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)'
+            }} />
+
             <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
 
             <div style={{
@@ -154,7 +164,7 @@ export default function Footer() {
                         fontSize: '1rem',
                         fontWeight: '700',
                         marginBottom: '1.5rem',
-                        color: '#C4D82E', // Neon Green Title (Original Identity)
+                        color: '#F5F5DC',
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em'
                     }}>
@@ -181,7 +191,7 @@ export default function Footer() {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.75rem',
-                            color: '#FFFFFF', // White Icon Text
+                            color: 'rgba(224, 224, 224, 0.9)',
                             marginTop: '0.5rem',
                             fontSize: '0.9rem'
                         }}>
@@ -198,7 +208,7 @@ export default function Footer() {
                         fontSize: '1rem',
                         fontWeight: '700',
                         marginBottom: '1.5rem',
-                        color: '#C4D82E', // Neon Green Title (Original Identity)
+                        color: '#F5F5DC',
                         textTransform: 'uppercase',
                         letterSpacing: '0.1em'
                     }}>
@@ -217,14 +227,14 @@ export default function Footer() {
                                     }
                                 }}
                                 style={{
-                                    color: '#FFFFFF', // Pure White links
+                                    color: 'rgba(224, 224, 224, 0.9)',
                                     textDecoration: 'none',
                                     fontSize: '0.95rem',
                                     transition: 'color 0.3s ease',
                                     cursor: 'pointer'
                                 }}
                                 onMouseEnter={(e) => e.target.style.color = '#C4D82E'}
-                                onMouseLeave={(e) => e.target.style.color = '#FFFFFF'}
+                                onMouseLeave={(e) => e.target.style.color = 'rgba(224, 224, 224, 0.9)'}
                             >
                                 {link.label}
                             </a>
@@ -234,12 +244,11 @@ export default function Footer() {
             </div>
 
 
-            {/* Neon Divider Line */}
+            {/* Subtle Bottom Divider Line */}
             <div style={{
                 height: '1px',
                 width: '100%',
-                background: 'rgba(46, 91, 255, 0.4)',
-                boxShadow: '0 0 8px rgba(0, 102, 255, 0.6)',
+                background: 'linear-gradient(90deg, transparent, rgba(224, 224, 224, 0.2), transparent)',
                 border: 'none',
                 marginBottom: '2rem',
                 marginTop: '0rem'
@@ -249,9 +258,9 @@ export default function Footer() {
             <div style={{
                 textAlign: 'center',
                 fontSize: '0.85rem',
-                color: '#FFFFFF',
-                letterSpacing: '0.05em',
-                opacity: 0.8
+                color: 'rgba(224, 224, 224, 0.9)',
+                letterSpacing: '0.05em'
+                // Removed absolute opacity since using an rgba color
             }}>
                 <span>© 2026 LA FIL. {t.footer.rights}</span>
             </div>

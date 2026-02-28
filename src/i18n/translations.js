@@ -36,6 +36,18 @@ export const translations = {
                 'Si estás allí, formas parte de algo más.'
             ]
         },
+        vision: {
+            hat: {
+                gryffindor: 'GRYFFINDOR',
+                gryffindor_desc: 'Eres Gryffindor. Valor y corazón revelados.',
+                hufflepuff: 'HUFFLEPUFF',
+                hufflepuff_desc: 'Eres Hufflepuff. Lealtad y paciencia encontradas.',
+                ravenclaw: 'RAVENCLAW',
+                ravenclaw_desc: 'Eres Ravenclaw. Sabiduría e intelecto florecen.',
+                slytherin: 'SLYTHERIN',
+                slytherin_desc: 'Eres Slytherin. Ambición y astucia reveladas.'
+            }
+        },
         events: {
             title: 'Nuestros eventos',
             subtitle: 'Experiencias inmersivas que conectan el arte, la música y la tecnología.',
@@ -66,7 +78,7 @@ export const translations = {
             title: 'Nuestra Colección',
             collectionLabel: 'Colección 2026',
             sticker: { title: 'Stickers', desc: 'Colección de vinilos vibrantes.' },
-            plushie: { title: 'Peluches', desc: 'Diseños únicos hechos a mano.' },
+            plushie: { title: 'Peluches', desc: 'Diseños únicos.' },
             cookie: { title: 'Galletas', desc: 'Sabor casero con toque gourmet.' },
             promo: 'Promociones: 3x2 en Galletas de Avena',
             btn_catalog: 'Ver Detalles',
@@ -170,6 +182,18 @@ export const translations = {
                 'If you are there, you become part of something greater.'
             ]
         },
+        vision: {
+            hat: {
+                gryffindor: 'GRYFFINDOR',
+                gryffindor_desc: 'You are Gryffindor. Courage and heart revealed.',
+                hufflepuff: 'HUFFLEPUFF',
+                hufflepuff_desc: 'You are Hufflepuff. Loyalty and patience found.',
+                ravenclaw: 'RAVENCLAW',
+                ravenclaw_desc: 'You are Ravenclaw. Wisdom and intellect flourish.',
+                slytherin: 'SLYTHERIN',
+                slytherin_desc: 'You are Slytherin. Ambition and cunning revealed.'
+            }
+        },
         events: {
             title: 'Events and Programming',
             subtitle: 'Sonic experiences that transform spaces',
@@ -199,7 +223,7 @@ export const translations = {
             title: 'Our Collection',
             collectionLabel: 'Collection 2026',
             sticker: { title: 'Stickers', desc: 'Vibrant vinyl collection.' },
-            plushie: { title: 'Plushies', desc: 'Unique handmade designs.' },
+            plushie: { title: 'Plushies', desc: 'Unique designs.' },
             cookie: { title: 'Cookies', desc: 'Homemade flavor with a gourmet touch.' },
             promo: 'Promotions: 3 for 2 on Oat Cookies',
             btn_catalog: 'View Details',
@@ -303,6 +327,18 @@ export const translations = {
                 "Si vous êtes là, vous faites partie de quelque chose de plus grand."
             ]
         },
+        vision: {
+            hat: {
+                gryffindor: 'GRYFFONDOR',
+                gryffindor_desc: 'Tu es Gryffondor. Courage et cœur révélés.',
+                hufflepuff: 'POUFSOUFFLE',
+                hufflepuff_desc: 'Tu es Poufsouffle. Loyauté et patience trouvées.',
+                ravenclaw: 'SERDAIGLE',
+                ravenclaw_desc: 'Tu es Serdaigle. Sagesse et esprit fleurissent.',
+                slytherin: 'SERPENTARD',
+                slytherin_desc: 'Tu es Serpentard. Ambition et ruse révélées.'
+            }
+        },
         events: {
             title: "Événements et Programmation",
             subtitle: "Expériences sonores qui transforment les espaces",
@@ -332,7 +368,7 @@ export const translations = {
             title: "Notre Collection",
             collectionLabel: "Collection 2026",
             sticker: { title: "Stickers", desc: "Collection de vinyles vibrants." },
-            plushie: { title: "Peluches", desc: "Designs uniques faits à la main." },
+            plushie: { title: "Peluches", desc: "Des designs uniques." },
             cookie: { title: "Biscuits", desc: "Saveur maison avec une touche gastronomique." },
             promo: "Promotions : 3x2 sur les Biscuits à l'Avoine",
             btn_catalog: "Voir Détails",

@@ -363,7 +363,7 @@ export default function Services() {
                 </div>
 
 
-                <div style={{ marginBottom: '2rem' }}>
+                <div style={{ marginBottom: '0rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '3rem', borderBottom: '1px solid var(--color-divider)', paddingBottom: '1rem' }}>
                         <h3 className="section-title-collection" style={{ fontSize: '2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: '#1A1A1A' }}>{t.shop.title}</h3>
                         <div style={{ textAlign: 'right' }}>
