@@ -2,15 +2,13 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Mail, Instagram, Phone, MapPin } from 'lucide-react'
 import { useLanguage } from '../store/LanguageContext'
 import TermsModal from './TermsModal'
-
 export default function Footer() {
     const { t } = useLanguage()
     const [hoveredLink, setHoveredLink] = useState(null)
-    const [logoGroupHovered, setLogoGroupHovered] = useState(false) // Unified state
+    const [logoGroupHovered, setLogoGroupHovered] = useState(false) 
     const [pulseIntensity, setPulseIntensity] = useState(6)
     const [isTermsOpen, setIsTermsOpen] = useState(false)
     const animationRef = useRef(null)
-
     useEffect(() => {
         let time = 0
         const animate = () => {
@@ -24,7 +22,6 @@ export default function Footer() {
             if (animationRef.current) cancelAnimationFrame(animationRef.current)
         }
     }, [logoGroupHovered])
-
     const socialLinks = [
         {
             icon: <Instagram size={18} />,
@@ -45,7 +42,6 @@ export default function Footer() {
             external: true
         }
     ]
-
     const legalLinks = [
         {
             label: t.footer.legal_repertoire,
@@ -58,7 +54,6 @@ export default function Footer() {
             action: () => setIsTermsOpen(true)
         }
     ]
-
     const linkStyle = (index) => ({
         color: hoveredLink === index ? '#C4D82E' : 'rgba(224, 224, 224, 0.9)',
         textDecoration: 'none',
@@ -71,30 +66,32 @@ export default function Footer() {
         paddingBottom: '0.25rem',
         filter: hoveredLink === index ? 'drop-shadow(0 0 6px rgba(196, 216, 46, 0.4))' : 'none'
     })
-
     return (
         <footer
             id="contact"
+            className="footer-container"
             style={{
-                background: 'linear-gradient(135deg, #001F3F 0%, #0B3D2E 100%)',
+                background: 'linear-gradient(135deg, rgba(0, 31, 63, 0.9) 0%, rgba(11, 61, 46, 0.9) 100%)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
                 color: '#F5F5DC',
                 padding: '5rem 3rem 3rem',
                 position: 'relative',
-                borderTop: 'none'
+                borderTop: 'none',
+                willChange: 'contents',
+                transform: 'translateZ(0)'
             }}
         >
-            {/* Top Light Spark Divider */}
-            <div style={{
+            {}
+            <div className="footer-top-divider" style={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
                 right: 0,
                 height: '1px',
-                background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)'
+                background: 'linear-gradient(90deg, transparent, rgba(224, 224, 224, 0.3), transparent)'
             }} />
-
             <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
-
             <div style={{
                 maxWidth: '1200px',
                 margin: '0 auto',
@@ -103,8 +100,7 @@ export default function Footer() {
                 gap: '4rem',
                 marginBottom: '4rem'
             }}>
-
-                {/* Unified Logo Group Container */}
+                {}
                 <div
                     style={{
                         display: 'flex',
@@ -121,16 +117,17 @@ export default function Footer() {
                             transition: 'transform 0.4s ease',
                             transform: logoGroupHovered ? 'scale(1.05)' : 'scale(1)',
                             marginLeft: '-10px',
-                            filter: logoGroupHovered ? 'drop-shadow(0 0 15px rgba(196, 216, 46, 0.4))' : 'none' // Shared glow on container hover
+                            filter: logoGroupHovered ? 'drop-shadow(0 0 15px rgba(196, 216, 46, 0.4))' : 'none' 
                         }}
                     >
                         <img
                             src={`${import.meta.env.BASE_URL}logo.png`}
                             alt="LA FIL"
+                            loading="lazy"
                             style={{
                                 height: '90px',
                                 width: 'auto',
-                                marginBottom: '1.0rem', // Reduced gap for tighter lockup
+                                marginBottom: '1.0rem', 
                                 filter: `drop-shadow(0 0 ${pulseIntensity}px rgba(196, 216, 46, 0.6))`,
                                 transition: 'filter 0.3s ease'
                             }}
@@ -138,11 +135,11 @@ export default function Footer() {
                     </div>
                     <p
                         style={{
-                            fontFamily: '"La Belle Aurore", cursive', // Signature/Annotation style
-                            fontSize: '1.5rem', // Larger for the thin signature look
-                            fontWeight: '400', // Light weight as requested
-                            letterSpacing: logoGroupHovered ? '0.1em' : '0.05em', // Tighter for signature feel
-                            color: 'var(--color-neon-green)', // Neon Green Vibrante
+                            fontFamily: '"La Belle Aurore", cursive', 
+                            fontSize: '1.5rem', 
+                            fontWeight: '400', 
+                            letterSpacing: logoGroupHovered ? '0.1em' : '0.05em', 
+                            color: 'var(--color-neon-green)', 
                             opacity: logoGroupHovered ? 1 : 0.9,
                             marginTop: '0.2rem',
                             textTransform: 'none',
@@ -151,15 +148,13 @@ export default function Footer() {
                             filter: logoGroupHovered ? 'brightness(1.2)' : 'brightness(1)',
                             cursor: 'default',
                             transform: 'translateX(-35px) rotate(-4deg)',
-                            userSelect: 'none' // Protected
+                            userSelect: 'none' 
                         }}>
                         {t.footer.motto}
                     </p>
                 </div>
-
-
                 <div>
-                    <h3 style={{
+                    <h3 className="footer-column-title" style={{
                         fontFamily: 'var(--font-title)',
                         fontSize: '1rem',
                         fontWeight: '700',
@@ -177,6 +172,7 @@ export default function Footer() {
                                 href={link.href}
                                 target={link.external ? "_blank" : "_self"}
                                 rel={link.external ? "noopener noreferrer" : undefined}
+                                className="footer-interactive-link"
                                 style={linkStyle(index)}
                                 onMouseEnter={() => setHoveredLink(index)}
                                 onMouseLeave={() => setHoveredLink(null)}
@@ -185,9 +181,7 @@ export default function Footer() {
                                 <span>{link.label}</span>
                             </a>
                         ))}
-
-
-                        <div style={{
+                        <div className="footer-static-text" style={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.75rem',
@@ -200,10 +194,8 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-
-
                 <div>
-                    <h3 style={{
+                    <h3 className="footer-column-title" style={{
                         fontFamily: 'var(--font-title)',
                         fontSize: '1rem',
                         fontWeight: '700',
@@ -226,6 +218,7 @@ export default function Footer() {
                                         link.action()
                                     }
                                 }}
+                                className="footer-interactive-link-simple"
                                 style={{
                                     color: 'rgba(224, 224, 224, 0.9)',
                                     textDecoration: 'none',
@@ -242,10 +235,8 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-
-
-            {/* Subtle Bottom Divider Line */}
-            <div style={{
+            {}
+            <div className="footer-bottom-divider" style={{
                 height: '1px',
                 width: '100%',
                 background: 'linear-gradient(90deg, transparent, rgba(224, 224, 224, 0.2), transparent)',
@@ -253,14 +244,12 @@ export default function Footer() {
                 marginBottom: '2rem',
                 marginTop: '0rem'
             }} />
-
-            {/* Copyright Text */}
-            <div style={{
+            {}
+            <div className="footer-copyright-text" style={{
                 textAlign: 'center',
                 fontSize: '0.85rem',
-                color: 'rgba(224, 224, 224, 0.9)',
+                color: 'rgba(224, 224, 224, 0.7)',
                 letterSpacing: '0.05em'
-                // Removed absolute opacity since using an rgba color
             }}>
                 <span>© 2026 LA FIL. {t.footer.rights}</span>
             </div>

@@ -56,7 +56,7 @@ export const translations = {
                 desc: 'Descarga el programa completo de actividades, artistas y talleres.',
                 download: 'Descargar PDF (2.4MB)'
             },
-            btn_program: 'Descargar Programa',
+            btn_program: 'Ver Programa 2026',
             items: [
                 {
                     id: 1,
@@ -198,7 +198,7 @@ export const translations = {
             title: 'Events and Programming',
             subtitle: 'Sonic experiences that transform spaces',
             btn_details: 'View Details',
-            btn_program: 'Download PDF',
+            btn_program: 'View Program 2026',
             program_card: {
                 title: 'Program Booklet',
                 desc: 'Download the complete program of our events and activities'
@@ -343,7 +343,7 @@ export const translations = {
             title: "Événements et Programmation",
             subtitle: "Expériences sonores qui transforment les espaces",
             btn_details: "Voir Détails",
-            btn_program: "Télécharger PDF",
+            btn_program: 'Voir Programme 2026',
             program_card: {
                 title: "Programme",
                 desc: "Téléchargez le programme complet de nos événements et activités"

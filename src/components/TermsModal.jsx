@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { X, Mail } from 'lucide-react'
 import { useLanguage } from '../store/LanguageContext'
-
 export default function TermsModal({ isOpen, onClose }) {
     const { t } = useLanguage()
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-
-
     useEffect(() => {
         const handleEsc = (e) => {
             if (e.key === 'Escape') onClose()
@@ -20,7 +17,6 @@ export default function TermsModal({ isOpen, onClose }) {
             document.body.style.overflow = 'unset'
         }
     }, [isOpen, onClose])
-
     const handleMouseMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect()
         setMousePos({
@@ -28,9 +24,7 @@ export default function TermsModal({ isOpen, onClose }) {
             y: e.clientY - rect.top
         })
     }
-
     if (!isOpen) return null
-
     return (
         <div style={{
             position: 'fixed',
@@ -57,9 +51,9 @@ export default function TermsModal({ isOpen, onClose }) {
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
                     borderRadius: '24px',
-                    width: 'min(90%, 480px)', // Responsive width
+                    width: 'min(90%, 480px)', 
                     maxWidth: '480px',
-                    padding: '3rem 1.5rem', // Reduced side padding for mobile
+                    padding: '3rem 1.5rem', 
                     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1) inset',
                     position: 'relative',
                     color: 'var(--color-text)',
@@ -68,7 +62,6 @@ export default function TermsModal({ isOpen, onClose }) {
                     border: '1px solid rgba(196, 216, 46, 0.3)'
                 }}
             >
-
                 <div style={{
                     position: 'absolute',
                     top: '-50%',
@@ -79,8 +72,6 @@ export default function TermsModal({ isOpen, onClose }) {
                     pointerEvents: 'none',
                     transition: 'opacity 0.3s'
                 }} />
-
-
                 <button
                     onClick={onClose}
                     className="close-btn"
@@ -114,8 +105,6 @@ export default function TermsModal({ isOpen, onClose }) {
                 >
                     <X size={18} />
                 </button>
-
-
                 <div style={{ position: 'relative', zIndex: 5, textAlign: 'center' }}>
                     <h2 style={{
                         fontFamily: 'var(--font-title)',
@@ -130,7 +119,6 @@ export default function TermsModal({ isOpen, onClose }) {
                     }}>
                         {t.footer.terms_modal.title}
                     </h2>
-
                     <p style={{
                         fontSize: '1.05rem',
                         lineHeight: '1.7',
@@ -141,7 +129,6 @@ export default function TermsModal({ isOpen, onClose }) {
                     }}>
                         {t.footer.terms_modal.body}
                     </p>
-
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -188,7 +175,6 @@ export default function TermsModal({ isOpen, onClose }) {
                         </a>
                     </div>
                 </div>
-
                 <style>{`
                     @keyframes fadeIn {
                         from { opacity: 0; backdrop-filter: blur(0px); }

@@ -2,9 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../store/LanguageContext'
 import KineticClock from './KineticClock'
-
 const Fireflies = () => {
-    // 44 particles for doubled density
     const fireflies = Array.from({ length: 44 });
     return (
         <div style={{
@@ -12,30 +10,30 @@ const Fireflies = () => {
             top: 0,
             left: 0,
             width: '100%',
-            height: '100%', // Hábitat completo del Hero
+            height: '100%', 
             overflow: 'hidden',
             pointerEvents: 'none',
-            zIndex: 0
+            zIndex: 0,
+            willChange: 'transform, opacity',
+            backfaceVisibility: 'hidden',
+            perspective: 1000
         }}>
             {fireflies.map((_, i) => {
-                // Size Calibration: Fine (1-2px) & Medium (3-4px)
-                const isMedium = Math.random() > 0.8; // 20% medium, 80% fine
+                const isMedium = Math.random() > 0.8; 
                 const size = isMedium
-                    ? Math.floor(Math.random() * 2) + 3 // 3px to 4px
-                    : Math.floor(Math.random() * 2) + 1; // 1px to 2px
-
-                const baseOpacity = 0.6 + Math.random() * 0.4; // Constant Glow (0.6 - 1.0)
-
+                    ? Math.floor(Math.random() * 2) + 3 
+                    : Math.floor(Math.random() * 2) + 1; 
+                const baseOpacity = 0.6 + Math.random() * 0.4; 
                 return (
                     <motion.div
                         key={i}
                         initial={{
                             opacity: baseOpacity,
                             x: Math.random() * 100 + 'vw',
-                            y: Math.random() * 100 + 'vh'
+                            y: Math.random() * 100 + 'vh',
+                            z: 0
                         }}
                         animate={{
-                            // Flicker eliminated: Constant opacity
                             x: [
                                 (Math.random() * 100) + 'vw',
                                 (Math.random() * 100) + 'vw',
@@ -45,10 +43,11 @@ const Fireflies = () => {
                                 (Math.random() * 100) + 'vh',
                                 (Math.random() * 100) + 'vh',
                                 (Math.random() * 100) + 'vh'
-                            ]
+                            ],
+                            z: [0, 0, 0]
                         }}
                         transition={{
-                            duration: Math.random() * 40 + 90, // Lentitud de 130s (90s - 130s)
+                            duration: Math.random() * 40 + 90, 
                             repeat: Infinity,
                             ease: "easeInOut"
                         }}
@@ -57,10 +56,13 @@ const Fireflies = () => {
                             width: `${size}px`,
                             height: `${size}px`,
                             borderRadius: '50%',
-                            background: '#D4FF00', // Verde Neón Suave Constante
-                            boxShadow: '0 0 10px rgba(212, 255, 0, 0.4)', // Glow sutil base
-                            filter: 'drop-shadow(0 0 5px rgba(212, 255, 0, 0.95))', // Brillo Joyal Reforzado (+20%)
-                            pointerEvents: 'none'
+                            background: '#D4FF00', 
+                            boxShadow: '0 0 10px rgba(212, 255, 0, 0.4)', 
+                            filter: 'drop-shadow(0 0 5px rgba(212, 255, 0, 0.95))', 
+                            pointerEvents: 'none',
+                            willChange: 'transform, opacity',
+                            backfaceVisibility: 'hidden',
+                            perspective: 1000
                         }}
                     />
                 );
@@ -68,14 +70,17 @@ const Fireflies = () => {
         </div>
     );
 };
-
 export default function Hero() {
     const { t } = useLanguage()
-
+    const [isLoaded, setIsLoaded] = React.useState(false)
+    React.useEffect(() => {
+        const timer = setTimeout(() => setIsLoaded(true), 400);
+        return () => clearTimeout(timer);
+    }, [])
     return (
         <section id="hero" style={{
             width: '100%',
-            height: '90vh', // Expanded for dominance
+            height: '90vh', 
             position: 'relative',
             background: 'var(--color-bg)',
             display: 'flex',
@@ -86,9 +91,11 @@ export default function Hero() {
             transition: 'background-color 0.4s ease, color 0.4s ease',
             overflow: 'hidden'
         }}>
+            {}
+            <div className={`skeleton-reveal ${isLoaded ? 'skeleton-hidden' : ''}`} style={{ zIndex: 5 }}></div>
             <Fireflies />
             <div style={{
-                zIndex: 10, // Foreground Layer (Stark-punk Hierarchy)
+                zIndex: 10, 
                 width: '100%',
                 maxWidth: '1200px',
                 display: 'flex',
@@ -96,7 +103,6 @@ export default function Hero() {
                 alignItems: 'center',
                 gap: '2rem'
             }}>
-
                 <motion.div
                     initial={{ opacity: 0, y: 150 }}
                     animate={{ opacity: 1, y: '5vh' }}
@@ -111,7 +117,6 @@ export default function Hero() {
                         flexDirection: window.innerWidth <= 768 ? 'column' : 'row'
                     }}
                 >
-
                     <div style={{
                         maxWidth: 'none',
                         filter: 'drop-shadow(rgba(0, 0, 0, 0.5) 0px 4px 15px) drop-shadow(rgba(196, 216, 46, 0.3) 0px 0px 20px)',
@@ -120,6 +125,7 @@ export default function Hero() {
                         <img
                             src={`${import.meta.env.BASE_URL}logo.png`}
                             alt="LA FIL Logo"
+                            fetchPriority="high"
                             style={{
                                 height: window.innerWidth <= 768 ? 'clamp(140px, 30vw, 220px)' : 'clamp(198px, 27.5vw, 308px)',
                                 width: 'auto',
@@ -127,8 +133,6 @@ export default function Hero() {
                             }}
                         />
                     </div>
-
-
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1.1 }}
@@ -143,15 +147,15 @@ export default function Hero() {
                         <KineticClock />
                     </motion.div>
                 </motion.div>
-
                 <motion.p
+                    className="hero-mantra-text"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.2, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                     style={{
                         maxWidth: 'none',
-                        margin: window.innerWidth <= 768 ? '3.2rem auto -4rem' : '6.5rem auto -6rem', // Balanced Elegance [SHIELD: 6.5rem top, -6rem bottom]
-                        fontSize: 'clamp(0.94rem, 1.25vw, 1.15rem)', // Refined Scaling (+15%)
+                        margin: window.innerWidth <= 768 ? '3.2rem auto -4rem' : '6.5rem auto -6rem',
+                        fontSize: 'clamp(0.94rem, 1.25vw, 1.15rem)',
                         lineHeight: 1.2,
                         fontWeight: '400',
                         color: '#555555',
@@ -161,7 +165,7 @@ export default function Hero() {
                         transition: 'color 0.4s ease',
                         whiteSpace: window.innerWidth <= 768 ? 'normal' : 'nowrap',
                         width: '100%',
-                        zIndex: 20 // Stark-punk Layering: Mantra in front
+                        zIndex: 20
                     }}
                 >
                     {t.hero.mantra}

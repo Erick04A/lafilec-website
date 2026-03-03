@@ -21,10 +21,17 @@ export default function VibrantString() {
         window.addEventListener('resize', updateSize)
 
 
+        let ticking = false
         const handleScroll = () => {
-            const scrollY = window.scrollY
-            const heroHeight = window.innerHeight
-            scrollIntensityRef.current = Math.min(scrollY / heroHeight, 1)
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollY = window.scrollY
+                    const heroHeight = window.innerHeight
+                    scrollIntensityRef.current = Math.min(scrollY / heroHeight, 1)
+                    ticking = false
+                });
+                ticking = true;
+            }
         }
         window.addEventListener('scroll', handleScroll, { passive: true })
 
@@ -47,7 +54,7 @@ export default function VibrantString() {
                 }
             }
         }
-        canvas.addEventListener('mousemove', handleMouseMove)
+        canvas.addEventListener('mousemove', handleMouseMove, { passive: true })
 
         let time = 0
         const points = 300

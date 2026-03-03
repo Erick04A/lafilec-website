@@ -1,15 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import ResonantSeal from './NavbarLogo'
-
 export default function NotFound() {
     const navigate = useNavigate()
-
     const handleGoHome = () => {
         navigate('/')
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-
     return (
         <div style={{
             minHeight: '100vh',
@@ -22,7 +19,7 @@ export default function NotFound() {
             position: 'relative',
             overflow: 'hidden'
         }}>
-            {/* Decorative background elements */}
+            {}
             <div style={{
                 position: 'absolute',
                 top: '10%',
@@ -34,7 +31,6 @@ export default function NotFound() {
                 filter: 'blur(60px)',
                 pointerEvents: 'none'
             }} />
-
             <div style={{
                 position: 'absolute',
                 bottom: '15%',
@@ -46,15 +42,14 @@ export default function NotFound() {
                 filter: 'blur(80px)',
                 pointerEvents: 'none'
             }} />
-
-            {/* Content container */}
+            {}
             <div style={{
                 maxWidth: '600px',
                 textAlign: 'center',
                 zIndex: 2,
                 animation: 'fadeInUp 0.6s ease-out'
             }}>
-                {/* Logo */}
+                {}
                 <div style={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -63,8 +58,7 @@ export default function NotFound() {
                 }}>
                     <ResonantSeal />
                 </div>
-
-                {/* 404 Text */}
+                {}
                 <h1 style={{
                     fontSize: 'clamp(4rem, 15vw, 8rem)',
                     fontWeight: '900',
@@ -79,8 +73,7 @@ export default function NotFound() {
                 }}>
                     404
                 </h1>
-
-                {/* Creative message */}
+                {}
                 <h2 style={{
                     fontSize: 'clamp(1.5rem, 4vw, 2rem)',
                     fontFamily: 'var(--font-title)',
@@ -90,7 +83,6 @@ export default function NotFound() {
                 }}>
                     Parece que el ritmo se detuvo aquí...
                 </h2>
-
                 <p style={{
                     fontSize: '1.1rem',
                     color: '#666',
@@ -101,8 +93,7 @@ export default function NotFound() {
                 }}>
                     La página que buscas no existe o fue movida. Volvamos a la sinfonía principal.
                 </p>
-
-                {/* Neon return button */}
+                {}
                 <button
                     onClick={handleGoHome}
                     style={{
@@ -142,7 +133,6 @@ export default function NotFound() {
                     ← Volver al Inicio
                 </button>
             </div>
-
             <style>{`
                 @keyframes fadeInUp {
                     from {

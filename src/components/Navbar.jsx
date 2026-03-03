@@ -3,24 +3,19 @@ import { useLanguage } from '../store/LanguageContext'
 import { Menu, X } from 'lucide-react'
 import ResonantSeal from './NavbarLogo'
 import ThemeToggle from './ThemeToggle'
-
 export default function Navbar() {
   const { t, lang, switchLang } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [navHovered, setNavHovered] = useState(false) // State to trigger logo animation
-
-
+  const [navHovered, setNavHovered] = useState(false) 
   const links = [
     { key: 'curations', label: t.nav?.curations || 'Eventos' },
     { key: 'about', label: t.nav?.about || 'Nosotros' },
     { key: 'fuel', label: t.nav?.fuel || 'Apoyo' },
     { key: 'contact', label: t.nav?.contact || 'Repertorio', url: 'https://lafilec.github.io/Temas/', external: true }
   ]
-
   const handleLinkClick = () => {
     setMobileMenuOpen(false)
   }
-
   return (
     <nav style={{
       position: 'absolute',
@@ -33,13 +28,11 @@ export default function Navbar() {
       alignItems: 'center',
       zIndex: 100,
       boxSizing: 'border-box',
-      background: window.innerWidth <= 768 ? 'var(--color-bg)' : 'transparent', // Use var for mobile bg
+      background: window.innerWidth <= 768 ? 'var(--color-bg)' : 'transparent', 
       backdropFilter: window.innerWidth <= 768 ? 'blur(10px)' : 'none',
       transition: 'background-color 0.4s ease, color 0.4s ease'
     }}>
       <ResonantSeal triggerPulse={navHovered} />
-
-
       <div style={{ display: window.innerWidth > 768 ? 'flex' : 'none', alignItems: 'center', gap: '3.15rem' }}>
         <ul style={{
           display: 'flex',
@@ -59,18 +52,15 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
-
-
         <div style={{ display: 'flex', alignItems: 'center', gap: '2.1rem' }}>
-          {/* Sofi Neumorphic Theme Switch */}
+          {}
           <ThemeToggle />
-
           <div style={{ display: 'flex', gap: '0.55rem', fontSize: '0.85rem' }}>
             {['es', 'en', 'fr'].map((l) => (
               <button
                 key={l}
                 onClick={() => switchLang(l)}
-                className="navbar-lang-link"
+                className={`navbar-lang-link ${lang === l ? 'active' : ''}`}
                 style={{
                   background: 'transparent',
                   border: 'none',
@@ -89,8 +79,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         style={{
@@ -104,8 +92,6 @@ export default function Navbar() {
       >
         {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
-
-
       {
         mobileMenuOpen && window.innerWidth <= 768 && (
           <div style={{
@@ -148,8 +134,6 @@ export default function Navbar() {
                 </li>
               ))}
             </ul>
-
-
             <div style={{
               display: 'flex',
               gap: '1.5rem',
@@ -169,7 +153,7 @@ export default function Navbar() {
                     switchLang(l)
                     setMobileMenuOpen(false)
                   }}
-                  className="navbar-lang-link-mobile"
+                  className={`navbar-lang-link-mobile ${lang === l ? 'active' : ''}`}
                   style={{
                     background: lang === l ? 'rgba(196, 216, 46, 0.2)' : 'transparent',
                     border: `1px solid ${lang === l ? '#C4D82E' : '#FFFFFF'}`,
@@ -188,7 +172,6 @@ export default function Navbar() {
                 </button>
               ))}
             </div>
-
             <style>{`
             @keyframes fadeInUp {
               from { opacity: 0; transform: translateY(20px); }

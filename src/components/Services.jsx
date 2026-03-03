@@ -4,11 +4,9 @@ import { useLanguage } from '../store/LanguageContext'
 import { Download, X, Minus, Plus, MessageCircle } from 'lucide-react'
 import CardSkeleton from './CardSkeleton'
 import useScrollReveal from '../hooks/useScrollReveal'
-
 import imgStickers from '../assets/shop/stickers.webp'
 import imgPlushies from '../assets/shop/peluche.png'
 const imgCookies = 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80'
-
 export default function Services() {
     const { t } = useLanguage()
     const [activeCategory, setActiveCategory] = useState(null)
@@ -16,8 +14,6 @@ export default function Services() {
     const [loading, setLoading] = useState(true)
     const [imageLoaded, setImageLoaded] = useState({})
     const [isHoveringTotal, setIsHoveringTotal] = useState(false)
-
-    // --- ECLIPSE MODE: Reservation Logic ---
     const THREE_HOURS = 3 * 60 * 60 * 1000
     const [reservations, setReservations] = useState(() => {
         try {
@@ -27,7 +23,6 @@ export default function Services() {
             return {}
         }
     })
-
     useEffect(() => {
         const timer = setInterval(() => {
             const now = Date.now()
@@ -46,26 +41,18 @@ export default function Services() {
                 }
                 return prev
             })
-        }, 30000) // Pulse check every 30s
+        }, 30000)
         return () => clearInterval(timer)
     }, [])
-    // ----------------------------------------
-
-    // Scroll reveal hooks for event cards only (3 cards)
-    // Collection cards will be always visible for reliability
     const eventCard1 = useScrollReveal({ delay: 0 })
     const eventCard2 = useScrollReveal({ delay: 100 })
     const eventCard3 = useScrollReveal({ delay: 200 })
-
     useEffect(() => {
-        // Simulated loading - remove or connect to real API in the future
         const timer = setTimeout(() => {
             setLoading(false)
         }, 1200)
-
         return () => clearTimeout(timer)
     }, [])
-
     const categories = {
         stickers: {
             data: t.shop.inventory.stickers,
@@ -83,18 +70,13 @@ export default function Services() {
             title: t.shop.cookie.title
         }
     }
-
     const updateQuantity = (id, delta) => {
         setCart(prev => {
             const current = prev[id] || 0
-
-            // Hardware-level stock limit: Plushies = 1 unit
             const inventoryPlushies = t?.shop?.inventory?.plushies || []
             const isPlushie = inventoryPlushies.some(p => p.id === id)
             const maxStock = isPlushie ? 1 : Infinity
-
             if (delta > 0 && current >= maxStock) return prev
-
             const next = Math.max(0, current + delta)
             if (next === 0) {
                 const { [id]: _, ...rest } = prev
@@ -103,21 +85,17 @@ export default function Services() {
             return { ...prev, [id]: next }
         })
     }
-
     const { totalItems, totalPrice } = useMemo(() => {
         let count = 0
         let price = 0
-
         const inventoryStickers = t?.shop?.inventory?.stickers || []
         const inventoryPlushies = t?.shop?.inventory?.plushies || []
         const inventoryCookies = t?.shop?.inventory?.cookies || []
-
         const allProducts = [
             ...inventoryStickers,
             ...inventoryPlushies,
             ...inventoryCookies
         ]
-
         Object.entries(cart).forEach(([id, qty]) => {
             const prod = allProducts.find(p => p.id === id)
             if (prod && !prod.isCustom) {
@@ -129,24 +107,19 @@ export default function Services() {
         })
         return { totalItems: count, totalPrice: price.toFixed(2) }
     }, [cart, t.shop.inventory])
-
     const handleCheckout = () => {
         const allProducts = [
             ...t.shop.inventory.stickers,
             ...t.shop.inventory.plushies,
             ...t.shop.inventory.cookies
         ]
-
         let message = `${t.shop.msg_intro}\n`
         const newReservations = { ...reservations }
         let hasPlushies = false
-
         Object.entries(cart).forEach(([id, qty]) => {
             const prod = allProducts.find(p => p.id === id)
             if (prod) {
                 message += `- ${qty}x ${prod.title} ($${prod.price})\n`
-
-                // Mark plushies as reserved in Eclipse Mode
                 const isPlushie = t.shop.inventory.plushies.some(p => p.id === id)
                 if (isPlushie) {
                     newReservations[id] = Date.now()
@@ -155,33 +128,25 @@ export default function Services() {
             }
         })
         message += `\n${t.shop.msg_total} $${totalPrice}`
-
         if (hasPlushies) {
             setReservations(newReservations)
             localStorage.setItem('lafil_reservations', JSON.stringify(newReservations))
-            // Transparently clear cart for reserved items to prevent double booking in same session
             setCart({})
         }
-
         window.open(`https://wa.me/593998770378?text=${encodeURIComponent(message)}`, '_blank')
     }
-
     return (
         <section id="curations" className="services-section" style={{ paddingTop: '0.5rem', marginTop: '-4.5rem', position: 'relative', zIndex: 10 }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-
-
                 <div style={{ marginBottom: '6rem', textAlign: 'center', position: 'relative', zIndex: 20 }}>
                     <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1rem', fontFamily: 'var(--font-title)', fontWeight: '800' }}>
                         {t.events.title}
                     </h2>
-                    <p style={{ fontSize: '1.1rem', color: '#666', maxWidth: '600px', margin: '0 auto 2rem' }}>
+                    <p className="events-subtitle-text" style={{ fontSize: '1.1rem', color: '#666', maxWidth: '600px', margin: '0 auto 2rem' }}>
                         {t.events.subtitle}
                     </p>
                     <div style={{ width: '60px', height: '4px', background: 'var(--color-primary)', margin: '0 auto' }}></div>
                 </div>
-
-
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -189,7 +154,6 @@ export default function Services() {
                     marginBottom: '8rem',
                     padding: '0 10px'
                 }}>
-
                     <div
                         ref={eventCard1.ref}
                         className={`scroll-reveal ${eventCard1.isRevealed ? 'revealed' : ''}`}
@@ -240,8 +204,6 @@ export default function Services() {
                             </div>
                         </div>
                     </div>
-
-
                     <div
                         ref={eventCard2.ref}
                         className={`scroll-reveal ${eventCard2.isRevealed ? 'revealed' : ''}`}
@@ -276,17 +238,16 @@ export default function Services() {
                         <h3 style={{ fontSize: '1.8rem', marginBottom: '1rem', fontFamily: 'var(--font-title)', fontWeight: '700', textAlign: 'center', color: '#1A2238' }}>
                             {t.events.program_card.title}
                         </h3>
-                        <p style={{ color: '#666', lineHeight: 1.6, marginBottom: '2rem', fontSize: '0.95rem', textAlign: 'center', maxWidth: '280px' }}>
+                        <p className="events-program-desc-text" style={{ color: '#666', lineHeight: 1.6, marginBottom: '2rem', fontSize: '0.95rem', textAlign: 'center', maxWidth: '280px' }}>
                             {t.events.program_card.desc}
                         </p>
                         <a
-                            href="/program_placeholder.pdf"
+                            href="/LAFILof/PMLFec.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="program-download-btn"
                             style={{
                                 padding: '0.75rem 1.5rem',
-                                background: '#C4D82E',
-                                color: '#000000',
                                 border: 'none',
                                 borderRadius: '50px',
                                 fontWeight: '700',
@@ -297,19 +258,15 @@ export default function Services() {
                                 display: 'inline-block'
                             }}
                             onMouseEnter={e => {
-                                e.currentTarget.style.boxShadow = '0 0 20px rgba(196, 216, 46, 0.5)'
                                 e.currentTarget.style.transform = 'scale(1.05)'
                             }}
                             onMouseLeave={e => {
-                                e.currentTarget.style.boxShadow = 'none'
                                 e.currentTarget.style.transform = 'scale(1)'
                             }}
                         >
                             {t.events.btn_program}
                         </a>
                     </div>
-
-
                     <div
                         ref={eventCard3.ref}
                         className={`scroll-reveal ${eventCard3.isRevealed ? 'revealed' : ''}`}
@@ -361,8 +318,6 @@ export default function Services() {
                         </div>
                     </div>
                 </div>
-
-
                 <div style={{ marginBottom: '0rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '3rem', borderBottom: '1px solid var(--color-divider)', paddingBottom: '1rem' }}>
                         <h3 className="section-title-collection" style={{ fontSize: '2rem', fontFamily: 'var(--font-title)', fontWeight: '700', color: '#1A1A1A' }}>{t.shop.title}</h3>
@@ -375,8 +330,6 @@ export default function Services() {
                             )}
                         </div>
                     </div>
-
-
                     <div className="services-grid">
                         {loading ? (
                             [1, 2, 3].map((i) => (
@@ -410,13 +363,6 @@ export default function Services() {
                                 const isReserved = item.key === 'plushies' && Object.keys(reservations).some(id =>
                                     t.shop.inventory.plushies.some(p => p.id === id)
                                 )
-                                // Note: For the main card, if ANY plushie is reserved we could show a partial state, 
-                                // but the prompt asks for the card to reflect reservation. 
-                                // In the 3-category view, if all plushies are limited to 1, we check if ALL are reserved?
-                                // Actually, typically users reserve specific models. If we are in the category view (3 cards),
-                                // it's better to show the grayscale if the category is "blocked" or just apply it inside the modal.
-                                // However, the user said "tarjeta en la colección".
-
                                 return (
                                     <div
                                         key={item.key}
@@ -436,7 +382,6 @@ export default function Services() {
                                                 onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                                             />
                                         </div>
-
                                         <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                             <div>
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
@@ -444,7 +389,6 @@ export default function Services() {
                                                     <span className="product-price" style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7 }}>{t.shop.price_from} ${item.price}</span>
                                                 </div>
                                                 <p className="product-desc" style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '1.5rem', lineHeight: '1.4' }}>{item.desc}</p>
-
                                                 {item.isCookie && (
                                                     <div className="promo-badge">
                                                         <span style={{ display: 'block', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.2rem' }}>PROMO</span>
@@ -452,12 +396,10 @@ export default function Services() {
                                                     </div>
                                                 )}
                                             </div>
-
                                             <button onClick={() => {
                                                 setActiveCategory(item.key)
                                             }} className="neon-btn collection-btn" style={{
                                                 padding: '0.85rem 2rem',
-                                                // background/color handled by class
                                                 borderRadius: '10px',
                                                 cursor: 'pointer',
                                                 fontWeight: '700',
@@ -478,8 +420,6 @@ export default function Services() {
                             })
                         )}
                     </div>
-
-
                     {totalItems > 0 && (
                         <div style={{
                             position: 'fixed',
@@ -514,11 +454,7 @@ export default function Services() {
                         </div>
                     )}
                 </div>
-
-
             </div>
-
-
             {
                 activeCategory && ReactDOM.createPortal(
                     <div
@@ -568,7 +504,6 @@ export default function Services() {
                         >
                             <X size={24} />
                         </button>
-
                         <div style={{ maxWidth: '1200px', width: '100%', margin: '4rem auto', paddingBottom: '100px' }}>
                             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                                 <h2 className="detail-title" style={{
@@ -594,7 +529,6 @@ export default function Services() {
                                     </div>
                                 )}
                             </div>
-
                             <div style={{
                                 display: 'grid',
                                 gridTemplateColumns: 'repeat(3, 1fr)',
@@ -608,7 +542,6 @@ export default function Services() {
                                             flexDirection: 'column',
                                             gap: '1rem'
                                         }}>
-
                                             <div style={{
                                                 borderRadius: '16px',
                                                 overflow: 'hidden',
@@ -624,6 +557,7 @@ export default function Services() {
                                                 <img
                                                     src={product.img || categories[activeCategory].img}
                                                     alt={product.title}
+                                                    loading="lazy"
                                                     className="product-img hardware-accelerated"
                                                     style={{
                                                         width: '100%',
@@ -633,10 +567,8 @@ export default function Services() {
                                                         transition: 'transform 0.5s ease',
                                                         filter: reservations[product.id] ? 'grayscale(1) opacity(0.6)' : 'none'
                                                     }}
-                                                    loading="lazy"
                                                     decoding="async"
                                                 />
-
                                                 <div style={{
                                                     position: 'absolute',
                                                     bottom: 0,
@@ -647,13 +579,9 @@ export default function Services() {
                                                     opacity: 0.5
                                                 }}></div>
                                             </div>
-
-
                                             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0.5rem' }}>
                                                 <div>
                                                     <h4 className="product-title-label" style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '0.2rem', color: '#1A1A1A' }}>{product.title}</h4>
-
-
                                                     <p className="product-price-label" style={{
                                                         fontSize: '1.2rem',
                                                         color: '#B38728',
@@ -664,7 +592,6 @@ export default function Services() {
                                                     }}>
                                                         {product.isCustom ? 'Precio a consultar' : `Precio: $${product.price}`}
                                                     </p>
-
                                                     {reservations[product.id] && (
                                                         <div style={{
                                                             background: 'rgba(0,0,0,0.05)',
@@ -693,11 +620,8 @@ export default function Services() {
                                                             </p>
                                                         </div>
                                                     )}
-
                                                     <p className="product-desc-text" style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem', lineHeight: '1.4' }}>{product.desc}</p>
                                                 </div>
-
-
                                                 {product.isCustom ? (
                                                     <button
                                                         onClick={() => window.open(`https://wa.me/593998770378?text=Hola LA FIL, estoy interesado en los Stickers Personalizados.`, '_blank')}
@@ -728,12 +652,10 @@ export default function Services() {
                                                             e.currentTarget.style.borderColor = '#FFD700'
                                                         }}
                                                     >
-
                                                         Cotizar en WhatsApp
                                                     </button>
                                                 ) : reservations[product.id] ? null : (
                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-
                                                         <div className="quantity-selector" style={{
                                                             display: 'flex',
                                                             alignItems: 'center',
@@ -776,10 +698,9 @@ export default function Services() {
                                                                 <Plus size={16} color="#FFD700" />
                                                             </button>
                                                         </div>
-
                                                         {activeCategory === 'plushies' && quantity >= 1 && (
                                                             <p style={{
-                                                                color: '#C4D82E', // Neon Yellow/Green Alerta
+                                                                color: '#C4D82E',
                                                                 fontSize: '0.75rem',
                                                                 marginTop: '0.4rem',
                                                                 fontWeight: '700',
@@ -797,7 +718,6 @@ export default function Services() {
                                     )
                                 })}
                             </div>
-
                             {totalItems > 0 && (
                                 <div style={{
                                     position: 'fixed',
@@ -863,7 +783,6 @@ export default function Services() {
                             )}
                         </div>
                     </div>
-
                     , document.body)
             }
         </section >

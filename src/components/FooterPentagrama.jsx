@@ -1,7 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react'
-
-/* ── Musical glyph drawing functions ─────────────────────── */
-
 function drawNoteHead(ctx, x, y, size) {
     ctx.save()
     ctx.translate(x, y)
@@ -11,8 +8,6 @@ function drawNoteHead(ctx, x, y, size) {
     ctx.fill()
     ctx.restore()
 }
-
-// ♩ Quarter note: notehead + stem
 function drawQuarter(ctx, x, y, size) {
     drawNoteHead(ctx, x, y, size)
     ctx.beginPath()
@@ -20,8 +15,6 @@ function drawQuarter(ctx, x, y, size) {
     ctx.lineTo(x + size * 1.1, y - size * 4.2)
     ctx.stroke()
 }
-
-// ♪ Eighth note: notehead + stem + one bezier flag
 function drawEighth(ctx, x, y, size) {
     drawNoteHead(ctx, x, y, size)
     const sx = x + size * 1.1
@@ -30,7 +23,6 @@ function drawEighth(ctx, x, y, size) {
     ctx.moveTo(sx, y - size * 0.3)
     ctx.lineTo(sx, stemTop)
     ctx.stroke()
-    // Flag
     ctx.beginPath()
     ctx.moveTo(sx, stemTop)
     ctx.bezierCurveTo(
@@ -40,8 +32,6 @@ function drawEighth(ctx, x, y, size) {
     )
     ctx.stroke()
 }
-
-// Sixteenth note: eighth + second flag
 function drawSixteenth(ctx, x, y, size) {
     drawEighth(ctx, x, y, size)
     const sx = x + size * 1.1
@@ -55,8 +45,6 @@ function drawSixteenth(ctx, x, y, size) {
     )
     ctx.stroke()
 }
-
-// 𝄞 Treble clef — rendered as Unicode glyph via ctx.fillText
 function drawClef(ctx, x, y, size, alpha, rgb) {
     ctx.save()
     ctx.globalAlpha = alpha
@@ -67,9 +55,6 @@ function drawClef(ctx, x, y, size, alpha, rgb) {
     ctx.fillText('\u{1D11E}', x, y - size * 2.2)
     ctx.restore()
 }
-
-/* ── Main component ───────────────────────────────────────── */
-
 const GLYPH_TYPES = ['quarter', 'eighth', 'sixteenth', 'clef']
 const LINE_SPACING = 8
 const NUM_NOTES = 16
@@ -77,32 +62,27 @@ const REPEL_RADIUS = 90
 const REPEL_FORCE = 3.5
 const SPRING_K = 0.10
 const DAMPING = 0.76
-
 function makeNote(W, startY, idx) {
     const lineIndex = Math.floor(Math.random() * 5)
     const baseY = startY + lineIndex * LINE_SPACING
     return {
         x: Math.random() * W,
-        y: 0, // Will be set relative to startY in draw loop
+        y: 0, 
         vy: 0,
         lineIndex,
-        speed: 0.35 + Math.random() * 0.35, // Slower flow for 130s range
+        speed: 0.35 + Math.random() * 0.35, 
         type: GLYPH_TYPES[Math.floor(Math.random() * GLYPH_TYPES.length)],
         size: 3.2 + Math.random() * 2.2,
         opacity: 0.58 + Math.random() * 0.38,
     }
 }
-
 export default function Pentagrama() {
     const canvasRef = useRef(null)
     const mouseRef = useRef({ x: null, y: null })
     const notesRef = useRef([])
-
     const [isDark, setIsDark] = useState(
         () => document.documentElement.getAttribute('data-theme') === 'dark'
     )
-
-    // Reactive theme detection
     useEffect(() => {
         const obs = new MutationObserver(() =>
             setIsDark(document.documentElement.getAttribute('data-theme') === 'dark')
@@ -110,24 +90,18 @@ export default function Pentagrama() {
         obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
         return () => obs.disconnect()
     }, [])
-
-    // Mouse tracking — attached to the wrapper div
     const handleMouseMove = (e) => {
         const rect = canvasRef.current?.getBoundingClientRect()
         if (!rect) return
         mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
     }
     const handleMouseLeave = () => { mouseRef.current = { x: null, y: null } }
-
-    // Canvas animation loop — re-initialised whenever theme flips
     useEffect(() => {
         const canvas = canvasRef.current
         if (!canvas) return
         const ctx = canvas.getContext('2d')
         let animId
         let time = 0
-
-        // DPI-aware resize
         const resize = () => {
             const dpr = window.devicePixelRatio || 1
             const rect = canvas.getBoundingClientRect()
@@ -138,49 +112,35 @@ export default function Pentagrama() {
         resize()
         const ro = new ResizeObserver(resize)
         ro.observe(canvas)
-
-        // Palette
         const lineRgb = isDark ? '46, 91, 255' : '180, 145, 55'
         const noteRgb = isDark ? '196, 216, 46' : '196, 148, 30'
         const glowCol = isDark ? `rgba(196,216,46,0.75)` : `rgba(196,148,30,0.55)`
-
         const draw = () => {
             const W = canvas.getBoundingClientRect().width
             const H = canvas.getBoundingClientRect().height
             const staffH = LINE_SPACING * 4
-            const startY = 100 // Final Balanced Descent (+10%) [SHIELD: 280px height]
-
-            // Seed notes once (or if canvas was resized and emptied)
+            const startY = 100 
             if (notesRef.current.length === 0) {
                 notesRef.current = Array.from({ length: NUM_NOTES }, (_, i) =>
                     makeNote(W, startY, i)
                 )
             }
-
             ctx.clearRect(0, 0, W, H)
-
             const mx = mouseRef.current.x
             const my = mouseRef.current.y
-
-            /* ── Staff lines ── */
             for (let i = 0; i < 5; i++) {
                 const baseY = startY + i * LINE_SPACING
-
                 const grad = ctx.createLinearGradient(0, 0, W, 0)
                 grad.addColorStop(0.00, `rgba(${lineRgb},0)`)
                 grad.addColorStop(0.12, `rgba(${lineRgb},0.55)`)
                 grad.addColorStop(0.50, `rgba(${lineRgb},0.78)`)
                 grad.addColorStop(0.88, `rgba(${lineRgb},0.55)`)
                 grad.addColorStop(1.00, `rgba(${lineRgb},0)`)
-
                 ctx.beginPath()
                 for (let x = 0; x <= W; x += 3) {
-                    // Base sine wave (two harmonics)
                     let wY = baseY
                         + Math.sin(time * 1.1 + x * 0.013 + i * 0.72) * 1.4
                         + Math.sin(time * 0.6 + x * 0.007 + i * 1.10) * 0.5
-
-                    // Mouse string-pluck: vibrate near cursor X
                     if (mx !== null) {
                         const d = Math.abs(x - mx)
                         if (d < 200) {
@@ -195,22 +155,12 @@ export default function Pentagrama() {
                 ctx.shadowBlur = 0
                 ctx.stroke()
             }
-
-            /* ── Note particles ── */
             notesRef.current.forEach(note => {
-                // IMPORTANT: Recalculate baseY every frame to stay synced with lines
-                // during container resizes or layout shifts.
                 const noteBaseY = startY + note.lineIndex * LINE_SPACING
-
-                // Wave-synced base Y (note follows the string it sits on)
                 const waveBase = noteBaseY
                     + Math.sin(time * 1.1 + note.x * 0.013 + note.lineIndex * 0.72) * 1.4
-
-                // Spring: pull Y toward current wave base
                 note.vy += (waveBase - note.y) * SPRING_K
                 note.vy *= DAMPING
-
-                // Mouse repulsion (Y axis only — X keeps flowing)
                 if (mx !== null && my !== null) {
                     const dx = note.x - mx
                     const dy = note.y - my
@@ -220,24 +170,18 @@ export default function Pentagrama() {
                         note.vy += (dy / dist) * f
                     }
                 }
-
                 note.y += note.vy
                 note.x += note.speed
                 if (note.x > W + 40) note.x = -40
-
-                // Edge fade
                 const norm = note.x / W
                 const edgeFade = Math.min(norm / 0.10, 1) * Math.min((1 - norm) / 0.10, 1)
                 const alpha = Math.max(0, note.opacity * edgeFade)
                 if (alpha < 0.02) return
-
-                // Apply shared draw style
                 ctx.fillStyle = `rgba(${noteRgb}, ${alpha})`
                 ctx.strokeStyle = `rgba(${noteRgb}, ${alpha * 0.82})`
                 ctx.lineWidth = 1.2
                 ctx.shadowBlur = isDark ? 9 : 5
                 ctx.shadowColor = glowCol
-
                 switch (note.type) {
                     case 'quarter': drawQuarter(ctx, note.x, note.y, note.size); break
                     case 'eighth': drawEighth(ctx, note.x, note.y, note.size); break
@@ -247,31 +191,27 @@ export default function Pentagrama() {
                 }
                 ctx.shadowBlur = 0
             })
-
             time += 0.016
             animId = requestAnimationFrame(draw)
         }
-
         animId = requestAnimationFrame(draw)
-
         return () => {
             cancelAnimationFrame(animId)
             ro.disconnect()
-            notesRef.current = []  // Reset so next theme re-init redistributes
+            notesRef.current = []  
         }
     }, [isDark])
-
     return (
         <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{
                 width: '100%',
-                height: '280px',       // radical expansion to avoid clipped notes
+                height: '280px',       
                 background: 'var(--color-bg)',
                 position: 'relative',
                 cursor: 'crosshair',
-                zIndex: 0,            // Layered behind Mantra
+                zIndex: 0,            
             }}
         >
             <canvas
@@ -279,7 +219,7 @@ export default function Pentagrama() {
                 aria-hidden="true"
                 style={{
                     width: '100%',
-                    height: '180px', // Recalibrated for lower rezoning
+                    height: '180px', 
                     display: 'block',
                     pointerEvents: 'none',
                 }}

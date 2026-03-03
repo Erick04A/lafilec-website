@@ -1,16 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../store/LanguageContext'
-
 export default function Carousel3D() {
     const { t } = useLanguage()
     const boxRef = useRef(null)
     const [isHovered, setIsHovered] = useState(false)
-
     useEffect(() => {
         const box = boxRef.current
         if (!box) return
-
-
         if (isHovered) {
             box.style.transform = 'scale(1.1)'
             box.style.animationDuration = '80s'
@@ -19,16 +15,13 @@ export default function Carousel3D() {
             box.style.animationDuration = '50s'
         }
     }, [isHovered])
-
-
     const placeholderImages = Array(8).fill({
         front: 'https://placehold.co/150x200/1a1a1a/C4D82E?text=PROXIMAMENTE&font=montserrat',
         back: 'https://placehold.co/150x200/1a1a1a/C4D82E?text=LA+FIL+2026&font=montserrat'
     })
-
     return (
         <section className="carousel-section" style={{
-            background: '#0a0a0a', // Keep minimal background if needed or move to CSS fully
+            background: '#0a0a0a', 
         }}>
             <div style={{
                 maxWidth: '1200px',
@@ -45,7 +38,6 @@ export default function Carousel3D() {
                 }}>
                     Nuestra Trayectoria
                 </h2>
-
                 <div
                     className="contenedor-3d carousel-container-wrapper"
                     onMouseEnter={() => setIsHovered(true)}
@@ -70,19 +62,13 @@ export default function Carousel3D() {
                                     height: '200px',
                                     width: '150px',
                                     position: 'absolute',
-                                    // CRYSTAL MIRROR AURA
-                                    background: 'var(--color-glass)', // Uses variable for light/dark mode
-                                    backdropFilter: 'blur(4px)', // Subtle blur per request
+                                    background: 'var(--color-glass)', 
+                                    backdropFilter: 'blur(4px)', 
                                     WebkitBackdropFilter: 'blur(4px)',
-                                    // Electric Subtle Border
-                                    border: '1px solid rgba(255, 255, 255, 0.4)', // Base lighter border
+                                    border: '1px solid rgba(255, 255, 255, 0.4)', 
                                     borderTop: '1px solid rgba(255, 255, 255, 0.6)',
-                                    borderBottom: '1px solid rgba(173, 216, 230, 0.3)', // Blue tint at bottom
+                                    borderBottom: '1px solid rgba(173, 216, 230, 0.3)', 
                                     borderRadius: '30px',
-                                    // Box Reflect for Floor Reflection (Handled via CSS class if complex, but here inline)
-                                    // We can try to use a variable for the gradient alpha if supported, or just keep it simple.
-                                    // User asked for opacity 0.1 in dark mode.
-                                    // Soft shadow usually accompanies reflection
                                     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
                                     transform: `rotateY(${index * 45}deg) translateZ(250px)`,
                                     overflow: 'hidden',
@@ -90,19 +76,18 @@ export default function Carousel3D() {
                                     zIndex: 1
                                 }}
                             >
-                                {/* Surface Gloss (Glossy effect) */}
+                                {}
                                 <div className="glass-overlay" style={{
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
                                     width: '100%',
                                     height: '100%',
-                                    background: 'radial-gradient(circle at 10% 10%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.0) 40%)', // Gloss in corner
+                                    background: 'radial-gradient(circle at 10% 10%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.0) 40%)', 
                                     pointerEvents: 'none',
                                     zIndex: 10,
                                     mixBlendMode: 'overlay'
                                 }} />
-
                                 <div style={{
                                     height: '100%',
                                     width: '100%',
@@ -112,6 +97,7 @@ export default function Carousel3D() {
                                     <img
                                         src={imgs.front}
                                         alt="LA FIL"
+                                        loading="lazy"
                                         style={{
                                             height: '100%',
                                             width: '100%',
@@ -119,7 +105,6 @@ export default function Carousel3D() {
                                             position: 'absolute',
                                             backfaceVisibility: 'hidden',
                                             borderRadius: '30px',
-                                            // Make photo look like it's behind cold glass
                                             filter: 'brightness(1.02) contrast(1.05)',
                                             transition: 'filter 0.4s ease'
                                         }}
@@ -127,6 +112,7 @@ export default function Carousel3D() {
                                     <img
                                         src={imgs.back}
                                         alt="LA FIL"
+                                        loading="lazy"
                                         style={{
                                             height: '100%',
                                             width: '100%',
@@ -142,13 +128,11 @@ export default function Carousel3D() {
                                 </div>
                             </div>
                         ))}
-
-
                         <div style={{
                             height: '43em',
                             width: '43em',
                             transform: 'rotateX(90deg) translateX(-280px) translateY(40px) translateZ(140px)',
-                            background: 'radial-gradient(circle at center, rgba(173, 216, 230, 0.1), transparent 70%)', // Blue tint for floor
+                            background: 'radial-gradient(circle at center, rgba(173, 216, 230, 0.1), transparent 70%)', 
                             borderRadius: '50%',
                             display: 'flex',
                             justifyContent: 'center',
@@ -160,35 +144,27 @@ export default function Carousel3D() {
                     </div>
                 </div>
             </div>
-
             <style>{`
                 @keyframes rotar-3d {
                     to {
                         transform: rotateY(-360deg);
                     }
                 }
-
                 .box-3d {
                     animation: rotar-3d 50s infinite linear;
                 }
-                
                 .box-3d:hover {
                     animation-play-state: paused;
                 }
-
-                /* Crystal Interaction */
                 .elemento-3d:hover {
                     transform: translateY(-10px) scale(1.03) !important;
                     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
                     border-color: rgba(255, 255, 255, 0.9) !important;
                     z-index: 100 !important;
-                    /* Intensify reflection on lift? Box-reflect handles itself mainly */
                 }
-
                 .elemento-3d:hover img {
                     filter: brightness(1.1) saturate(1.1) !important;
                 }
-                
                 .elemento-3d:hover .glass-overlay {
                     background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.0) 50%) !important;
                 }

@@ -1,12 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useLanguage } from '../store/LanguageContext'
 import { X } from 'lucide-react'
-
-
 const lerp = (start, end, factor) => {
     return start + (end - start) * factor
 }
-
 export default function Crowdfunding() {
     const { t } = useLanguage()
     const [selectedGoal, setSelectedGoal] = useState(null)
@@ -14,15 +11,10 @@ export default function Crowdfunding() {
     const [customAmount, setCustomAmount] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
     const [isHovered, setIsHovered] = useState(false)
-
-
     const boxRef = useRef(null)
     const animationRef = useRef(null)
     const rotationRef = useRef(0)
     const speedRef = useRef(0.1)
-
-
-
     const baseUrl = import.meta.env.BASE_URL;
     const carouselImages = [
         { id: 1, src: `${baseUrl}assets/carousel/img1.jpg` },
@@ -34,49 +26,29 @@ export default function Crowdfunding() {
         { id: 7, src: `${baseUrl}assets/carousel/img7.jpg` },
         { id: 8, src: `${baseUrl}assets/carousel/img8.jpg` }
     ]
-
-
     const totalTarget = t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.target, 0)
     const totalCurrent = t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.current, 0)
     const overallProgress = Math.round((totalCurrent / totalTarget) * 100)
-
-
     useEffect(() => {
         const animate = () => {
             const targetSpeed = isHovered ? 0.02 : 0.1
-
-
-
             speedRef.current = lerp(speedRef.current, targetSpeed, 0.05)
-
-
             rotationRef.current += speedRef.current
-
-
             if (boxRef.current) {
-
-
-
                 boxRef.current.style.transform = `rotateY(-${rotationRef.current}deg)`
             }
-
             animationRef.current = requestAnimationFrame(animate)
         }
-
-
         animationRef.current = requestAnimationFrame(animate)
-
         return () => {
             if (animationRef.current) cancelAnimationFrame(animationRef.current)
         }
     }, [isHovered])
-
     const handleJoin = () => {
         if (selectedGoal !== null && (selectedAmount !== null || customAmount)) {
             setModalOpen(true)
         }
     }
-
     const handleWhatsApp = () => {
         const goalName = t.crowdfunding.goals.items[selectedGoal].name
         const amount = customAmount || selectedAmount
@@ -84,7 +56,6 @@ export default function Crowdfunding() {
         const whatsappUrl = `https://wa.me/593999999999?text=${encodeURIComponent(message)}`
         window.open(whatsappUrl, '_blank')
     }
-
     return (
         <section id="fuel" style={{
             padding: '8rem 2rem',
@@ -94,7 +65,6 @@ export default function Crowdfunding() {
             fontFamily: 'sans-serif',
             transition: 'background-color 0.4s ease, color 0.4s ease'
         }}>
-
             <div style={{
                 position: 'absolute',
                 top: 0,
@@ -111,10 +81,7 @@ export default function Crowdfunding() {
                     transition: 'width 0.5s ease'
                 }} />
             </div>
-
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-
-
                 <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
                     <h2 className="section-title-crowdfunding" style={{
                         fontSize: '3.5rem',
@@ -129,8 +96,6 @@ export default function Crowdfunding() {
                         {t.crowdfunding.vision}
                     </p>
                 </div>
-
-
                 <div
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
@@ -138,7 +103,7 @@ export default function Crowdfunding() {
                         height: '290px',
                         width: '290px',
                         perspective: '1200px',
-                        margin: '4rem auto', // Balanced vertical spacing for centering
+                        margin: '4rem auto', 
                         transform: isHovered ? 'scale(1.15) rotateX(-10deg)' : 'scale(1.08) rotateX(-10deg)',
                         transformStyle: 'preserve-3d',
                         display: 'flex',
@@ -158,7 +123,6 @@ export default function Crowdfunding() {
                             position: 'absolute',
                             top: 0,
                             left: 0,
-
                             willChange: 'transform'
                         }}
                     >
@@ -221,8 +185,6 @@ export default function Crowdfunding() {
                         ))}
                     </div>
                 </div>
-
-
                 <div style={{
                     marginBottom: '4rem',
                     marginTop: '220px',
@@ -238,19 +200,16 @@ export default function Crowdfunding() {
                     }}>
                         {t.crowdfunding.goals.title}
                     </h3>
-
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
                         {t.crowdfunding.goals.items.map((goal, idx) => {
                             const progress = (goal.current / goal.target) * 100
                             const isNearComplete = progress >= 80
                             const isSelected = selectedGoal === idx
-
                             return (
                                 <div key={idx}
                                     className={`goal-card ${isSelected ? 'selected' : ''} ${isNearComplete ? 'near-complete' : ''}`}
                                     onClick={() => setSelectedGoal(idx)}
                                 >
-
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                                         <div>
                                             <h4 className={`goal-title ${isSelected || isNearComplete ? 'active' : ''}`}>
@@ -264,8 +223,6 @@ export default function Crowdfunding() {
                                             {Math.round(progress)}%
                                         </div>
                                     </div>
-
-
                                     <div className="progress-track">
                                         <div
                                             className="progress-fill"
@@ -274,8 +231,6 @@ export default function Crowdfunding() {
                                             }}
                                         />
                                     </div>
-
-
                                     {isSelected && (
                                         <div style={{
                                             marginTop: '2rem',
@@ -343,8 +298,6 @@ export default function Crowdfunding() {
                         })}
                     </div>
                 </div>
-
-
                 <div style={{ textAlign: 'center' }}>
                     <button
                         onClick={handleJoin}
@@ -355,8 +308,6 @@ export default function Crowdfunding() {
                     </button>
                 </div>
             </div>
-
-
             {modalOpen && (
                 <div style={{
                     position: 'fixed',
@@ -405,8 +356,6 @@ export default function Crowdfunding() {
                         >
                             <X size={24} />
                         </button>
-
-
                         <div style={{
                             marginBottom: '2rem',
                             marginTop: '1rem',
@@ -418,6 +367,7 @@ export default function Crowdfunding() {
                             <img
                                 src={`${import.meta.env.BASE_URL}assets/images/bank_details.png`}
                                 alt="Datos Bancarios Oficiales"
+                                loading="lazy"
                                 style={{
                                     width: '100%',
                                     height: 'auto',
@@ -427,8 +377,6 @@ export default function Crowdfunding() {
                                 }}
                             />
                         </div>
-
-
                         {selectedGoal !== null && (
                             <p style={{
                                 color: '#666',
@@ -439,8 +387,6 @@ export default function Crowdfunding() {
                                 APORTE: <span style={{ color: '#C4D82E' }}>${customAmount || selectedAmount}</span>
                             </p>
                         )}
-
-
                         <button
                             onClick={handleWhatsApp}
                             style={{

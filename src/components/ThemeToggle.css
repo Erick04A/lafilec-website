@@ -1,17 +1,12 @@
-/* ThemeToggle.css - Minimalist Power Sensor */
 
 .theme-toggle-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 16px;
-    /* Spacing requested */
 }
-
 .theme-toggle {
-    /* Compact 42px size as requested */
     --toggle-size: 44px;
-
     position: relative;
     width: var(--toggle-size);
     height: var(--toggle-size);
@@ -20,17 +15,12 @@
     background: transparent;
     border-radius: 50%;
     -webkit-tap-highlight-color: transparent;
-    /* Ensure no square artifact */
     border: none;
     box-shadow: none;
 }
-
-/* Hidden Input */
 .theme-toggle input {
     display: none;
 }
-
-/* The Circular Button Body */
 .power-button {
     position: absolute;
     top: 0;
@@ -39,67 +29,40 @@
     height: 100%;
     border-radius: 50%;
     background: var(--color-bg);
-    /* Matches navbar/body bg */
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     z-index: 1;
 }
-
-/* 
-   LIGHT MODE SHADOWS (Compact Floating on Cream #F5F2E9)
-   Subtler shadows for smaller size
-*/
 [data-theme='light'] .power-button {
     box-shadow:
         4px 4px 8px #d9d6ce,
         -4px -4px 8px #ffffff;
 }
-
-/* 
-   DARK MODE SHADOWS (Compact Floating on Black #0a0a0a) 
-*/
 [data-theme='dark'] .power-button {
     box-shadow:
         4px 4px 8px #000000,
         -4px -4px 8px #141414;
 }
-
-
-/* ICON STYLES */
 .power-icon {
     transition: all 0.4s ease;
     color: #6e6e73;
-    /* Steel Grey for Light Mode */
 }
-
-/* 
-   STATES 
-*/
-
-/* ACTIVE PRESS (Squishy Inset) */
 .theme-toggle input:active+.power-button {
     transform: scale(0.96);
 }
-
 [data-theme='light'] .theme-toggle input:active+.power-button {
     box-shadow:
         inset 2px 2px 5px #d9d6ce,
         inset -2px -2px 5px #ffffff;
 }
-
 [data-theme='dark'] .theme-toggle input:active+.power-button {
     box-shadow:
         inset 2px 2px 5px #000000,
         inset -2px -2px 5px #141414;
 }
-
-/* CHECKED STATE (Dark Mode Active) */
 .theme-toggle input:checked+.power-button .power-icon {
     color: #C4D82E;
-    /* Neon Green */
     filter: drop-shadow(0 0 4px #C4D82E) drop-shadow(0 0 8px #1B2A41);
 }
-
-/* Hover State for Interactivity Polish */

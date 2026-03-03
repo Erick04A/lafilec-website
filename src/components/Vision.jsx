@@ -1,13 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { useLanguage } from '../store/LanguageContext'
 import { motion, AnimatePresence } from 'framer-motion'
-
-// --- Official Manifesto Specs ---
 const NEON_GREEN = '#D4FF00'
 const MYSTIC_CREAM = '#fdfbf7'
 const DARK_GOLD = '#B8860B'
 const GRAPHITE = '#4A4A4A'
-
 const HOUSES = [
     {
         id: "gryffindor",
@@ -42,15 +39,18 @@ const HOUSES = [
         message: "Eres Slytherin. Ambición y astucia reveladas."
     }
 ]
-
 const Vision = () => {
     const { t, lang } = useLanguage()
     const [selectedHouse, setSelectedHouse] = useState(null)
     const [isSorting, setIsSorting] = useState(false)
-
+    const [isBgLoaded, setIsBgLoaded] = useState(false)
+    const [hatLoaded, setHatLoaded] = useState(false)
     const manifestoLines = useMemo(() => t.about?.lines || [], [t.about?.lines])
     const manifestoTitle = useMemo(() => t.about?.title || 'Acerca de Nosotros', [t.about?.title])
-
+    React.useEffect(() => {
+        const timer = setTimeout(() => setIsBgLoaded(true), 400);
+        return () => clearTimeout(timer);
+    }, [])
     const handleSort = () => {
         setIsSorting(true)
         setTimeout(() => {
@@ -59,7 +59,6 @@ const Vision = () => {
             setIsSorting(false)
         }, 1500)
     }
-
     return (
         <section
             id="about"
@@ -71,11 +70,10 @@ const Vision = () => {
                 padding: '0rem 2rem 4.5rem 2rem'
             }}
         >
-            {/* HARMONY STYLE INJECTION (IMMUNE CENTERING) */}
+            {}
             <style dangerouslySetInnerHTML={{
                 __html: `
                 @import url('https://fonts.cdnfonts.com/css/harry-potter');
-
                 .vision-layout-lock {
                     display: flex !important;
                     flex-direction: row !important;
@@ -136,11 +134,17 @@ const Vision = () => {
                     }
                 }
             `}} />
-
-            {/* GLOBAL VERTICAL POSITIONING WRAPPER */}
+            {}
+            <div className={`skeleton-reveal ${isBgLoaded ? 'skeleton-hidden' : ''}`} style={{ zIndex: 1 }}></div>
+            {}
+            <div className="night" aria-hidden="true" style={{ zIndex: 2 }}>
+                {Array.from({ length: 20 }).map((_, i) => (
+                    <div key={i} className="shooting_star" />
+                ))}
+            </div>
+            {}
             <div className="w-full relative z-20" style={{ transform: "translateY(20%)" }}>
-
-                {/* INDEPENDENT 100% VIEWPORT WIDTH HEADER */}
+                {}
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '8rem' }}>
                     <h3
                         className="font-bold text-center"
@@ -153,14 +157,11 @@ const Vision = () => {
                         {manifestoTitle}
                     </h3>
                 </div>
-
-                {/* 50/50 LAYOUT: MANIFESTO & SORTING HAT */}
+                {}
                 <div className="container mx-auto vision-layout-lock" style={{ marginTop: '2rem' }}>
-
-                    {/* COLUMN 1: MANIFESTO (CENTERED HARMONY) */}
+                    {}
                     <div className="vision-column-mass flex flex-col justify-center items-center">
                         <div className="max-w-[480px] manifesto-centering-lock">
-
                             <div className="flex flex-col gap-6 w-full items-center">
                                 {manifestoLines.map((line, index) => {
                                     const isLast = index === manifestoLines.length - 1;
@@ -168,14 +169,14 @@ const Vision = () => {
                                         <motion.p
                                             key={index}
                                             initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: isLast ? 1 : 0.85, y: 0 }}
+                                            whileInView={{ opacity: isLast ? 1 : 'var(--manifesto-opacity, 0.85)', y: 0 }}
                                             viewport={{ once: true, margin: "-50px" }}
                                             transition={{
                                                 duration: 0.8,
                                                 ease: "easeOut",
                                                 delay: index * 0.2
                                             }}
-                                            className={`text-center w-full ${isLast ? 'closure-highlight mt-4 font-bold' : ''}`}
+                                            className={`text-center w-full ${isLast ? 'closure-highlight mt-4 font-bold' : 'manifesto-core-text'}`}
                                             style={{
                                                 fontSize: 'clamp(0.9rem, 1.4vw, 1.15rem)',
                                                 lineHeight: 3.45,
@@ -192,8 +193,7 @@ const Vision = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* COLUMN 2: SORTING HAT (SMOKE CALLIGRAPHY & CHROMATIC AURA) */}
+                    {}
                     <div className="vision-column-mass hat-shift-lock flex flex-col items-center justify-center relative min-h-[380px]">
                         <motion.div
                             animate={{
@@ -205,7 +205,6 @@ const Vision = () => {
                             transition={{ duration: 1.5 }}
                             className="absolute inset-x-0 bottom-0 top-1/2 z-0 pointer-events-none"
                         />
-
                         <div className="relative z-10 flex flex-col items-center w-full max-w-[350px]">
                             <motion.div
                                 animate={{
@@ -223,10 +222,15 @@ const Vision = () => {
                                 }}
                                 className="relative w-full flex justify-center"
                             >
+                                {}
+                                {!hatLoaded && (
+                                    <div className={`hat-skeleton skeleton-reveal ${hatLoaded ? 'skeleton-hidden' : ''}`} />
+                                )}
                                 <motion.img
                                     id="hat"
                                     src="https://cdn2.hubspot.net/hubfs/678613/Projects/CodePen/Harry%20Potter%20Sorting%20Hat/Sorting%20Hat.png"
                                     alt="Sorting Hat"
+                                    onLoad={() => setHatLoaded(true)}
                                     onClick={!selectedHouse && !isSorting ? handleSort : undefined}
                                     animate={isSorting ? {
                                         x: [-3, 3, -3, 3, 0],
@@ -264,10 +268,11 @@ const Vision = () => {
                                         maxWidth: '280px',
                                         margin: 0,
                                         cursor: !selectedHouse && !isSorting ? 'pointer' : 'help',
-                                        zIndex: 10
+                                        zIndex: 10,
+                                        willChange: 'contents, filter, transform',
+                                        transform: 'translateZ(0)'
                                     }}
                                 />
-
                                 <AnimatePresence>
                                     {selectedHouse && (
                                         <motion.div
@@ -303,13 +308,13 @@ const Vision = () => {
                                                 {t?.vision?.hat?.[selectedHouse.id] || selectedHouse.name}
                                             </span>
                                             <motion.div
-                                                key={lang} // Forces unroll and typewriter restart on lang change
+                                                key={lang} 
                                                 initial={{ scaleY: 0, opacity: 0 }}
                                                 animate={{ scaleY: 1, opacity: 1 }}
                                                 transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 1 }}
                                                 style={{
                                                     transformOrigin: "top center",
-                                                    background: "linear-gradient(135deg, #fdf9ec 0%, #ecdcb0 100%)", /* sepia tone */
+                                                    background: "linear-gradient(135deg, #fdf9ec 0%, #ecdcb0 100%)", 
                                                     filter: `drop-shadow(0 10px 20px ${selectedHouse.glow}) drop-shadow(0 2px 4px rgba(139, 69, 19, 0.4))`,
                                                     marginTop: "0.5rem",
                                                     position: "relative",
@@ -321,9 +326,9 @@ const Vision = () => {
                                             >
                                                 <div
                                                     style={{
-                                                        background: "linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, transparent 100%)", /* subtle ageing */
-                                                        clipPath: "polygon(1% 2%, 35% 0%, 65% 4%, 99% 1%, 100% 35%, 97% 65%, 98% 99%, 65% 97%, 35% 100%, 2% 98%, 0% 65%, 3% 35%)", // Torn paper effect
-                                                        padding: "0.6rem 0.8rem", // Minimal padding to kill dead space
+                                                        background: "linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, transparent 100%)", 
+                                                        clipPath: "polygon(1% 2%, 35% 0%, 65% 4%, 99% 1%, 100% 35%, 97% 65%, 98% 99%, 65% 97%, 35% 100%, 2% 98%, 0% 65%, 3% 35%)", 
+                                                        padding: "0.6rem 0.8rem", 
                                                     }}
                                                     className="flex flex-col items-center justify-center w-full"
                                                 >
@@ -335,12 +340,12 @@ const Vision = () => {
                                                                 animate={{ opacity: 1, filter: 'blur(0px)' }}
                                                                 transition={{
                                                                     duration: 0.3,
-                                                                    delay: 1.8 + index * 0.03, // Steady, mechanical reveal
+                                                                    delay: 1.8 + index * 0.03, 
                                                                     ease: "easeOut"
                                                                 }}
                                                                 style={{
-                                                                    color: '#3d2514', // Marrón Sepia Oscuro Sólido
-                                                                    textShadow: '0px 0px 1px rgba(61,37,20,0.5)', // Slight bleed for ink effect
+                                                                    color: '#3d2514', 
+                                                                    textShadow: '0px 0px 1px rgba(61,37,20,0.5)', 
                                                                     marginRight: char === ' ' ? '0.3em' : '0',
                                                                     display: 'inline-block'
                                                                 }}
@@ -357,41 +362,50 @@ const Vision = () => {
                             </motion.div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
-            {/* Kinetic DNA (Fireflies) */}
+            {}
             <div className="absolute inset-0 pointer-events-none z-0">
-                {Array.from({ length: 15 }).map((_, i) => (
-                    <motion.div
-                        key={i}
-                        animate={{
-                            y: [0, -20, 0],
-                            opacity: [0.1, 0.2, 0.1]
-                        }}
-                        transition={{
-                            duration: 15 + Math.random() * 20,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: Math.random() * 10
-                        }}
-                        style={{
-                            position: 'absolute',
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            width: '1px',
-                            height: '1px',
-                            backgroundColor: NEON_GREEN,
-                            borderRadius: '50%',
-                            boxShadow: `0 0 4px ${NEON_GREEN}`
-                        }}
-                    />
-                ))}
+                {Array.from({ length: 15 }).map((_, i) => {
+                    const randomX = Math.random() * 100;
+                    const randomY = Math.random() * 100;
+                    return (
+                        <motion.div
+                            key={i}
+                            initial={{
+                                x: `${randomX}vw`,
+                                y: `${randomY}vh`,
+                                z: 0
+                            }}
+                            animate={{
+                                y: [`${randomY}vh`, `calc(${randomY}vh - 20px)`, `${randomY}vh`],
+                                opacity: [0.1, 0.2, 0.1],
+                                z: [0, 0, 0]
+                            }}
+                            transition={{
+                                duration: 15 + Math.random() * 20,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: Math.random() * 10
+                            }}
+                            style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: '1px',
+                                height: '1px',
+                                backgroundColor: NEON_GREEN,
+                                borderRadius: '50%',
+                                boxShadow: `0 0 4px ${NEON_GREEN}`,
+                                willChange: 'transform, opacity',
+                                backfaceVisibility: 'hidden',
+                                perspective: 1000
+                            }}
+                        />
+                    )
+                })}
             </div>
         </section>
     );
 };
-
 export default Vision;

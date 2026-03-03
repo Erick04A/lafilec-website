@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useLanguage } from '../store/LanguageContext'
 import CardSkeleton from './CardSkeleton'
-
 export default function Collective() {
     const { t } = useLanguage()
     const members = ['Leo', 'Max', 'Jake']
     const [loading, setLoading] = useState(true)
-
     useEffect(() => {
-        // Simulated loading - remove or connect to real API in the future
         const timer = setTimeout(() => {
             setLoading(false)
         }, 1500)
-
         return () => clearTimeout(timer)
     }, [])
-
     return (
         <section id="collective" style={{ padding: '8rem 2rem' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -29,7 +24,6 @@ export default function Collective() {
                 }}>
                     {t.collective.title}
                 </h2>
-
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
@@ -73,4 +67,3 @@ export default function Collective() {
         </section>
     )
 }
-
