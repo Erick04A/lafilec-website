@@ -6,7 +6,7 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename={import.meta.env.DEV ? '/' : '/La-Fil'}>
+    <BrowserRouter basename={import.meta.env.DEV ? '/' : '/LAFILof'}>
       <App />
     </BrowserRouter>
   </StrictMode>,
