@@ -11,11 +11,21 @@ export default function Crowdfunding() {
     const [customAmount, setCustomAmount] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
     const [isHovered, setIsHovered] = useState(false)
+    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768)
+    const [cardStackIndex, setCardStackIndex] = useState(0)
+
     const boxRef = useRef(null)
     const animationRef = useRef(null)
     const rotationRef = useRef(0)
     const speedRef = useRef(0.1)
     const baseUrl = import.meta.env.BASE_URL;
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768)
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
     const carouselImages = [
         { id: 1, src: `${baseUrl}assets/carousel/img1.jpg` },
         { id: 2, src: `${baseUrl}assets/carousel/img2.jpg` },
@@ -26,9 +36,9 @@ export default function Crowdfunding() {
         { id: 7, src: `${baseUrl}assets/carousel/img7.jpg` },
         { id: 8, src: `${baseUrl}assets/carousel/img8.jpg` }
     ]
-    const totalTarget = t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.target, 0)
-    const totalCurrent = t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.current, 0)
-    const overallProgress = Math.round((totalCurrent / totalTarget) * 100)
+    const totalTarget = t.crowdfunding?.goals?.items ? t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.target, 0) : 0
+    const totalCurrent = t.crowdfunding?.goals?.items ? t.crowdfunding.goals.items.reduce((sum, goal) => sum + goal.current, 0) : 0
+    const overallProgress = totalTarget > 0 ? Math.round((totalCurrent / totalTarget) * 100) : 0
     useEffect(() => {
         const animate = () => {
             const targetSpeed = isHovered ? 0.02 : 0.1
@@ -97,13 +107,14 @@ export default function Crowdfunding() {
                     </p>
                 </div>
                 <div
+                    className="crowdfunding-carousel-container"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     style={{
                         height: '290px',
                         width: '290px',
                         perspective: '1200px',
-                        margin: '4rem auto', 
+                        margin: '4rem auto',
                         transform: isHovered ? 'scale(1.15) rotateX(-10deg)' : 'scale(1.08) rotateX(-10deg)',
                         transformStyle: 'preserve-3d',
                         display: 'flex',
@@ -115,6 +126,7 @@ export default function Crowdfunding() {
                     }}
                 >
                     <div
+                        className="crowdfunding-carousel-box"
                         ref={boxRef}
                         style={{
                             height: '100%',
@@ -126,63 +138,108 @@ export default function Crowdfunding() {
                             willChange: 'transform'
                         }}
                     >
-                        {carouselImages.map((img, index) => (
-                            <div
-                                key={img.id}
-                                style={{
-                                    height: '290px',
-                                    width: '216px',
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: '37px',
-                                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0,0,0,0.06)',
-                                    border: '1px solid rgba(0,0,0,0.08)',
-                                    borderRadius: '12px',
-                                    transform: `rotateY(${index * 45}deg) translateZ(380px)`,
-                                    transformStyle: 'preserve-3d',
-                                    backfaceVisibility: 'hidden'
-                                }}
-                            >
-                                <div style={{
-                                    height: '100%',
-                                    width: '100%',
-                                    transformStyle: 'preserve-3d'
-                                }}>
-                                    <img
-                                        src={img.src}
-                                        alt={`LA FIL Highlight ${img.id}`}
-                                        loading="lazy"
-                                        style={{
-                                            height: '100%',
-                                            width: '100%',
-                                            objectFit: 'cover',
-                                            position: 'absolute',
-                                            backfaceVisibility: 'hidden',
-                                            pointerEvents: 'none',
-                                            filter: 'brightness(1.05)'
-                                        }}
-                                        decoding="async"
-                                        className="hardware-accelerated"
-                                    />
-                                    <img
-                                        src={img.src}
-                                        alt={`LA FIL Highlight ${img.id}`}
-                                        style={{
-                                            height: '100%',
-                                            width: '100%',
-                                            objectFit: 'cover',
-                                            position: 'absolute',
-                                            backfaceVisibility: 'hidden',
-                                            transform: 'rotateY(180deg)',
-                                            pointerEvents: 'none',
-                                            filter: 'brightness(0.5) sepia(1) hue-rotate(20deg)'
-                                        }}
-                                        decoding="async"
-                                        className="hardware-accelerated"
-                                    />
+                        {carouselImages.map((img, index) => {
+                            const isDiscarded = isMobile && index < cardStackIndex
+                            const isTop = isMobile && index === cardStackIndex
+                            const offsetIndex = isMobile ? index - cardStackIndex : 0
+
+                            return (
+                                <div
+                                    key={img.id}
+                                    className="crowdfunding-carousel-item"
+                                    onClick={() => {
+                                        if (isMobile && isTop) {
+                                            setCardStackIndex(prev => prev + 1)
+                                        }
+                                    }}
+                                    style={{
+                                        height: '290px',
+                                        width: '216px',
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: '37px',
+                                        boxShadow: isMobile ? '0 10px 30px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1)' : '0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0,0,0,0.06)',
+                                        border: '1px solid rgba(0,0,0,0.08)',
+                                        borderRadius: '12px',
+                                        transform: isMobile
+                                            ? (isDiscarded ? 'translateX(180%) rotate(25deg)' : `translateY(${offsetIndex * 3}px) scale(${1 - offsetIndex * 0.02}) rotate(${offsetIndex % 2 === 0 ? offsetIndex * 3 : -offsetIndex * 3}deg)`)
+                                            : `rotateY(${index * 45}deg) translateZ(380px)`,
+                                        transformStyle: 'preserve-3d',
+                                        backfaceVisibility: 'hidden',
+                                        zIndex: isMobile ? carouselImages.length - index : 'auto',
+                                        transition: isMobile ? 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease-out' : 'none',
+                                        opacity: isMobile && isDiscarded ? 0 : 1,
+                                        pointerEvents: isMobile ? (isTop ? 'auto' : 'none') : 'auto',
+                                        cursor: isMobile ? (isTop ? 'pointer' : 'default') : 'default'
+                                    }}
+                                >
+                                    <div style={{
+                                        height: '100%',
+                                        width: '100%',
+                                        transformStyle: 'preserve-3d'
+                                    }}>
+                                        <img
+                                            src={img.src}
+                                            alt={`LA FIL Highlight ${img.id}`}
+                                            loading="lazy"
+                                            style={{
+                                                height: '100%',
+                                                width: '100%',
+                                                objectFit: 'cover',
+                                                position: 'absolute',
+                                                backfaceVisibility: 'hidden',
+                                                pointerEvents: 'none',
+                                                filter: 'brightness(1.05)'
+                                            }}
+                                            decoding="async"
+                                            className="hardware-accelerated"
+                                        />
+                                        <img
+                                            src={img.src}
+                                            alt={`LA FIL Highlight ${img.id}`}
+                                            style={{
+                                                height: '100%',
+                                                width: '100%',
+                                                objectFit: 'cover',
+                                                position: 'absolute',
+                                                backfaceVisibility: 'hidden',
+                                                transform: 'rotateY(180deg)',
+                                                pointerEvents: 'none',
+                                                filter: 'brightness(0.5) sepia(1) hue-rotate(20deg)'
+                                            }}
+                                            decoding="async"
+                                            className="hardware-accelerated"
+                                        />
+                                    </div>
                                 </div>
+                            )
+                        })}
+                        {/* RESTART CAROUSEL CTA (MOBILE ONLY) */}
+                        {isMobile && cardStackIndex >= carouselImages.length && (
+                            <div className="hard-center-cta">
+                                <h4 style={{ color: 'var(--color-verde-esmeralda)', fontSize: '1.2rem', marginBottom: '1rem', fontWeight: 'bold' }}>
+                                    Galería Completada
+                                </h4>
+                                <button
+                                    onClick={() => setCardStackIndex(0)}
+                                    style={{
+                                        padding: '0.6rem 1.5rem',
+                                        background: 'transparent',
+                                        border: '1px solid var(--color-verde-esmeralda)',
+                                        color: 'var(--color-verde-esmeralda)',
+                                        borderRadius: '4px',
+                                        cursor: 'pointer',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '2px',
+                                        fontWeight: '900',
+                                        fontFamily: 'var(--font-title)',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                >
+                                    RECARGAR
+                                </button>
                             </div>
-                        ))}
+                        )}
                     </div>
                 </div>
                 <div style={{
@@ -200,11 +257,16 @@ export default function Crowdfunding() {
                     }}>
                         {t.crowdfunding.goals.title}
                     </h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-                        {t.crowdfunding.goals.items.map((goal, idx) => {
+                    <div className="crowdfunding-goals-container" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '2.5rem'
+                    }}>
+                        {t.crowdfunding?.goals?.items && t.crowdfunding.goals.items.map((goal, idx) => {
                             const progress = (goal.current / goal.target) * 100
                             const isNearComplete = progress >= 80
                             const isSelected = selectedGoal === idx
+
                             return (
                                 <div key={idx}
                                     className={`goal-card ${isSelected ? 'selected' : ''} ${isNearComplete ? 'near-complete' : ''}`}

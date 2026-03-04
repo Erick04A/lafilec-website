@@ -466,7 +466,6 @@ export default function Services() {
                             left: 0,
                             width: '100%',
                             height: '100vh',
-                            background: 'rgba(255,255,255,0.98)',
                             zIndex: 9990,
                             display: 'flex',
                             flexDirection: 'column',
@@ -529,11 +528,7 @@ export default function Services() {
                                     </div>
                                 )}
                             </div>
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(3, 1fr)',
-                                gap: '2rem'
-                            }}>
+                            <div className="detail-grid-container">
                                 {categories[activeCategory].data.map((product) => {
                                     const quantity = cart[product.id] || 0
                                     return (
@@ -546,7 +541,6 @@ export default function Services() {
                                                 borderRadius: '16px',
                                                 overflow: 'hidden',
                                                 boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                                                background: '#fff',
                                                 aspectRatio: '1',
                                                 position: 'relative',
                                                 cursor: 'pointer',

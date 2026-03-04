@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Power } from 'lucide-react';
 import './ThemeToggle.css';
 export default function ThemeToggle() {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem('theme') || 'light';
+    });
     useEffect(() => {
-        setTheme('light');
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.removeItem('theme'); 
-    }, []);
+        document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
@@ -30,7 +30,7 @@ export default function ThemeToggle() {
                     checked={theme === 'dark'}
                     onChange={toggleTheme}
                 />
-                {}
+                { }
                 <span className="power-button">
                     <Power
                         size={19}

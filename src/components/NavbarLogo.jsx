@@ -48,39 +48,43 @@ export default function ResonantSeal({ triggerPulse = false }) {
                 gap: isMobile ? '4px' : '8px'
             }}
         >
-            {}
+            { }
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '3px',
                 height: '100%',
-                filter: holographicFilter 
+                filter: holographicFilter
             }}>
                 {barsLeft.map((bar, i) => (
                     <div key={`l-${i}`} style={{
                         width: '2px',
                         height: isMobile ? '10.5px' : '12.6px',
-                        background: '#C4D82E', 
+                        background: '#C4D82E',
                         borderRadius: '1px',
-                        animation: `pulse-height ${isHovered ? '0.6s' : bar.duration} ease-in-out infinite alternate`,
+                        animationName: 'pulse-height',
+                        animationDuration: isHovered ? '0.6s' : bar.duration,
+                        animationTimingFunction: 'ease-in-out',
+                        animationIterationCount: 'infinite',
+                        animationDirection: 'alternate',
                         animationDelay: bar.delay
                     }} />
                 ))}
             </div>
-            {}
+            { }
             <img
                 src={`${import.meta.env.BASE_URL}logo.png`}
                 alt="LA FIL"
                 style={{
-                    height: isMobile ? '25.2px' : '33.5px', 
+                    height: isMobile ? '25.2px' : '33.5px',
                     width: 'auto',
                     objectFit: 'contain',
                     zIndex: 2,
-                    filter: `${holographicFilter} brightness(1.1)`, 
+                    filter: `${holographicFilter} brightness(1.1)`,
                     willChange: 'filter, transform'
                 }}
             />
-            {}
+            { }
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -94,7 +98,11 @@ export default function ResonantSeal({ triggerPulse = false }) {
                         height: isMobile ? '10.5px' : '12.6px',
                         background: '#C4D82E',
                         borderRadius: '1px',
-                        animation: `pulse-height ${isHovered ? '0.6s' : bar.duration} ease-in-out infinite alternate`,
+                        animationName: 'pulse-height',
+                        animationDuration: isHovered ? '0.6s' : bar.duration,
+                        animationTimingFunction: 'ease-in-out',
+                        animationIterationCount: 'infinite',
+                        animationDirection: 'alternate',
                         animationDelay: bar.delay
                     }} />
                 ))}

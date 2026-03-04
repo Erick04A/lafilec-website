@@ -9,7 +9,6 @@ export default function useScrollReveal({ delay = 0, once = true, threshold = 0.
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
-                        console.log('🎯 Scroll Reveal: Element revealed', { delay, threshold, element })
                         setIsRevealed(true)
                     }, delay)
                     if (once) {
@@ -19,7 +18,7 @@ export default function useScrollReveal({ delay = 0, once = true, threshold = 0.
             },
             {
                 threshold,
-                rootMargin: '0px 0px -20px 0px' 
+                rootMargin: '0px 0px -20px 0px'
             }
         )
         observer.observe(element)

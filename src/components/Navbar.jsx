@@ -6,7 +6,7 @@ import ThemeToggle from './ThemeToggle'
 export default function Navbar() {
   const { t, lang, switchLang } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [navHovered, setNavHovered] = useState(false) 
+  const [navHovered, setNavHovered] = useState(false)
   const links = [
     { key: 'curations', label: t.nav?.curations || 'Eventos' },
     { key: 'about', label: t.nav?.about || 'Nosotros' },
@@ -28,7 +28,7 @@ export default function Navbar() {
       alignItems: 'center',
       zIndex: 100,
       boxSizing: 'border-box',
-      background: window.innerWidth <= 768 ? 'var(--color-bg)' : 'transparent', 
+      background: window.innerWidth <= 768 ? 'var(--color-bg)' : 'transparent',
       backdropFilter: window.innerWidth <= 768 ? 'blur(10px)' : 'none',
       transition: 'background-color 0.4s ease, color 0.4s ease'
     }}>
@@ -53,8 +53,10 @@ export default function Navbar() {
           ))}
         </ul>
         <div style={{ display: 'flex', alignItems: 'center', gap: '2.1rem' }}>
-          {}
-          <ThemeToggle />
+          { }
+          <div className={mobileMenuOpen ? 'theme-toggle-hidden-mobile' : ''} style={{ display: 'flex', alignItems: 'center' }}>
+            <ThemeToggle />
+          </div>
           <div style={{ display: 'flex', gap: '0.55rem', fontSize: '0.85rem' }}>
             {['es', 'en', 'fr'].map((l) => (
               <button
@@ -94,93 +96,158 @@ export default function Navbar() {
       </button>
       {
         mobileMenuOpen && window.innerWidth <= 768 && (
-          <div style={{
-            position: 'fixed',
-            top: '0',
-            left: 0,
-            width: '100%',
-            height: '100vh',
-            background: 'rgba(18, 18, 18, 0.95)',
-            backdropFilter: 'blur(15px)',
-            WebkitBackdropFilter: 'blur(15px)',
-            padding: '6rem 2rem 2rem',
-            zIndex: 98,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <ul style={{
-              listStyle: 'none',
-              margin: 0,
-              padding: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '2rem',
-              width: '100%',
-              maxWidth: '400px',
-              alignItems: 'center'
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            style={{
+              position: 'fixed',
+              top: '0',
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              zIndex: 98,
+              overflowX: 'hidden'
             }}>
-              {links.map((link, index) => (
-                <li key={link.key} style={{ width: '100%', textAlign: 'center' }}>
-                  <a
-                    href={link.external ? link.url : `#${link.key}`}
-                    onClick={handleLinkClick}
-                    className="navbar-main-link-mobile"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <div style={{
-              display: 'flex',
-              gap: '1.5rem',
-              marginTop: '3rem',
-              paddingTop: '2rem',
-              borderTop: '1px solid rgba(255,255,255,0.1)',
-              width: '100%',
-              maxWidth: '300px',
-              justifyContent: 'center',
-              opacity: 0,
-              animation: 'fadeInUp 0.4s ease forwards 0.5s'
-            }}>
-              {['es', 'en', 'fr'].map((l) => (
-                <button
-                  key={l}
-                  onClick={() => {
-                    switchLang(l)
-                    setMobileMenuOpen(false)
-                  }}
-                  className={`navbar-lang-link-mobile ${lang === l ? 'active' : ''}`}
-                  style={{
-                    background: lang === l ? 'rgba(196, 216, 46, 0.2)' : 'transparent',
-                    border: `1px solid ${lang === l ? '#C4D82E' : '#FFFFFF'}`,
-                    color: lang === l ? '#C4D82E' : '#FFFFFF',
-                    cursor: 'pointer',
-                    textTransform: 'uppercase',
-                    padding: '0.8rem 0',
-                    width: '60px',
-                    fontWeight: '300',
-                    borderRadius: '8px',
-                    fontSize: '0.9rem',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  {l}
-                </button>
-              ))}
-            </div>
-            <style>{`
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: '100%',
+                boxSizing: 'border-box',
+                padding: '60px 20px 60px 20px',
+                background: 'rgba(18, 18, 18, 0.95)',
+                backdropFilter: 'blur(15px)',
+                WebkitBackdropFilter: 'blur(15px)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+              <div className="mobile-theme-toggle" onClick={(e) => e.stopPropagation()}>
+                <ThemeToggle />
+              </div>
+              <button
+                className="menu-close-button-aggressive"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setMobileMenuOpen(false)
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" stroke="#F5F2E9"></line>
+                  <line x1="6" y1="6" x2="18" y2="18" stroke="#C4D82E"></line>
+                </svg>
+              </button>
+              <div onClick={(e) => e.stopPropagation()} style={{ width: '100vw', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflowX: 'hidden' }}>
+                <ul style={{
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '5vh',
+                  width: '100%',
+                  maxWidth: '400px',
+                  alignItems: 'center',
+                  textAlign: 'center'
+                }}>
+                  {links.map((link, index) => (
+                    <li key={link.key} style={{ width: '100%', textAlign: 'center' }}>
+                      <a
+                        href={link.external ? link.url : `#${link.key}`}
+                        onClick={handleLinkClick}
+                        className="navbar-main-link-mobile"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div style={{
+                  display: 'flex',
+                  gap: '1.5rem',
+                  marginTop: '3rem',
+                  paddingTop: '2rem',
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  width: '100%',
+                  maxWidth: '300px',
+                  justifyContent: 'center',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.4s ease forwards 0.5s',
+                  marginBottom: '50px'
+                }}>
+                  {['es', 'en', 'fr'].map((l) => (
+                    <button
+                      key={l}
+                      onClick={() => {
+                        switchLang(l)
+                        setMobileMenuOpen(false)
+                      }}
+                      className={`navbar-lang-link-mobile ${lang === l ? 'active' : ''}`}
+                      style={{
+                        background: lang === l ? 'rgba(196, 216, 46, 0.2)' : 'transparent',
+                        border: `1px solid ${lang === l ? '#C4D82E' : '#FFFFFF'}`,
+                        color: lang === l ? '#C4D82E' : '#FFFFFF',
+                        cursor: 'pointer',
+                        textTransform: 'uppercase',
+                        padding: '0.8rem 0',
+                        width: '60px',
+                        fontWeight: '300',
+                        borderRadius: '8px',
+                        fontSize: '0.9rem',
+                        transition: 'all 0.2s'
+                      }}
+                    >
+                      {l}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <style>{`
             @keyframes fadeInUp {
               from { opacity: 0; transform: translateY(20px); }
               to { opacity: 1; transform: translateY(0); }
             }
+            @media (max-width: 768px) {
+              .theme-toggle-hidden-mobile {
+                display: none !important;
+              }
+              .mobile-theme-toggle {
+                position: fixed !important;
+                top: 30px !important;
+                left: 30px !important;
+                right: auto !important;
+                z-index: 10002 !important;
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                align-items: center;
+                justify-content: center;
+              }
+              .mobile-theme-toggle .theme-toggle-wrapper {
+                margin-left: 0 !important;
+              }
+            }
+            .menu-close-button-aggressive {
+              position: fixed !important;
+              top: 30px !important;
+              right: 35px !important;
+              z-index: 10001 !important;
+              background: transparent !important;
+              border: none !important;
+              cursor: pointer !important;
+              padding: 0.5rem !important;
+              width: 48px !important;
+              height: 48px !important;
+              display: flex !important;
+              align-items: center !important;
+              justify-content: center !important;
+            }
           `}</style>
+            </div>
           </div>
         )
       }
-    </nav >
+    </nav>
   )
 }

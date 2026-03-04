@@ -45,12 +45,22 @@ const Vision = () => {
     const [isSorting, setIsSorting] = useState(false)
     const [isBgLoaded, setIsBgLoaded] = useState(false)
     const [hatLoaded, setHatLoaded] = useState(false)
+    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768)
+
     const manifestoLines = useMemo(() => t.about?.lines || [], [t.about?.lines])
     const manifestoTitle = useMemo(() => t.about?.title || 'Acerca de Nosotros', [t.about?.title])
+
     React.useEffect(() => {
         const timer = setTimeout(() => setIsBgLoaded(true), 400);
         return () => clearTimeout(timer);
     }, [])
+
+    React.useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [])
+
     const handleSort = () => {
         setIsSorting(true)
         setTimeout(() => {
@@ -62,15 +72,17 @@ const Vision = () => {
     return (
         <section
             id="about"
-            className="vision-section relative overflow-hidden bg-[#fdfbf7] w-full"
+            className="vision-section relative bg-[#fdfbf7] w-full"
             style={{
                 marginTop: '0px',
                 maxWidth: '100vw',
-                minHeight: '105vh',
-                padding: '0rem 2rem 4.5rem 2rem'
+                height: 'auto',
+                minHeight: 'fit-content',
+                overflow: 'visible',
+                padding: '40px 0'
             }}
         >
-            {}
+            { }
             <style dangerouslySetInnerHTML={{
                 __html: `
                 @import url('https://fonts.cdnfonts.com/css/harry-potter');
@@ -115,51 +127,80 @@ const Vision = () => {
                 .hat-shift-lock {
                     transform: translateX(20%);
                 }
-                @media (max-width: 992px) {
-                    .vision-layout-lock {
-                        gap: 3rem !important;
-                    }
-                }
                 @media (max-width: 768px) {
                     .vision-layout-lock {
                         flex-direction: column !important;
-                        gap: 5rem !important;
+                        gap: 4rem !important;
                     }
                     .vision-column-mass {
                         width: 100% !important;
                         flex: 0 0 100% !important;
                     }
                     .hat-shift-lock {
-                        transform: translateX(0%);
+                        display: none !important;
+                    }
+                    .manifesto-centering-lock {
+                        text-align: center !important;
+                        margin: 0 auto !important;
+                        align-items: center !important;
+                    }
+                    .manifesto-core-text {
+                        text-align: center !important;
+                        max-width: 90% !important;
+                        margin: 0 auto 2.5rem auto !important;
+                        display: block !important;
+                        line-height: 4.5 !important;
+                    }
+                    .closure-highlight {
+                        text-align: center !important;
+                        max-width: 90% !important;
+                        margin: 1rem auto 3rem auto !important;
+                        display: block !important;
+                        line-height: 4.5 !important;
+                    }
+                    .closure-highlight::after {
+                        left: 50% !important;
+                        transform: translateX(-50%) !important;
+                    }
+                    .vision-title-mobile {
+                        text-align: center !important;
+                        margin: 0 auto !important;
+                        display: flex !important;
+                        justify-content: center !important;
+                        align-items: center !important;
+                        flex-direction: column !important;
+                        width: 100% !important;
                     }
                 }
             `}} />
-            {}
+            { }
             <div className={`skeleton-reveal ${isBgLoaded ? 'skeleton-hidden' : ''}`} style={{ zIndex: 1 }}></div>
-            {}
+            { }
             <div className="night" aria-hidden="true" style={{ zIndex: 2 }}>
                 {Array.from({ length: 20 }).map((_, i) => (
                     <div key={i} className="shooting_star" />
                 ))}
             </div>
-            {}
-            <div className="w-full relative z-20" style={{ transform: "translateY(20%)" }}>
-                {}
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '8rem' }}>
+            { }
+            <div className="w-full relative z-20" style={{ transform: "translateY(20%)", overflow: 'visible' }}>
+                { }
+                <div className="vision-title-mobile" style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '6rem', marginTop: '2rem' }}>
                     <h3
                         className="font-bold text-center"
                         style={{
                             color: '#B8860B',
                             fontSize: 'clamp(1.9rem, 3.42vw, 2.19rem)',
                             letterSpacing: '0.15em',
+                            margin: '0 auto',
+                            textAlign: 'center'
                         }}
                     >
                         {manifestoTitle}
                     </h3>
                 </div>
-                {}
+                { }
                 <div className="container mx-auto vision-layout-lock" style={{ marginTop: '2rem' }}>
-                    {}
+                    { }
                     <div className="vision-column-mass flex flex-col justify-center items-center">
                         <div className="max-w-[480px] manifesto-centering-lock">
                             <div className="flex flex-col gap-6 w-full items-center">
@@ -193,178 +234,183 @@ const Vision = () => {
                             </div>
                         </div>
                     </div>
-                    {}
-                    <div className="vision-column-mass hat-shift-lock flex flex-col items-center justify-center relative min-h-[380px]">
-                        <motion.div
-                            animate={{
-                                background: selectedHouse
-                                    ? `radial-gradient(circle at center, ${selectedHouse.glow} 0%, transparent 85%)`
-                                    : `radial-gradient(circle at center, rgba(255, 191, 0, 0.08) 0%, transparent 70%)`,
-                                opacity: selectedHouse ? 1 : 0.4
-                            }}
-                            transition={{ duration: 1.5 }}
-                            className="absolute inset-x-0 bottom-0 top-1/2 z-0 pointer-events-none"
-                        />
-                        <div className="relative z-10 flex flex-col items-center w-full max-w-[350px]">
+                    { }
+                    {!isMobile && (
+                        <div className="vision-column-mass hat-shift-lock flex flex-col items-center justify-center relative" style={{ height: 'auto', minHeight: 'fit-content', overflow: 'visible' }}>
                             <motion.div
                                 animate={{
-                                    y: [0, -12, 0],
-                                    transition: {
-                                        duration: 8,
-                                        repeat: Infinity,
-                                        ease: "easeInOut"
-                                    }
+                                    background: selectedHouse
+                                        ? `radial-gradient(circle at center, ${selectedHouse.glow} 0%, transparent 85%)`
+                                        : `radial-gradient(circle at center, rgba(255, 191, 0, 0.08) 0%, transparent 70%)`,
+                                    opacity: selectedHouse ? 1 : 0.4
                                 }}
-                                whileHover={{
-                                    rotate: -3,
-                                    scale: 1.02,
-                                    transition: { duration: 0.5 }
-                                }}
-                                className="relative w-full flex justify-center"
-                            >
-                                {}
-                                {!hatLoaded && (
-                                    <div className={`hat-skeleton skeleton-reveal ${hatLoaded ? 'skeleton-hidden' : ''}`} />
-                                )}
-                                <motion.img
-                                    id="hat"
-                                    src="https://cdn2.hubspot.net/hubfs/678613/Projects/CodePen/Harry%20Potter%20Sorting%20Hat/Sorting%20Hat.png"
-                                    alt="Sorting Hat"
-                                    onLoad={() => setHatLoaded(true)}
-                                    onClick={!selectedHouse && !isSorting ? handleSort : undefined}
-                                    animate={isSorting ? {
-                                        x: [-3, 3, -3, 3, 0],
-                                        rotate: [-1, 1, -1, 1, 0],
-                                        scale: [1, 1.05, 1],
-                                        filter: [
-                                            "drop-shadow(0 20px 30px rgba(0,0,0,0.15)) drop-shadow(0 0 15px rgba(255,191,0,0.2))",
-                                            "drop-shadow(0 25px 40px rgba(0,0,0,0.2)) drop-shadow(0 0 30px rgba(212,255,0,0.15))",
-                                            "drop-shadow(0 20px 30px rgba(0,0,0,0.15)) drop-shadow(0 0 15px rgba(255,191,0,0.2))"
-                                        ]
-                                    } : {
-                                        filter: selectedHouse ? [
-                                            `drop-shadow(0 20px 35px rgba(0,0,0,0.25)) drop-shadow(0 0 25px ${selectedHouse.glow})`,
-                                            `drop-shadow(0 25px 40px rgba(0,0,0,0.3)) drop-shadow(0 0 45px ${selectedHouse.glow})`,
-                                            `drop-shadow(0 20px 35px rgba(0,0,0,0.25)) drop-shadow(0 0 25px ${selectedHouse.glow})`
-                                        ] : [
-                                            "drop-shadow(0 15px 25px rgba(0,0,0,0.2)) drop-shadow(0 0 5px rgba(255,191,0,0.05))",
-                                            "drop-shadow(0 20px 35px rgba(0,0,0,0.25)) drop-shadow(0 0 15px rgba(255,191,0,0.15))",
-                                            "drop-shadow(0 15px 25px rgba(0,0,0,0.2)) drop-shadow(0 0 5px rgba(255,191,0,0.05))"
-                                        ]
-                                    }}
-                                    transition={isSorting ? {
-                                        duration: 0.8,
-                                        repeat: Infinity
-                                    } : {
-                                        filter: {
-                                            duration: 5,
+                                transition={{ duration: 1.5 }}
+                                className="absolute inset-x-0 bottom-0 top-1/2 z-0 pointer-events-none"
+                            />
+                            <div className="relative z-10 flex flex-col items-center w-full max-w-[350px]">
+                                <motion.div
+                                    animate={{
+                                        y: [0, -12, 0],
+                                        transition: {
+                                            duration: 8,
                                             repeat: Infinity,
                                             ease: "easeInOut"
                                         }
                                     }}
-                                    style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                        maxWidth: '280px',
-                                        margin: 0,
-                                        cursor: !selectedHouse && !isSorting ? 'pointer' : 'help',
-                                        zIndex: 10,
-                                        willChange: 'contents, filter, transform',
-                                        transform: 'translateZ(0)'
+                                    whileHover={{
+                                        rotate: -3,
+                                        scale: 1.02,
+                                        transition: { duration: 0.5 }
                                     }}
-                                />
-                                <AnimatePresence>
-                                    {selectedHouse && (
-                                        <motion.div
-                                            initial={{ opacity: 0, filter: 'blur(25px)', y: 50, rotate: -8 }}
-                                            animate={{
-                                                opacity: [0, 0.9, 1],
-                                                filter: ['blur(20px)', 'blur(5px)', 'blur(0px)'],
-                                                y: [-10, -20, -10],
-                                                rotate: [-5, -2, -5],
-                                                x: [0, 4, -4, 0]
-                                            }}
-                                            transition={{
-                                                duration: 3,
-                                                ease: "easeOut",
-                                                y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-                                                rotate: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-                                                x: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-                                            }}
-                                            className="absolute top-1/4 z-30 flex flex-col items-center pointer-events-none"
-                                        >
-                                            <span
-                                                className="font-black tracking-[0.1em] mb-4"
-                                                style={{
-                                                    fontFamily: "'Harry Potter', 'Cinzel Decorative', serif",
-                                                    fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)',
-                                                    background: selectedHouse.gradient,
-                                                    WebkitBackgroundClip: 'text',
-                                                    WebkitTextFillColor: 'transparent',
-                                                    filter: `drop-shadow(0px 8px 12px rgba(0,0,0,0.6)) drop-shadow(0px 0px 15px ${selectedHouse.color})`,
-                                                    lineHeight: 1.1
-                                                }}
-                                            >
-                                                {t?.vision?.hat?.[selectedHouse.id] || selectedHouse.name}
-                                            </span>
-                                            <motion.div
-                                                key={lang} 
-                                                initial={{ scaleY: 0, opacity: 0 }}
-                                                animate={{ scaleY: 1, opacity: 1 }}
-                                                transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 1 }}
-                                                style={{
-                                                    transformOrigin: "top center",
-                                                    background: "linear-gradient(135deg, #fdf9ec 0%, #ecdcb0 100%)", 
-                                                    filter: `drop-shadow(0 10px 20px ${selectedHouse.glow}) drop-shadow(0 2px 4px rgba(139, 69, 19, 0.4))`,
-                                                    marginTop: "0.5rem",
-                                                    position: "relative",
-                                                    zIndex: -1,
-                                                    width: "fit-content",
-                                                    display: "inline-flex"
-                                                }}
-                                                className="mx-auto"
-                                            >
-                                                <div
-                                                    style={{
-                                                        background: "linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, transparent 100%)", 
-                                                        clipPath: "polygon(1% 2%, 35% 0%, 65% 4%, 99% 1%, 100% 35%, 97% 65%, 98% 99%, 65% 97%, 35% 100%, 2% 98%, 0% 65%, 3% 35%)", 
-                                                        padding: "0.6rem 0.8rem", 
-                                                    }}
-                                                    className="flex flex-col items-center justify-center w-full"
-                                                >
-                                                    <p className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-center italic flex flex-wrap justify-center relative z-10 w-full" style={{ margin: 0 }}>
-                                                        {(t?.vision?.hat?.[`${selectedHouse.id}_desc`] || selectedHouse.message).split('').map((char, index) => (
-                                                            <motion.span
-                                                                key={index}
-                                                                initial={{ opacity: 0, filter: 'blur(4px)' }}
-                                                                animate={{ opacity: 1, filter: 'blur(0px)' }}
-                                                                transition={{
-                                                                    duration: 0.3,
-                                                                    delay: 1.8 + index * 0.03, 
-                                                                    ease: "easeOut"
-                                                                }}
-                                                                style={{
-                                                                    color: '#3d2514', 
-                                                                    textShadow: '0px 0px 1px rgba(61,37,20,0.5)', 
-                                                                    marginRight: char === ' ' ? '0.3em' : '0',
-                                                                    display: 'inline-block'
-                                                                }}
-                                                            >
-                                                                {char}
-                                                            </motion.span>
-                                                        ))}
-                                                    </p>
-                                                </div>
-                                            </motion.div>
-                                        </motion.div>
+                                    className="relative w-full flex justify-center"
+                                >
+                                    { }
+                                    {!hatLoaded && (
+                                        <div className={`hat-skeleton skeleton-reveal ${hatLoaded ? 'skeleton-hidden' : ''}`} />
                                     )}
-                                </AnimatePresence>
-                            </motion.div>
+                                    <motion.img
+                                        id="hat"
+                                        src="https://cdn2.hubspot.net/hubfs/678613/Projects/CodePen/Harry%20Potter%20Sorting%20Hat/Sorting%20Hat.png"
+                                        alt="Sorting Hat"
+                                        onLoad={() => setHatLoaded(true)}
+                                        onClick={!selectedHouse && !isSorting ? handleSort : undefined}
+                                        animate={isSorting ? {
+                                            x: [-3, 3, -3, 3, 0],
+                                            rotate: [-1, 1, -1, 1, 0],
+                                            scale: [1, 1.05, 1],
+                                            filter: [
+                                                "drop-shadow(0 20px 30px rgba(0,0,0,0.15)) drop-shadow(0 0 15px rgba(255,191,0,0.2))",
+                                                "drop-shadow(0 25px 40px rgba(0,0,0,0.2)) drop-shadow(0 0 30px rgba(212,255,0,0.15))",
+                                                "drop-shadow(0 20px 30px rgba(0,0,0,0.15)) drop-shadow(0 0 15px rgba(255,191,0,0.2))"
+                                            ]
+                                        } : {
+                                            filter: selectedHouse ? [
+                                                `drop-shadow(0 20px 35px rgba(0,0,0,0.25)) drop-shadow(0 0 25px ${selectedHouse.glow})`,
+                                                `drop-shadow(0 25px 40px rgba(0,0,0,0.3)) drop-shadow(0 0 45px ${selectedHouse.glow})`,
+                                                `drop-shadow(0 20px 35px rgba(0,0,0,0.25)) drop-shadow(0 0 25px ${selectedHouse.glow})`
+                                            ] : [
+                                                "drop-shadow(0 15px 25px rgba(0,0,0,0.2)) drop-shadow(0 0 5px rgba(255,191,0,0.05))",
+                                                "drop-shadow(0 20px 35px rgba(0,0,0,0.25)) drop-shadow(0 0 15px rgba(255,191,0,0.15))",
+                                                "drop-shadow(0 15px 25px rgba(0,0,0,0.2)) drop-shadow(0 0 5px rgba(255,191,0,0.05))"
+                                            ]
+                                        }}
+                                        transition={isSorting ? {
+                                            duration: 0.8,
+                                            repeat: Infinity
+                                        } : {
+                                            filter: {
+                                                duration: 5,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }
+                                        }}
+                                        style={{
+                                            width: '100%',
+                                            height: 'auto',
+                                            maxWidth: '280px',
+                                            margin: '0 auto',
+                                            cursor: !selectedHouse && !isSorting ? 'pointer' : 'help',
+                                            zIndex: 100,
+                                            willChange: 'contents, filter, transform',
+                                            transform: 'translateZ(0)'
+                                        }}
+                                    />
+                                    <AnimatePresence>
+                                        {selectedHouse && (
+                                            <motion.div
+                                                initial={{ opacity: 0, filter: 'blur(25px)', y: 50, rotate: -8 }}
+                                                animate={{
+                                                    opacity: [0, 0.9, 1],
+                                                    filter: ['blur(20px)', 'blur(5px)', 'blur(0px)'],
+                                                    y: [-10, -20, -10],
+                                                    rotate: [-5, -2, -5],
+                                                    x: [0, 4, -4, 0]
+                                                }}
+                                                transition={{
+                                                    duration: 3,
+                                                    ease: "easeOut",
+                                                    y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                                                    rotate: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                                                    x: { duration: 8, repeat: Infinity, ease: "easeInOut" }
+                                                }}
+                                                className="absolute top-1/4 z-30 flex flex-col items-center pointer-events-none"
+                                            >
+                                                <span
+                                                    className="font-black tracking-[0.1em] mb-4"
+                                                    style={{
+                                                        fontFamily: "'Harry Potter', 'Cinzel Decorative', serif",
+                                                        fontSize: 'clamp(1.8rem, 4.5vw, 3.2rem)',
+                                                        background: selectedHouse.gradient,
+                                                        WebkitBackgroundClip: 'text',
+                                                        WebkitTextFillColor: 'transparent',
+                                                        filter: `drop-shadow(0px 8px 12px rgba(0,0,0,0.6)) drop-shadow(0px 0px 15px ${selectedHouse.color})`,
+                                                        lineHeight: 1.1,
+                                                        textAlign: 'center',
+                                                        zIndex: 110,
+                                                        position: 'relative'
+                                                    }}
+                                                >
+                                                    {t?.vision?.hat?.[selectedHouse.id] || selectedHouse.name}
+                                                </span>
+                                                <motion.div
+                                                    key={lang}
+                                                    initial={{ scaleY: 0, opacity: 0 }}
+                                                    animate={{ scaleY: 1, opacity: 1 }}
+                                                    transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 1 }}
+                                                    style={{
+                                                        transformOrigin: "top center",
+                                                        background: "linear-gradient(135deg, #fdf9ec 0%, #ecdcb0 100%)",
+                                                        filter: `drop-shadow(0 10px 20px ${selectedHouse.glow}) drop-shadow(0 2px 4px rgba(139, 69, 19, 0.4))`,
+                                                        marginTop: "0.5rem",
+                                                        position: "relative",
+                                                        zIndex: -1,
+                                                        width: "fit-content",
+                                                        display: "inline-flex"
+                                                    }}
+                                                    className="mx-auto"
+                                                >
+                                                    <div
+                                                        style={{
+                                                            background: "linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, transparent 100%)",
+                                                            clipPath: "polygon(1% 2%, 35% 0%, 65% 4%, 99% 1%, 100% 35%, 97% 65%, 98% 99%, 65% 97%, 35% 100%, 2% 98%, 0% 65%, 3% 35%)",
+                                                            padding: "0.6rem 0.8rem",
+                                                        }}
+                                                        className="flex flex-col items-center justify-center w-full"
+                                                    >
+                                                        <p className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.3em] text-center italic flex flex-wrap justify-center relative z-10 w-full" style={{ margin: 0 }}>
+                                                            {(t?.vision?.hat?.[`${selectedHouse.id}_desc`] || selectedHouse.message).split('').map((char, index) => (
+                                                                <motion.span
+                                                                    key={index}
+                                                                    initial={{ opacity: 0, filter: 'blur(4px)' }}
+                                                                    animate={{ opacity: 1, filter: 'blur(0px)' }}
+                                                                    transition={{
+                                                                        duration: 0.3,
+                                                                        delay: 1.8 + index * 0.03,
+                                                                        ease: "easeOut"
+                                                                    }}
+                                                                    style={{
+                                                                        color: '#3d2514',
+                                                                        textShadow: '0px 0px 1px rgba(61,37,20,0.5)',
+                                                                        marginRight: char === ' ' ? '0.3em' : '0',
+                                                                        display: 'inline-block'
+                                                                    }}
+                                                                >
+                                                                    {char}
+                                                                </motion.span>
+                                                            ))}
+                                                        </p>
+                                                    </div>
+                                                </motion.div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </motion.div>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
-            {}
+            { }
             <div className="absolute inset-0 pointer-events-none z-0">
                 {Array.from({ length: 15 }).map((_, i) => {
                     const randomX = Math.random() * 100;
